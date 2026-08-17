@@ -7,15 +7,6 @@ import { Link } from "react-router-dom";
 const SLIDES = [
   {
     image:
-      "https://images.pexels.com/photos/35157344/pexels-photo-35157344.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    headline: "Training, Consultant & Manpower Supply",
-    subheadline:
-      "Professional engineering training, expert consultancy services, and skilled personnel supply for every project phase.",
-    cta: "Our Services",
-    ctaLink: "/services",
-  },
-  {
-    image:
       "https://images.unsplash.com/photo-1513257805917-a0da1146eb15?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NzIwMTN8MHwxfHNlYXJjaHw4fHxpbmR1c3RyaWFsJTIwcG93ZXIlMjBwbGFudCUyMGVuZ2luZWVyaW5nJTIwY29tbWlzc2lvbmluZ3xlbnwwfHx8fDE3ODYyOTY4NTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
     headline: "Plant Commissioning & Energy Solutions",
     subheadline:
@@ -40,6 +31,15 @@ const SLIDES = [
       "Renewable energy design & construction. Shipyard electrical solutions for global maritime projects.",
     cta: "Contact Us",
     ctaLink: "/contact",
+  },
+  {
+    image:
+      "https://images.pexels.com/photos/35157344/pexels-photo-35157344.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    headline: "Training, Consultant & Manpower Supply",
+    subheadline:
+      "Professional engineering training, expert consultancy services, and skilled personnel supply for every project phase.",
+    cta: "Our Services",
+    ctaLink: "/services",
   },
 ] as const;
 

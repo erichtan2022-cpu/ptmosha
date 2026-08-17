@@ -32,8 +32,9 @@ export default function Footer() {
               Local Contractor | Global Capabilities
             </p>
             <p className="text-sm text-primary-foreground/70 leading-relaxed">
-              Providing turnkey system solutions from concept, engineering,
-              installation, to maintenance since 2021.
+              Group of PT. Destin Mandiri Internasional. Providing turnkey system
+              solutions from concept, engineering, installation, to maintenance
+              since 2021.
             </p>
           </div>
 
