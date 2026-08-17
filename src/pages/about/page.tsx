@@ -13,6 +13,7 @@ export default function AboutPage() {
       <PageHero
         label="About Us"
         title="Tentang Kami"
+        tagline="Training, Konsultan & Supply Manpower"
         description="A premier engineering consultancy and contractor with global capabilities, delivering turnkey solutions across Indonesia and the Asia-Pacific region."
         image={HERO_IMAGE}
       />

@@ -28,8 +28,11 @@ export default function Footer() {
               />
               <h3 className="text-lg font-bold">PT Mosha Sinalsal Solusi</h3>
             </div>
-            <p className="text-xs text-primary-foreground/60 uppercase tracking-wider mb-4">
+            <p className="text-xs text-primary-foreground/60 uppercase tracking-wider mb-2">
               Local Company | Global Capabilities
+            </p>
+            <p className="text-sm font-semibold text-accent mb-3">
+              Training, Konsultan &amp; Supply Manpower
             </p>
             <p className="text-sm text-primary-foreground/70 leading-relaxed">
               Providing turnkey system solutions from concept, engineering,

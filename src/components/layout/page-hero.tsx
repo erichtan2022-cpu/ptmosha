@@ -5,9 +5,10 @@ type PageHeroProps = {
   title: string;
   description: string;
   image: string;
+  tagline?: string;
 };
 
-export default function PageHero({ label, title, description, image }: PageHeroProps) {
+export default function PageHero({ label, title, description, image, tagline }: PageHeroProps) {
   return (
     <section className="relative h-[320px] sm:h-[360px] lg:h-[400px] overflow-hidden">
       {/* Background Image */}
@@ -41,6 +42,11 @@ export default function PageHero({ label, title, description, image }: PageHeroP
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
               {title}
             </h1>
+            {tagline && (
+              <p className="mt-2 text-base font-semibold text-accent">
+                {tagline}
+              </p>
+            )}
             <p className="mt-3 text-base sm:text-lg text-white/75 max-w-xl leading-relaxed">
               {description}
             </p>
