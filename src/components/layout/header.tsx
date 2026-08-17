@@ -34,7 +34,7 @@ export default function Header() {
                 PT MOSHA SINALSAL SOLUSI
               </span>
               <span className="text-[10px] text-primary-foreground/70 tracking-wider uppercase">
-                Local Contractor | Global Capabilities
+                Local Company | Global Capabilities
               </span>
             </div>
           </Link>

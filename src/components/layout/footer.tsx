@@ -29,7 +29,7 @@ export default function Footer() {
               <h3 className="text-lg font-bold">PT Mosha Sinalsal Solusi</h3>
             </div>
             <p className="text-xs text-primary-foreground/60 uppercase tracking-wider mb-4">
-              Local Contractor | Global Capabilities
+              Local Company | Global Capabilities
             </p>
             <p className="text-sm text-primary-foreground/70 leading-relaxed">
               Group of PT. Destin Mandiri Internasional. Providing turnkey system
