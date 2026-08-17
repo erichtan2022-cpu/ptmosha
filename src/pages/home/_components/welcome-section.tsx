@@ -14,16 +14,18 @@ export default function WelcomeSection() {
             <p className="text-sm font-semibold uppercase tracking-wider text-accent mb-2">
               About Our Company
             </p>
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-2">
               Engineering Excellence Since 2021
             </h2>
+            <p className="text-base font-semibold text-accent mb-6">
+              Training, Konsultan &amp; Supply Manpower
+            </p>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
                 <strong className="text-foreground">
                   PT Mosha Sinalsal Solusi (MSS)
                 </strong>{" "}
-                is a group company of PT. Destin Mandiri Internasional,
-                established in November 2021. We specialize in delivering
+                was established in November 2021. We specialize in delivering
                 turnkey system solutions across the full project lifecycle.
               </p>
               <p>

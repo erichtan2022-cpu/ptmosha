@@ -29,10 +29,9 @@ export default function CompanyBackground() {
               <strong className="text-foreground">
                 PT Mosha Sinalsal Solusi (MSS)
               </strong>{" "}
-              is a wholly-owned subsidiary of PT. Destin Mandiri Internasional,
-              established in November 2021. The company was founded to meet the
-              growing demand for professional engineering services in Indonesia{"'"}s
-              expanding industrial and energy sectors.
+              was established in November 2021. The company was founded to meet
+              the growing demand for professional engineering services in
+              Indonesia{"'"}s expanding industrial and energy sectors.
             </p>
             <p>
               We specialize in providing comprehensive{" "}
@@ -89,14 +88,6 @@ export default function CompanyBackground() {
               </p>
               <p className="text-lg font-bold text-foreground">Batam, Indonesia</p>
               <p className="text-sm text-muted-foreground">Kepulauan Riau</p>
-            </div>
-            <div className="p-5 rounded-xl border border-border bg-card">
-              <p className="text-xs uppercase tracking-wider text-accent font-semibold mb-1">
-                Parent Company
-              </p>
-              <p className="text-lg font-bold text-foreground">
-                PT. Destin Mandiri Internasional
-              </p>
             </div>
             <div className="p-5 rounded-xl border border-border bg-card">
               <p className="text-xs uppercase tracking-wider text-accent font-semibold mb-1">
