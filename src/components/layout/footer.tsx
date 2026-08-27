@@ -78,11 +78,16 @@ export default function Footer() {
                   +6281261014705
                 </span>
               </li>
-              <li className="flex items-center gap-2">
-                <Mail className="size-4 text-accent shrink-0" />
-                <span className="text-sm text-primary-foreground/70 break-all">
-                  ptmoshasinalsalsolusi@gmail.com
-                </span>
+              <li className="flex items-start gap-2">
+                <Mail className="size-4 mt-0.5 text-accent shrink-0" />
+                <div className="space-y-0.5">
+                  <span className="block text-sm text-primary-foreground/70 break-all">
+                    staff@moshassolusi.com
+                  </span>
+                  <span className="block text-sm text-primary-foreground/70 break-all">
+                    emosag@moshassolusi.com
+                  </span>
+                </div>
               </li>
             </ul>
           </div>

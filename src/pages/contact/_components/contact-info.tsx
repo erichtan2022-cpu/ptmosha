@@ -39,10 +39,13 @@ export default function ContactInfo() {
 
           <div className="flex items-start gap-3">
             <Mail className="size-5 text-accent mt-0.5 shrink-0" />
-            <div>
+            <div className="space-y-1">
               <p className="text-sm font-medium text-foreground">Email</p>
               <p className="text-sm text-muted-foreground break-all">
-                ptmoshasinalsalsolusi@gmail.com
+                staff@moshassolusi.com
+              </p>
+              <p className="text-sm text-muted-foreground break-all">
+                emosag@moshassolusi.com
               </p>
             </div>
           </div>
@@ -89,7 +92,7 @@ export default function ContactInfo() {
       <div className="rounded-xl border border-border bg-card overflow-hidden">
         <iframe
           title="PT Mosha Sinalsal Solusi - Office Location"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.024!2d104.0489!3d1.0408!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d98970607d08e1%3A0x5cb6e8f20e05a8e!2sBukit%20Kemuning!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid"
+          src="https://maps.app.goo.gl/juM6CRGMxFKX9Thv6"
           className="w-full h-56 border-0"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
