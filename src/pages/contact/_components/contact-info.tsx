@@ -92,7 +92,7 @@ export default function ContactInfo() {
       <div className="rounded-xl border border-border bg-card overflow-hidden">
         <iframe
           title="PT Mosha Sinalsal Solusi - Office Location"
-          src="https://maps.app.goo.gl/juM6CRGMxFKX9Thv6"
+          src="https://www.google.com/maps?q=1.0403698,104.046917&z=18&output=embed"
           className="w-full h-56 border-0"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
