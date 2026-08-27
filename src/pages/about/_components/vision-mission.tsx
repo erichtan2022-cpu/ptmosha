@@ -35,10 +35,9 @@ export default function VisionMission() {
             </div>
             <h3 className="text-2xl font-bold text-foreground mb-4">Our Vision</h3>
             <p className="text-muted-foreground leading-relaxed">
-              Become a leading consultancy, contractor, and supply company in
-              Indonesia that is reliable, professional, and globally competitive
-              — delivering engineering solutions that empower industries and
-              support the nation{"'"}s sustainable development.
+              Become a leading consultancy, training and supply company in
+              Commissioning, Automation, Energy and Manpower Supply to support
+              costumer growth.
             </p>
           </motion.div>
 
