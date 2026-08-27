@@ -7,6 +7,7 @@ import {
   FlaskConical,
   Droplets,
   Mountain,
+  Leaf,
 } from "lucide-react";
 
 const SEGMENTS = [
@@ -24,7 +25,7 @@ const SEGMENTS = [
   },
   {
     icon: Sun,
-    title: "Solar Power Plant",
+    title: "Solar Power & Renewable Energy",
     description:
       "Photovoltaic system design, installation, inverter commissioning, and grid interconnection.",
   },
@@ -51,6 +52,12 @@ const SEGMENTS = [
     title: "Mining",
     description:
       "Conveyor control systems, power distribution, remote monitoring, and heavy equipment instrumentation.",
+  },
+  {
+    icon: Leaf,
+    title: "Environment & Sustainability",
+    description:
+      "Emissions monitoring, environmental compliance systems, waste management automation, and green technology integration.",
   },
 ] as const;
 
