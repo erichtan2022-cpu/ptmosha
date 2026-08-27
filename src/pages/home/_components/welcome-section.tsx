@@ -51,7 +51,7 @@ export default function WelcomeSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="grid grid-cols-2 gap-4"
+            className="flex flex-col gap-4"
           >
             <div className="grid grid-cols-2 gap-4">
               {[
@@ -73,7 +73,7 @@ export default function WelcomeSection() {
                 </div>
               ))}
             </div>
-            <Button asChild size="lg" className="col-span-2 mt-2 w-full sm:w-auto">
+            <Button asChild size="lg" className="w-full">
               <a href="/MSS_Company_Profile_Aug2026.pdf" download>
                 <Download />
                 Download Company Profile
