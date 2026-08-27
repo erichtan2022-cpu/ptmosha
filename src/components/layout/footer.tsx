@@ -4,7 +4,7 @@ import { MapPin, Phone, Mail, Building2 } from "lucide-react";
 const LOGO_URL = "https://hercules-cdn.com/file_hefyWjrnJQZ3depHrmPx78nx";
 
 const QUICK_LINKS = [
-  { label: "Beranda", path: "/" },
+  { label: "Home", path: "/" },
   { label: "About Us", path: "/about" },
   { label: "Services", path: "/services" },
   { label: "Projects", path: "/projects" },
