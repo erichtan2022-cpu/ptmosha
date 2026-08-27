@@ -1,4 +1,7 @@
+import { Download } from "lucide-react";
 import { motion } from "motion/react";
+
+import { Button } from "@/components/ui/button";
 
 export default function WelcomeSection() {
   return (
@@ -50,24 +53,32 @@ export default function WelcomeSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="grid grid-cols-2 gap-4"
           >
-            {[
-              { value: "50+", label: "Projects Delivered" },
-              { value: "140 MW", label: "Largest Plant" },
-              { value: "6+", label: "Industry Sectors" },
-              { value: "2021", label: "Established" },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="p-6 rounded-xl bg-card border border-border text-center"
-              >
-                <p className="text-2xl lg:text-3xl font-bold text-accent">
-                  {stat.value}
-                </p>
-                <p className="text-xs text-muted-foreground mt-1 uppercase tracking-wider">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { value: "50+", label: "Projects Delivered" },
+                { value: "140 MW", label: "Largest Plant" },
+                { value: "6+", label: "Industry Sectors" },
+                { value: "2021", label: "Established" },
+              ].map((stat) => (
+                <div
+                  key={stat.label}
+                  className="p-6 rounded-xl bg-card border border-border text-center"
+                >
+                  <p className="text-2xl lg:text-3xl font-bold text-accent">
+                    {stat.value}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1 uppercase tracking-wider">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <Button asChild size="lg" className="col-span-2 mt-2 w-full sm:w-auto">
+              <a href="/MSS_Company_Profile_Aug2026.pdf" download>
+                <Download />
+                Download Company Profile
+              </a>
+            </Button>
           </motion.div>
         </div>
       </div>
