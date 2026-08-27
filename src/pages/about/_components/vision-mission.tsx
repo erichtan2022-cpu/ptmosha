@@ -54,36 +54,10 @@ export default function VisionMission() {
               <Target className="size-7 text-primary" />
             </div>
             <h3 className="text-2xl font-bold text-foreground mb-4">Our Mission</h3>
-            <ul className="space-y-3 text-muted-foreground leading-relaxed">
-              <li className="flex items-start gap-3">
-                <span className="size-1.5 rounded-full bg-accent mt-2.5 shrink-0" />
-                <span>
-                  Provide professional turnkey engineering solutions from concept
-                  through commissioning and maintenance.
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="size-1.5 rounded-full bg-accent mt-2.5 shrink-0" />
-                <span>
-                  Develop competent, skilled, and certified professionals to
-                  meet international standards.
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="size-1.5 rounded-full bg-accent mt-2.5 shrink-0" />
-                <span>
-                  Prioritize quality, safety, health, and environmental
-                  sustainability in every project delivery.
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="size-1.5 rounded-full bg-accent mt-2.5 shrink-0" />
-                <span>
-                  Build lasting partnerships by delivering excellence, integrity,
-                  and value to all stakeholders.
-                </span>
-              </li>
-            </ul>
+            <p className="text-muted-foreground leading-relaxed">
+              Provide and build good quality and value in every jobs scope with
+              the professional and skillfull manpower.
+            </p>
           </motion.div>
         </div>
       </div>
