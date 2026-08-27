@@ -23,9 +23,9 @@ const SERVICES = [
   },
   {
     icon: Users,
-    title: "Manpower Supply",
+    title: "Training & Manpower Supply",
     description:
-      "Professional engineering, construction, QA/QC, and O&M personnel for all project scales.",
+      "Technical training programs and professional engineering, construction, QA/QC, and O&M personnel for all project scales.",
   },
 ] as const;
 
