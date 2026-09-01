@@ -9,7 +9,7 @@ export default function TrainingPage() {
     <>
       <PageHero
         label="Our Training"
-        title="Program Training & Sertifikasi"
+        title="Training & Certification Program"
         description="Professional training programs covering engineering commissioning, renewable energy, safety, sustainability, and professional certification — available online and offline."
         image={HERO_IMAGE}
       />
