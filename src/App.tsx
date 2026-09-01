@@ -8,6 +8,7 @@ import ServicesPage from "./pages/services/page.tsx";
 import ProjectsPage from "./pages/projects/page.tsx";
 import ContactPage from "./pages/contact/page.tsx";
 import TrainingPage from "./pages/training/page.tsx";
+import ConsultantPage from "./pages/consultant/page.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/training" element={<TrainingPage />} />
+            <Route path="/consultant" element={<ConsultantPage />} />
             {/* ADD CUSTOM ROUTES HERE */}
           </Route>
 
