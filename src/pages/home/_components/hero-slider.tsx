@@ -34,10 +34,28 @@ const SLIDES = [
   },
   {
     image:
-      "https://images.unsplash.com/photo-1509391366360-2e959784a276?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NzIwMTN8MHwxfHNlYXJjaHwyfHxzb2xhciUyMHBhbmVsJTIwaW5zdGFsbGF0aW9uJTIwcmVuZXdhYmxlJTIwZW5lcmd5fGVufDB8fHx8MTc4NjI5Njg1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-    headline: "Solar Power & Marine Engineering",
+      "https://images.pexels.com/photos/15751132/pexels-photo-15751132.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    headline: "Power Plant & Solar Power",
     subheadline:
-      "Renewable energy design & construction. Shipyard electrical solutions for global maritime projects.",
+      "Comprehensive power plant engineering and renewable solar energy solutions from design to construction.",
+    cta: "Contact Us",
+    ctaLink: "/contact",
+  },
+  {
+    image:
+      "https://images.pexels.com/photos/36926327/pexels-photo-36926327.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    headline: "Marine & Water Treatment",
+    subheadline:
+      "Marine engineering services and industrial water treatment systems for clean and sustainable operations.",
+    cta: "Contact Us",
+    ctaLink: "/contact",
+  },
+  {
+    image:
+      "https://images.pexels.com/photos/18602382/pexels-photo-18602382.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    headline: "Environment & Sustainability",
+    subheadline:
+      "Eco-friendly engineering solutions committed to environmental responsibility and long-term sustainability.",
     cta: "Contact Us",
     ctaLink: "/contact",
   },
