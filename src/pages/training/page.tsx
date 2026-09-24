@@ -1,4 +1,5 @@
 import PageHero from "@/components/layout/page-hero.tsx";
+import FeaturedTrainingCard from "./_components/featured-training-card.tsx";
 import TrainingTable from "./_components/training-table.tsx";
 
 const HERO_IMAGE =
@@ -13,7 +14,9 @@ export default function TrainingPage() {
         description="Professional training programs covering engineering commissioning, renewable energy, safety, sustainability, and professional certification — available online and offline."
         image={HERO_IMAGE}
       />
+      <FeaturedTrainingCard />
       <TrainingTable />
     </>
   );
 }
+
