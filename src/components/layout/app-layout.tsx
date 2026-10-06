@@ -3,6 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Header from "./header.tsx";
 import Footer from "./footer.tsx";
 import WhatsAppButton from "./whatsapp-button.tsx";
+import ChatbotWidget from "./chatbot.tsx";
 
 export default function AppLayout() {
   const { pathname } = useLocation();
@@ -20,6 +21,7 @@ export default function AppLayout() {
       </main>
       <Footer />
       <WhatsAppButton />
+      <ChatbotWidget />
     </div>
   );
 }

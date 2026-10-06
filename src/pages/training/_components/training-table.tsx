@@ -18,8 +18,9 @@ type Training = {
 };
 
 const TRAININGS: Training[] = [
-  { no: 1, topic: "Commissioning Oil & Gas dan Sistem Pembangkit Listrik", duration: "2 x 2,5 jam", mode: "Online", notes: "-" },
-  { no: 2, topic: "Commissioning Oil & Gas dan Sistem Pembangkit Listrik", duration: "2 x 5 jam", mode: "Offline (Tatap muka)", notes: "4 hingga 12 peserta" },
+  { no: 1, topic: "Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya)", duration: "1 x 3,5 jam (17 Okt 2026)", mode: "Online", notes: "Google Meet / Zoom (Penyelenggara PT Mosha & Masebi)" },
+  { no: 2, topic: "Commissioning Oil & Gas dan Sistem Pembangkit Listrik", duration: "2 x 2,5 jam", mode: "Online", notes: "-" },
+  { no: 3, topic: "Commissioning Oil & Gas dan Sistem Pembangkit Listrik", duration: "2 x 5 jam", mode: "Offline (Tatap muka)", notes: "4 hingga 12 peserta (Batam)" },
   { no: 3, topic: "Commissioning Mechanical & Piping", duration: "2 x 2,5 jam", mode: "Online", notes: "-" },
   { no: 4, topic: "Commissioning Electrical & Instrument", duration: "2 x 2,5 jam", mode: "Online", notes: "-" },
   { no: 5, topic: "Tube Fitting & Tube Bending", duration: "2 x 5 jam", mode: "Online & Offline", notes: "-" },

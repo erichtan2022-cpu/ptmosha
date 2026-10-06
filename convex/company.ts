@@ -1,0 +1,116 @@
+import { query } from "./_generated/server";
+
+export const COMPANY_PROFILE_DATA = {
+  name: "PT Mosha Sinalsal Solusi (MSS)",
+  tagline: "Local Company | Global Capabilities",
+  founded: "November 2021",
+  location: "Komplek Pertokoan Bukit Kemuning Blok DD3 No. 02, Batam, Kepulauan Riau (Kode Pos: 29437)",
+  coordinates: "1.0403698, 104.046917",
+  operatingHours: {
+    workdays: "Senin – Jumat: 08:00 – 17:00 WIB",
+    saturday: "Sabtu: 08:00 – 12:00 WIB",
+    sunday: "Minggu & Hari Libur: Tutup Kantor (Layanan WhatsApp tetap aktif 24/7)",
+  },
+  contacts: {
+    phoneCS: "+62 812-6101-4705",
+    phoneTraining: "+62 822-6819-5332",
+    phoneTraining2: "+62 823-9290-7198",
+    emailGeneral: "staff@moshassolusi.com",
+    emailAdmin: "admin@moshassolusi.com",
+    emailManagement: "emosag@moshassolusi.com",
+    waUrlCS: "https://wa.me/6281261014705",
+    waUrlTraining: "https://wa.me/6282268195332",
+    waUrlTraining2: "https://wa.me/6282392907198",
+    registrationBitlyPLTS: "https://bit.ly/3T6EePy",
+    registrationBitlyOilGas: "https://bit.ly/4cz9xct",
+    registrationBitly: "https://bit.ly/3T6EePy",
+  },
+  bankAccount: {
+    bank: "Bank Central Asia (BCA)",
+    accountNumber: "3262681995",
+    accountHolder: "PT Mosha Sinalsal Solusi",
+  },
+  upcomingTrainings: [
+    {
+      id: "plts-commissioning",
+      topic: "Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya)",
+      type: "Online (Google Meet / Zoom)",
+      date: "Sabtu, 17 Oktober 2026",
+      time: "18.00 – 21.30 WIB",
+      organizer: "PT Mosha Sinalsal Solusi & Masebi",
+      location: "Online via Google Meet / Zoom",
+      registrationUrl: "https://bit.ly/3T6EePy",
+      whatsapp: "0822268195332 / 082392907198",
+      highlights: [
+        "Panel Surya Utama (High Efficiency)",
+        "Inverter Hibrida Cerdas",
+        "Sistem Penyimpanan Baterai Terintegrasi",
+        "Distribusi Arus Searah (DC)",
+        "Koneksi Jaringan Pintar & Metering",
+      ],
+      outline: [
+        "Perkenalan System PLTS",
+        "Komponen System PLTS : Modul PV, Inverter dan Baterai",
+        "Desain System PLTS",
+        "Commissioning PLTS",
+      ],
+      benefits: [
+        "Softcopy Modul Training",
+        "Sertifikat Dari Perusahaan",
+        "Rekaman Video Training",
+        "Bergabung Dalam Grup PLTS Dan Komunitas",
+        "Peluang Kerjasama (Kolaborasi) Bisnis",
+      ],
+    },
+    {
+      id: "oil-gas-commissioning",
+      topic: "Commissioning Fasilitas Oil & Gas & Pembangkit Listrik",
+      type: "Offline (Tatap Muka di Batam)",
+      date: "26 – 27 September 2026 (Sabtu & Minggu)",
+      time: "13.30 – 18.00 WIB",
+      location: "Ruko Bukit Kemuning Blok DD3 No. 02, Batam",
+      organizer: "PT Mosha Sinalsal Solusi & Masebi",
+      registrationUrl: "https://bit.ly/4cz9xct",
+      whatsapp: "082268195332",
+      outline: [
+        "Perkenalan Precommissioning & Commissioning",
+        "System Sub System Limit / Markup P&ID",
+        "Rencana dan Strategy Commissioning",
+        "Mechanical Completion",
+        "Inspection Test Record (ITR)",
+        "Support Vendor dalam Precomm & Commissioning",
+        "Precomm Comm Mechanical Piping & Electrical Instrument",
+        "System Prioritas Commissioning",
+        "Commissioning & Startup System Hydrocarbon dan Non-Hydrocarbon",
+        "System Handover",
+      ],
+      benefits: [
+        "Softcopy Modul Training",
+        "Sertifikat Lembaga Training",
+        "Contoh Project Prosedur, ITR, Drawing, dll.",
+        "Kisi-Kisi Interview Commissioning",
+        "Rekaman Video Training",
+      ],
+    },
+  ],
+  upcomingSchedule: {
+    topic: "Pengenalan, Desain & Commissioning PLTS (Online: 17 Okt 2026) & Commissioning Oil & Gas (Offline Batam: 26-27 Sept 2026)",
+    date: "17 Oktober 2026 (Online PLTS) & 26 – 27 September 2026 (Offline Batam)",
+    time: "18.00 – 21.30 WIB (PLTS) / 13.30 – 18.00 WIB (Oil & Gas)",
+    location: "Online via Google Meet/Zoom & Ruko Bukit Kemuning Blok DD3 No. 02, Batam",
+    organizer: "PT Mosha Sinalsal Solusi & Masebi",
+  },
+  coreServices: [
+    "Commissioning Services (Mechanical, Electrical, Instrumentation, Oil & Gas, Power Plant)",
+    "Manpower Supply Specialist & Technical Headhunter",
+    "Turnkey Projects & Renewable Energy (PLTS Atap, Off-grid, Hybrid)",
+    "Industrial Automation (PLC, SCADA, DCS) & Electrical System",
+    "Training & Sertifikasi Kompetensi (BNSP, KEBTKE ESDM, SKKNI)",
+  ],
+};
+
+export const getCompanyInformation = query({
+  handler: async () => {
+    return COMPANY_PROFILE_DATA;
+  },
+});
