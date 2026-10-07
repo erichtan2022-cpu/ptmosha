@@ -48,6 +48,7 @@ export default function SEOHead({
       <meta name="description" content={metaDescription} />
       <link rel="canonical" href={fullUrl} />
 
+      <meta name="google-site-verification" content="hPQhk3IAc3As9su_Ukh50WS0eqpibympYemHvpoYN8o" />
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
       {keywords && <meta name="keywords" content={keywords} />}
 
