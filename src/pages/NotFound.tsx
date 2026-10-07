@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button.tsx";
+import SEOHead from "@/components/seo/seo-head.tsx";
 
 export default function NotFound() {
   const location = useLocation();
@@ -14,6 +15,11 @@ export default function NotFound() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
+      <SEOHead
+        title="404 - Halaman Tidak Ditemukan"
+        description="Halaman yang Anda cari tidak ditemukan di PT Mosha Sinalsal Solusi."
+        noIndex={true}
+      />
       <div className="text-center space-y-6">
         <div className="space-y-2">
           <h1 className="text-6xl font-bold text-muted-foreground">404</h1>

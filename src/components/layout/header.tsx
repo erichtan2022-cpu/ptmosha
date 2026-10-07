@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { label: "Services", path: "/services" },
   { label: "Projects", path: "/projects" },
   { label: "Training List", path: "/training" },
+  { label: "Pendaftaran & Bayar", path: "/pendaftaran" },
   { label: "Consultant List", path: "/consultant" },
   { label: "Contact", path: "/contact" },
 ] as const;

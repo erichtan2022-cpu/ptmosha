@@ -11,6 +11,7 @@
 import type * as ai from "../ai.js";
 import type * as company from "../company.js";
 import type * as recommendations from "../recommendations.js";
+import type * as registrations from "../registrations.js";
 import type * as sessions from "../sessions.js";
 import type * as trainings from "../trainings.js";
 import type * as users from "../users.js";
@@ -25,6 +26,7 @@ declare const fullApi: ApiFromModules<{
   ai: typeof ai;
   company: typeof company;
   recommendations: typeof recommendations;
+  registrations: typeof registrations;
   sessions: typeof sessions;
   trainings: typeof trainings;
   users: typeof users;

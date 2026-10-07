@@ -68,5 +68,25 @@ export default defineSchema({
     recommendations: v.optional(v.any()),
     createdAt: v.number(),
   }).index("by_sessionId", ["sessionId"]),
+
+  trainingRegistrations: defineTable({
+    trainingId: v.string(),
+    trainingTitle: v.string(),
+    trainingFee: v.string(),
+    fullName: v.string(),
+    email: v.string(),
+    phone: v.string(),
+    currentJob: v.string(),
+    photoStorageId: v.optional(v.id("_storage")),
+    photoUrl: v.optional(v.string()),
+    proofStorageId: v.optional(v.id("_storage")),
+    proofUrl: v.optional(v.string()),
+    createdAt: v.number(),
+    status: v.string(), // "pending" | "verified"
+    notes: v.optional(v.string()),
+  })
+    .index("by_email", ["email"])
+    .index("by_training", ["trainingId"])
+    .index("by_createdAt", ["createdAt"]),
 });
 

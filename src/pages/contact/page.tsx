@@ -2,6 +2,7 @@ import PageHero from "@/components/layout/page-hero.tsx";
 import { motion } from "motion/react";
 import ContactForm from "./_components/contact-form.tsx";
 import ContactInfo from "./_components/contact-info.tsx";
+import SEOHead from "@/components/seo/seo-head.tsx";
 
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1758518729240-7162d07427b8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NzIwMTN8MHwxfHNlYXJjaHwxfHxjb3Jwb3JhdGUlMjBvZmZpY2UlMjBtZWV0aW5nJTIwaGFuZHNoYWtlJTIwYnVzaW5lc3MlMjBwYXJ0bmVyc2hpcHxlbnwwfHx8fDE3ODYyOTc3NjB8MA&ixlib=rb-4.1.0&q=80&w=1080";
@@ -9,6 +10,12 @@ const HERO_IMAGE =
 export default function ContactPage() {
   return (
     <>
+      <SEOHead
+        title="Kontak Kami"
+        path="/contact"
+        description="Hubungi PT Mosha Sinalsal Solusi untuk konsultasi proyek, pendaftaran training, dan penawaran harga. Kantor: Ruko Bukit Kemuning DD3 No. 02, Batam. WhatsApp: 0822-6819-5332."
+        keywords="kontak PT Mosha, alamat kantor Batam, WhatsApp training, konsultasi engineering, penawaran harga, hubungi kami"
+      />
       <PageHero
         label="Get In Touch"
         title="Kontak Kami"

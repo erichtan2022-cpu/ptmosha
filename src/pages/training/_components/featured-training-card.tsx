@@ -18,9 +18,12 @@ import {
   Maximize2,
   X,
   Layers,
+  CreditCard,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button.tsx";
 import { Badge } from "@/components/ui/badge.tsx";
+import TrainingRegistrationDialog from "@/components/training/training-registration-dialog.tsx";
 
 // Data for PLTS Commissioning (Left Card)
 const PLTS_HIGHLIGHTS = [
@@ -70,6 +73,13 @@ const OIL_GAS_BENEFITS = [
 
 export default function FeaturedTrainingCard() {
   const [previewImage, setPreviewImage] = useState<{ src: string; title: string } | null>(null);
+  const [registrationModal, setRegistrationModal] = useState<{
+    open: boolean;
+    trainingId: string;
+  }>({
+    open: false,
+    trainingId: "plts-commissioning",
+  });
 
   return (
     <section className="py-12 bg-muted/30 border-b border-border">
@@ -255,22 +265,44 @@ export default function FeaturedTrainingCard() {
                     })}
                   </div>
                 </div>
+
+                {/* Pricing & Official Bank Transfer Details */}
+                <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs uppercase font-bold tracking-wider text-emerald-800 dark:text-emerald-300">
+                      Biaya Training (Investasi)
+                    </span>
+                    <Badge className="bg-emerald-600 text-white font-black text-xs px-2.5 py-0.5 shadow-sm">
+                      Rp 250.000
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Dua Ratus Lima Puluh Ribu Rupiah • Pembayaran paling lambat <strong className="text-foreground">16 Oktober 2026</strong>.
+                  </p>
+                  <div className="pt-2 border-t border-emerald-500/20 text-xs flex flex-wrap items-center justify-between gap-1">
+                    <span className="text-muted-foreground">Rekening Resmi:</span>
+                    <span className="font-bold text-foreground">
+                      BCA 3262681995 a.n. PT Mosha Sinalsal Solusi
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Bottom Actions */}
             <div className="p-6 pt-4 border-t border-border bg-card flex flex-col sm:flex-row items-center gap-3">
-              <a
-                href="https://bit.ly/3T6EePy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:flex-1"
+              <Button
+                onClick={() =>
+                  setRegistrationModal({
+                    open: true,
+                    trainingId: "plts-commissioning",
+                  })
+                }
+                className="w-full sm:flex-1 bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold cursor-pointer shadow-md text-sm h-11"
               >
-                <Button className="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold cursor-pointer shadow-md text-sm h-11">
-                  <ExternalLink className="size-4 mr-2" />
-                  Daftar Sekarang (bit.ly/3T6EePy)
-                </Button>
-              </a>
+                <CreditCard className="size-4 mr-2" />
+                Daftar &amp; Bayar (Rp 250rb)
+              </Button>
 
               <a
                 href="https://wa.me/62822268195332?text=Halo%20PT%20Mosha%20Sinalsal%20Solusi,%20saya%20ingin%20mendaftar%20Pelatihan%20PLTS%2017%20Oktober%202026"
@@ -428,22 +460,44 @@ export default function FeaturedTrainingCard() {
                     })}
                   </div>
                 </div>
+
+                {/* Pricing & Official Bank Transfer Details */}
+                <div className="p-4 rounded-xl bg-muted/60 border border-border space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs uppercase font-bold tracking-wider text-muted-foreground">
+                      Biaya Training (Investasi)
+                    </span>
+                    <Badge className="bg-red-600 text-white font-black text-xs px-2.5 py-0.5 shadow-sm">
+                      Rp 1.500.000
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Satu Juta Lima Ratus Ribu Rupiah • Pelatihan Tatap Muka 2 Hari di Batam.
+                  </p>
+                  <div className="pt-2 border-t border-border text-xs flex flex-wrap items-center justify-between gap-1">
+                    <span className="text-muted-foreground">Rekening Resmi:</span>
+                    <span className="font-bold text-foreground">
+                      BCA 3262681995 a.n. PT Mosha Sinalsal Solusi
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Bottom Actions */}
             <div className="p-6 pt-4 border-t border-border bg-card flex flex-col sm:flex-row items-center gap-3">
-              <a
-                href="https://bit.ly/4cz9xct"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:flex-1"
+              <Button
+                onClick={() =>
+                  setRegistrationModal({
+                    open: true,
+                    trainingId: "oil-gas-power-plant-offline",
+                  })
+                }
+                className="w-full sm:flex-1 bg-red-600 hover:bg-red-700 text-white font-extrabold cursor-pointer shadow-md text-sm h-11"
               >
-                <Button className="w-full bg-red-600 hover:bg-red-700 text-white font-extrabold cursor-pointer shadow-md text-sm h-11">
-                  <ExternalLink className="size-4 mr-2" />
-                  Daftar Sekarang (bit.ly/4cz9xct)
-                </Button>
-              </a>
+                <CreditCard className="size-4 mr-2" />
+                Daftar &amp; Bayar Sekarang
+              </Button>
 
               <a
                 href="https://wa.me/6282268195332?text=Halo%20PT%20Mosha%20Sinalsal%20Solusi,%20saya%20ingin%20bertanya%20mengenai%20Training%20Commissioning%20Oil%20%26%20Gas"
@@ -496,6 +550,15 @@ export default function FeaturedTrainingCard() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Training Registration & Payment Modal */}
+      <TrainingRegistrationDialog
+        open={registrationModal.open}
+        onOpenChange={(open) =>
+          setRegistrationModal((prev) => ({ ...prev, open }))
+        }
+        trainingId={registrationModal.trainingId}
+      />
     </section>
   );
 }

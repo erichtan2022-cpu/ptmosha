@@ -738,16 +738,18 @@ function generateSmartConsultantResponse(
     return {
       text:
         "💳 **Informasi Biaya & Pembayaran Pelatihan PT Mosha Sinalsal Solusi:**\n\n" +
-        "Biaya pelatihan bervariasi sesuai program, level sertifikasi, dan mode (Online / Offline Batam / In-House):\n" +
-        "• Terdapat **diskon khusus mahasiswa / fresh graduate** dan paket grup / korporat.\n\n" +
+        "• **Training PLTS (Online - 17 Okt 2026)**: Rp 250.000\n" +
+        "• **Training Oil & Gas (Offline Batam)**: Rp 1.500.000\n" +
+        "• **Training Oil & Gas (Online)**: Rp 500.000\n\n" +
         "📝 **Rekening Resmi Pembayaran:**\n" +
-        "• **Bank Central Asia (BCA)**: 821-098-9999\n" +
-        "• **Atas Nama**: PT Mosha Sinalsal Solusi\n\n" +
-        "Untuk detail investasi per topik dan penawaran promo terkini, silakan hubungi tim kami via WhatsApp Training:",
-      options: ["💬 Hubungi WA Training", "📝 Formulir Online", "📅 Jadwal Terdekat"],
+        "• **Bank Central Asia (BCA)**: 3262681995\n" +
+        "• **Atas Nama**: PT Mosha Sinalsal Solusi\n" +
+        "• **Email Verifikasi**: moshasolusi@gmail.com\n\n" +
+        "Anda dapat langsung mendaftar dan mengunggah bukti transfer melalui formulir online kami:",
+      options: ["📝 Buka Formulir Pendaftaran", "💬 Hubungi WA Training", "📅 Jadwal Terdekat"],
       actionLink: {
-        label: "Chat Admin via WhatsApp",
-        url: WHATSAPP_TRAINING_URL,
+        label: "Buka Formulir Pendaftaran & Bayar",
+        url: "/pendaftaran",
       },
     };
   }

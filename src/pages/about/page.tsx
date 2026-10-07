@@ -3,6 +3,7 @@ import CompanyBackground from "./_components/company-background.tsx";
 import VisionMission from "./_components/vision-mission.tsx";
 import QhseSection from "./_components/qhse-section.tsx";
 import OrgChart from "./_components/org-chart.tsx";
+import SEOHead from "@/components/seo/seo-head.tsx";
 
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1694521787162-5373b598945c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NzIwMTN8MHwxfHNlYXJjaHwyfHxpbmR1c3RyaWFsJTIwZW5naW5lZXJpbmclMjBjb25zdHJ1Y3Rpb24lMjBzaXRlJTIwd29ya2Vyc3xlbnwwfHx8fDE3ODYyOTc3NjB8MA&ixlib=rb-4.1.0&q=80&w=1080";
@@ -10,6 +11,12 @@ const HERO_IMAGE =
 export default function AboutPage() {
   return (
     <>
+      <SEOHead
+        title="Tentang Kami"
+        path="/about"
+        description="Profil perusahaan PT Mosha Sinalsal Solusi - Visi misi, struktur organisasi, komitmen QHSE, dan pengalaman sebagai konsultan engineering dan training profesional di Batam sejak 2021."
+        keywords="tentang PT Mosha, profil perusahaan MSS, visi misi, QHSE, konsultan Batam, struktur organisasi"
+      />
       <PageHero
         label="About Us"
         title="Tentang Kami"
