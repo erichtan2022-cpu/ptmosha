@@ -23,7 +23,6 @@ import {
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button.tsx";
 import { Badge } from "@/components/ui/badge.tsx";
-import TrainingRegistrationDialog from "@/components/training/training-registration-dialog.tsx";
 
 // Data for PLTS Commissioning (Left Card)
 const PLTS_HIGHLIGHTS = [
@@ -73,13 +72,6 @@ const OIL_GAS_BENEFITS = [
 
 export default function FeaturedTrainingCard() {
   const [previewImage, setPreviewImage] = useState<{ src: string; title: string } | null>(null);
-  const [registrationModal, setRegistrationModal] = useState<{
-    open: boolean;
-    trainingId: string;
-  }>({
-    open: false,
-    trainingId: "plts-commissioning",
-  });
 
   return (
     <section className="py-12 bg-muted/30 border-b border-border">
@@ -292,16 +284,13 @@ export default function FeaturedTrainingCard() {
             {/* Bottom Actions */}
             <div className="p-6 pt-4 border-t border-border bg-card flex flex-col sm:flex-row items-center gap-3">
               <Button
-                onClick={() =>
-                  setRegistrationModal({
-                    open: true,
-                    trainingId: "plts-commissioning",
-                  })
-                }
+                asChild
                 className="w-full sm:flex-1 bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold cursor-pointer shadow-md text-sm h-11"
               >
-                <CreditCard className="size-4 mr-2" />
-                Daftar &amp; Bayar (Rp 250rb)
+                <Link to="/pendaftaran?training=plts-commissioning">
+                  <CreditCard className="size-4 mr-2" />
+                  Daftar &amp; Bayar (Rp 250rb)
+                </Link>
               </Button>
 
               <a
@@ -487,16 +476,13 @@ export default function FeaturedTrainingCard() {
             {/* Bottom Actions */}
             <div className="p-6 pt-4 border-t border-border bg-card flex flex-col sm:flex-row items-center gap-3">
               <Button
-                onClick={() =>
-                  setRegistrationModal({
-                    open: true,
-                    trainingId: "oil-gas-power-plant-offline",
-                  })
-                }
+                asChild
                 className="w-full sm:flex-1 bg-red-600 hover:bg-red-700 text-white font-extrabold cursor-pointer shadow-md text-sm h-11"
               >
-                <CreditCard className="size-4 mr-2" />
-                Daftar &amp; Bayar Sekarang
+                <Link to="/pendaftaran?training=oil-gas-power-plant-offline">
+                  <CreditCard className="size-4 mr-2" />
+                  Daftar &amp; Bayar Sekarang
+                </Link>
               </Button>
 
               <a
@@ -551,14 +537,7 @@ export default function FeaturedTrainingCard() {
         )}
       </AnimatePresence>
 
-      {/* Training Registration & Payment Modal */}
-      <TrainingRegistrationDialog
-        open={registrationModal.open}
-        onOpenChange={(open) =>
-          setRegistrationModal((prev) => ({ ...prev, open }))
-        }
-        trainingId={registrationModal.trainingId}
-      />
+
     </section>
   );
 }
