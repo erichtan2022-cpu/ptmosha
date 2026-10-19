@@ -88,5 +88,23 @@ export default defineSchema({
     .index("by_email", ["email"])
     .index("by_training", ["trainingId"])
     .index("by_createdAt", ["createdAt"]),
+
+  trainingGraduates: defineTable({
+    fullName: v.string(),
+    completionDate: v.string(), // e.g. "17 Oktober 2026"
+    trainingTopic: v.string(), // e.g. "Training Pengenalan, Desain & Commissioning PLTS"
+    trainingCategory: v.optional(v.string()), // e.g. "Renewable Energy (PLTS)"
+    certificateNumber: v.string(), // e.g. "MSS-CERT/PLTS/2026/001"
+    institution: v.optional(v.string()), // e.g. "PT PLN Nusantara Power"
+    grade: v.optional(v.string()), // e.g. "Sangat Baik (A)"
+    hours: v.optional(v.string()), // e.g. "32 Jam Pelatihan"
+    status: v.string(), // "verified"
+    notes: v.optional(v.string()),
+    createdAt: v.number(),
+  })
+    .index("by_certificateNumber", ["certificateNumber"])
+    .index("by_fullName", ["fullName"])
+    .index("by_completionDate", ["completionDate"])
+    .index("by_createdAt", ["createdAt"]),
 });
 

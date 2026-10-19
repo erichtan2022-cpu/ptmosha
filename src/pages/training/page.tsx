@@ -21,6 +21,28 @@ export default function TrainingPage() {
         description="Professional training programs covering engineering commissioning, renewable energy, safety, sustainability, and professional certification — available online and offline."
         image={HERO_IMAGE}
       />
+      
+      {/* Quick link banner to Alumni & Certificate Verification Database */}
+      <div className="bg-primary/5 border-b border-border py-3.5">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 text-center sm:text-left">
+            <span className="flex size-7 items-center justify-center rounded-full bg-accent/20 text-accent text-xs font-bold shrink-0">
+              ✓
+            </span>
+            <p className="text-xs sm:text-sm text-foreground">
+              Sudah menyelesaikan pelatihan di PT Mosha? Cek status kelulusan &amp; unduh e-sertifikat Anda di{" "}
+              <strong>Direktori Verifikasi Sertifikat</strong>.
+            </p>
+          </div>
+          <a
+            href="/verifikasi-sertifikat"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-accent hover:text-accent/80 transition-colors shrink-0 underline decoration-accent/40 underline-offset-4"
+          >
+            Buka Database Alumni &amp; Sertifikat →
+          </a>
+        </div>
+      </div>
+
       <FeaturedTrainingCard />
       <TrainingTable />
     </>

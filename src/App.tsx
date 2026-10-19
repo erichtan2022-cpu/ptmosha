@@ -12,6 +12,7 @@ import ContactPage from "./pages/contact/page.tsx";
 import TrainingPage from "./pages/training/page.tsx";
 import ConsultantPage from "./pages/consultant/page.tsx";
 import PendaftaranPage from "./pages/pendaftaran/page.tsx";
+import VerifikasiSertifikatPage from "./pages/verifikasi-sertifikat/page.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 export default function App() {
@@ -35,6 +36,8 @@ export default function App() {
               <Route path="/consultant" element={<ConsultantPage />} />
               <Route path="/pendaftaran" element={<PendaftaranPage />} />
               <Route path="/pendaftaran-training" element={<PendaftaranPage />} />
+              <Route path="/verifikasi-sertifikat" element={<VerifikasiSertifikatPage />} />
+              <Route path="/alumni" element={<VerifikasiSertifikatPage />} />
               {/* ADD CUSTOM ROUTES HERE */}
             </Route>
 

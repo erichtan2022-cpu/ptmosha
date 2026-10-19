@@ -13,6 +13,7 @@ const NAV_LINKS = [
   { label: "Projects", path: "/projects" },
   { label: "Training List", path: "/training" },
   { label: "Pendaftaran & Bayar", path: "/pendaftaran" },
+  { label: "Verifikasi Sertifikat", path: "/verifikasi-sertifikat" },
   { label: "Consultant List", path: "/consultant" },
   { label: "Contact", path: "/contact" },
 ] as const;
