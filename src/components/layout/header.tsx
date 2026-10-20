@@ -12,9 +12,9 @@ const NAV_LINKS = [
   { label: "Services", path: "/services" },
   { label: "Projects", path: "/projects" },
   { label: "Training List", path: "/training" },
-  { label: "Pendaftaran & Bayar", path: "/pendaftaran" },
-  { label: "Verifikasi Sertifikat", path: "/verifikasi-sertifikat" },
   { label: "Consultant List", path: "/consultant" },
+  { label: "Pembayaran", path: "/pendaftaran" },
+  { label: "Verifikasi Sertifikat", path: "/verifikasi-sertifikat" },
   { label: "Contact", path: "/contact" },
 ] as const;
 
@@ -44,13 +44,13 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
                 className={cn(
-                  "px-3 py-2 text-sm font-medium rounded-md transition-colors cursor-pointer",
+                  "px-2.5 xl:px-3 py-2 text-xs xl:text-sm font-medium rounded-md transition-colors cursor-pointer whitespace-nowrap",
                   location.pathname === link.path
                     ? "text-accent bg-primary-foreground/10"
                     : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/5"
@@ -59,10 +59,10 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
-            <Link to="/contact" className="ml-3">
+            <Link to="/contact" className="ml-2 xl:ml-3 shrink-0">
               <Button
                 size="sm"
-                className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold cursor-pointer"
+                className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold cursor-pointer text-xs xl:text-sm px-3"
               >
                 Get a Quote
               </Button>

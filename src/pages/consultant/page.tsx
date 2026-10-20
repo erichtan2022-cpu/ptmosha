@@ -1,5 +1,6 @@
 import PageHero from "@/components/layout/page-hero.tsx";
 import ConsultantList from "./_components/consultant-list.tsx";
+import PltsBrochureSection from "./_components/plts-brochure-section.tsx";
 import SEOHead from "@/components/seo/seo-head.tsx";
 
 const HERO_IMAGE =
@@ -9,10 +10,10 @@ export default function ConsultantPage() {
   return (
     <>
       <SEOHead
-        title="Daftar Konsultan & Pelatih"
+        title="Daftar Konsultan & Pelatih - Termasuk Brosur PLTS Atap"
         path="/consultant"
-        description="Daftar konsultan profesional dan instruktur training PT Mosha Sinalsal Solusi - Ahli commissioning, engineering, energi terbarukan, manajemen, dan sertifikasi profesional."
-        keywords="konsultan engineering, instruktur training, ahli commissioning, konsultan Oil Gas, trainer profesional, Batam"
+        description="Daftar konsultan profesional, instalasi PLTS Atap, dan instruktur training PT Mosha Sinalsal Solusi - Ahli commissioning, engineering, energi terbarukan, manajemen, dan sertifikasi profesional."
+        keywords="konsultan engineering, brosur PLTS Atap, pasang panel surya, konsultan PLTS, instruktur training, ahli commissioning, Batam"
       />
       <PageHero
         label="Our Consultants"
@@ -21,6 +22,7 @@ export default function ConsultantPage() {
         image={HERO_IMAGE}
       />
       <ConsultantList />
+      <PltsBrochureSection />
     </>
   );
 }
