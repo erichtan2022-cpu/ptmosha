@@ -24,33 +24,33 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-primary-foreground/10">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between gap-2 lg:gap-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 cursor-pointer">
+          <Link to="/" className="flex items-center gap-2.5 sm:gap-3 cursor-pointer shrink-0">
             <img
               src={LOGO_URL}
               alt="MSS Logo"
-              className="h-9 w-auto"
+              className="h-9 w-auto shrink-0"
             />
-            <div className="flex flex-col">
-              <span className="text-sm font-bold tracking-wide text-primary-foreground">
+            <div className="flex flex-col whitespace-nowrap">
+              <span className="text-sm sm:text-base font-bold tracking-wide text-primary-foreground leading-tight">
                 PT MOSHA SINALSAL SOLUSI
               </span>
-              <span className="text-[10px] text-primary-foreground/70 tracking-wider uppercase">
+              <span className="text-[10px] text-primary-foreground/70 tracking-wider uppercase leading-tight mt-0.5">
                 Local Company | Global Capabilities
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1">
+          <nav className="hidden xl:flex items-center gap-0.5 2xl:gap-1 shrink-0">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
                 className={cn(
-                  "px-2.5 xl:px-3 py-2 text-xs xl:text-sm font-medium rounded-md transition-colors cursor-pointer whitespace-nowrap",
+                  "px-2.5 2xl:px-3 py-1.5 text-xs 2xl:text-sm font-medium rounded-md transition-colors cursor-pointer whitespace-nowrap",
                   location.pathname === link.path
                     ? "text-accent bg-primary-foreground/10"
                     : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/5"
@@ -59,20 +59,20 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
-            <Link to="/contact" className="ml-2 xl:ml-3 shrink-0">
+            <Link to="/contact" className="ml-2 2xl:ml-3 shrink-0">
               <Button
                 size="sm"
-                className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold cursor-pointer text-xs xl:text-sm px-3"
+                className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold cursor-pointer text-xs 2xl:text-sm px-3.5"
               >
                 Get a Quote
               </Button>
             </Link>
           </nav>
 
-          {/* Mobile Hamburger */}
+          {/* Mobile / Tablet Hamburger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden text-primary-foreground p-2 cursor-pointer"
+            className="xl:hidden text-primary-foreground p-2 cursor-pointer rounded-md hover:bg-primary-foreground/10 shrink-0"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X className="size-6" /> : <Menu className="size-6" />}
@@ -80,10 +80,10 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile / Tablet Menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-primary border-t border-primary-foreground/10">
-          <nav className="flex flex-col px-4 py-3 gap-1">
+        <div className="xl:hidden bg-primary border-t border-primary-foreground/10 shadow-2xl">
+          <nav className="flex flex-col px-4 py-3 gap-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.path}
@@ -93,7 +93,7 @@ export default function Header() {
                   "px-3 py-2.5 text-sm font-medium rounded-md transition-colors cursor-pointer",
                   location.pathname === link.path
                     ? "text-accent bg-primary-foreground/10"
-                    : "text-primary-foreground/80 hover:text-primary-foreground"
+                    : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/5"
                 )}
               >
                 {link.label}
