@@ -100,6 +100,9 @@ export default defineSchema({
     hours: v.optional(v.string()), // e.g. "32 Jam Pelatihan"
     status: v.string(), // "verified"
     notes: v.optional(v.string()),
+    certificateImageUrl: v.optional(v.string()),
+    venue: v.optional(v.string()),
+    instructor: v.optional(v.string()),
     createdAt: v.number(),
   })
     .index("by_certificateNumber", ["certificateNumber"])

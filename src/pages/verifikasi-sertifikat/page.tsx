@@ -28,6 +28,7 @@ import DigitalCertificateModal from "@/components/training/digital-certificate-m
 import {
   type GraduateRecord,
   INITIAL_GRADUATES_LIST,
+  COMMISSIONING_TOPICS,
 } from "@/data/graduates-data.ts";
 
 const HERO_IMAGE =
@@ -57,28 +58,46 @@ export default function VerifikasiSertifikatPage() {
   // Harmonize data: use Convex if returned and has items, otherwise fallback to rich local verified dataset
   const graduatesList: GraduateRecord[] = useMemo(() => {
     if (convexGraduates && convexGraduates.length > 0) {
-      return convexGraduates.map((g: any) => ({
-        id: g._id || g.id,
-        fullName: g.fullName,
-        completionDate: g.completionDate,
-        trainingTopic: g.trainingTopic,
-        trainingCategory: g.trainingCategory || "Pelatihan Profesional",
-        certificateNumber: g.certificateNumber,
-        institution: g.institution,
-        grade: g.grade,
-        hours: g.hours,
-        status: (g.status as "verified") || "verified",
-        notes: g.notes,
-        issuer: "PT Mosha Sinalsal Solusi",
-        signatory1: {
-          name: "Ir. Mosha Sinalsal, M.T., IPM.",
-          role: "Direktur Utama PT Mosha Sinalsal Solusi",
-        },
-        signatory2: {
-          name: "Ir. Ardiansyah, S.T., M.Eng.",
-          role: "Lead Trainer & Commissioning Specialist",
-        },
-      }));
+      return convexGraduates.map((g: any) => {
+        const isCommissioning =
+          g.trainingTopic?.toLowerCase().includes("commissioning") ||
+          g.certificateNumber?.includes("COF22");
+
+        return {
+          id: g._id || g.id,
+          fullName: g.fullName,
+          completionDate: g.completionDate,
+          trainingTopic: g.trainingTopic,
+          trainingCategory: g.trainingCategory || "Pelatihan Profesional",
+          certificateNumber: g.certificateNumber,
+          institution: g.institution,
+          grade: g.grade,
+          hours: g.hours,
+          status: (g.status as "verified") || "verified",
+          notes: g.notes,
+          venue: g.venue || (isCommissioning ? "BATAM" : undefined),
+          instructor: g.instructor || (isCommissioning ? "Emos Arapenta Ginting" : undefined),
+          certificateImageUrl:
+            g.certificateImageUrl ||
+            (g.fullName?.toUpperCase().includes("KAISAR ALI")
+              ? "/images/certificates/sertifikat-kaisar-ali-kamarlis.png"
+              : g.fullName?.toUpperCase().includes("WAHYU HIDAYAT")
+                ? "/images/certificates/sertifikat-wahyu-hidayat.png"
+                : undefined),
+          topics: isCommissioning ? COMMISSIONING_TOPICS : undefined,
+          issuer: "PT Mosha Sinalsal Solusi & MASEBI",
+          signatory1: {
+            name: isCommissioning ? "Emos Arapenta Ginting" : "Ir. Mosha Sinalsal, M.T., IPM.",
+            role: isCommissioning
+              ? "Manager & Instructor PT Mosha Sinalsal Solusi"
+              : "Direktur Utama PT Mosha Sinalsal Solusi",
+          },
+          signatory2: {
+            name: "Masyarakat Sistem Energi Berkelanjutan Indonesia",
+            role: "Partner Asosiasi (MASEBI)",
+          },
+        };
+      });
     }
 
     // Fallback to local verified list with client filtering
@@ -102,15 +121,19 @@ export default function VerifikasiSertifikatPage() {
   // Handle URL param ?cert=MSS-CERT... to automatically open matching certificate
   useEffect(() => {
     if (certParam) {
-      const match = INITIAL_GRADUATES_LIST.find(
-        (g) => g.certificateNumber && g.certificateNumber.toLowerCase() === certParam.toLowerCase().trim()
-      );
+      const match =
+        graduatesList.find(
+          (g) => g.certificateNumber && g.certificateNumber.toLowerCase() === certParam.toLowerCase().trim()
+        ) ||
+        INITIAL_GRADUATES_LIST.find(
+          (g) => g.certificateNumber && g.certificateNumber.toLowerCase() === certParam.toLowerCase().trim()
+        );
       if (match) {
         setSelectedGraduate(match);
         setIsModalOpen(true);
       }
     }
-  }, [certParam]);
+  }, [certParam, graduatesList]);
 
   const handleOpenCertificate = (graduate: GraduateRecord) => {
     setSelectedGraduate(graduate);

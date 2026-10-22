@@ -8,6 +8,10 @@ export interface GraduateRecord {
   institution?: string;
   grade?: string;
   hours?: string;
+  venue?: string;
+  instructor?: string;
+  certificateImageUrl?: string;
+  topics?: string[];
   status: "verified" | "active";
   notes?: string;
   issuer: string;
@@ -21,14 +25,34 @@ export interface GraduateRecord {
   };
 }
 
+export const COMMISSIONING_TOPICS = [
+  "01 Introduction to Pre-Commissioning & Commissioning",
+  "02 System, Sub-System Limit / P&ID Markup",
+  "03 Plan and Strategy of Commissioning",
+  "04 Mechanical Completion",
+  "05 Inspection Test Record (ITR)",
+  "06 Vendor Support in Precommissioning and Commissioning",
+  "07 Precomm Comm Mechanical Piping and Electrical Instrument",
+  "08 Commissioning System Prioritization",
+  "09 Commissioning & Start-up of Hydrocarbon and Non-Hydrocarbon Systems",
+  "10 System Handover",
+];
+
 export const OFFICIAL_CERTIFICATE_CONFIG = {
   companyName: "PT MOSHA SINALSAL SOLUSI",
-  companySub: "Engineering, Commissioning, Training & Manpower Solutions",
-  skKemenkumham: "AHU-0012345.AH.01.01.TAHUN 2021",
+  companySub: "Consultant, Training & Manpower Supply",
+  companyTagline: "Main Business : Energy (Oil & Gas, Power Plant, Solar PV, Renewable Energy), Commissioning, Automation",
+  address: "Komplek Pertokoan Bukit Kemuning Blok DD3 No 02, BATAM – KEPULAUAN RIAU",
+  contact: "Phone : 082392907198, Email: admin@moshassolusi.com, staff@moshassolusi.com",
+  website: "www.moshassolusi.com",
   partnerName: "Masyarakat Sistem Energi Berkelanjutan Indonesia (MASEBI)",
+  partnerWebsite: "www.masebi.org",
+  skKemenkumham: "AHU-0012345.AH.01.01.TAHUN 2021",
   logoUrl: "https://hercules-cdn.com/file_hefyWjrnJQZ3depHrmPx78nx",
   directorName: "Ir. Mosha Sinalsal, M.T., IPM.",
   directorRole: "Direktur Utama PT Mosha Sinalsal Solusi",
+  managerInstructorName: "Emos Arapenta Ginting",
+  managerInstructorRole: "Manager & Instructor",
   leadInstructorName: "Ir. Ardiansyah, S.T., M.Eng.",
   leadInstructorRole: "Lead Trainer & Commissioning Specialist",
 };
@@ -204,47 +228,55 @@ export const INITIAL_GRADUATES_LIST: GraduateRecord[] = [
     },
   },
 
-  // Commissioning Fasilitas Oil & Gas & Pembangkit Listrik (26 – 27 September 2026)
+  // Commissioning in Oil & Gas and Power Plant Project (26 – 27 September 2026)
   {
     id: "grad-ogp-001",
     fullName: "KAISAR ALI KAMARLIS",
     completionDate: "26 – 27 September 2026",
-    trainingTopic: "Commissioning Fasilitas Oil & Gas & Pembangkit Listrik",
+    trainingTopic: "Commissioning in Oil & Gas and Power Plant Project",
     trainingCategory: "Commissioning & Engineering",
-    certificateNumber: "",
+    certificateNumber: "MSS-COF22-092601",
     institution: "Peserta Profesional",
     hours: "40 Jam Pelatihan",
+    venue: "BATAM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-kaisar-ali-kamarlis.png",
+    topics: COMMISSIONING_TOPICS,
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Commissioning Fasilitas Oil & Gas & Pembangkit Listrik.",
+    notes: "Menyelesaikan program pelatihan teknis Commissioning in Oil & Gas and Power Plant Project di Batam.",
     issuer: "PT Mosha Sinalsal Solusi & MASEBI",
     signatory1: {
-      name: "Ir. Mosha Sinalsal, M.T., IPM.",
-      role: "Direktur Utama PT Mosha Sinalsal Solusi",
+      name: "Emos Arapenta Ginting",
+      role: "Manager & Instructor PT Mosha Sinalsal Solusi",
     },
     signatory2: {
-      name: "Ir. Ardiansyah, S.T., M.Eng.",
-      role: "Lead Trainer & Commissioning Specialist",
+      name: "Masyarakat Sistem Energi Berkelanjutan Indonesia",
+      role: "Partner Asosiasi (MASEBI)",
     },
   },
   {
     id: "grad-ogp-002",
     fullName: "WAHYU HIDAYAT",
     completionDate: "26 – 27 September 2026",
-    trainingTopic: "Commissioning Fasilitas Oil & Gas & Pembangkit Listrik",
+    trainingTopic: "Commissioning in Oil & Gas and Power Plant Project",
     trainingCategory: "Commissioning & Engineering",
-    certificateNumber: "",
+    certificateNumber: "MSS-COF22-092602",
     institution: "Peserta Profesional",
     hours: "40 Jam Pelatihan",
+    venue: "BATAM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-wahyu-hidayat.png",
+    topics: COMMISSIONING_TOPICS,
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Commissioning Fasilitas Oil & Gas & Pembangkit Listrik.",
+    notes: "Menyelesaikan program pelatihan teknis Commissioning in Oil & Gas and Power Plant Project di Batam.",
     issuer: "PT Mosha Sinalsal Solusi & MASEBI",
     signatory1: {
-      name: "Ir. Mosha Sinalsal, M.T., IPM.",
-      role: "Direktur Utama PT Mosha Sinalsal Solusi",
+      name: "Emos Arapenta Ginting",
+      role: "Manager & Instructor PT Mosha Sinalsal Solusi",
     },
     signatory2: {
-      name: "Ir. Ardiansyah, S.T., M.Eng.",
-      role: "Lead Trainer & Commissioning Specialist",
+      name: "Masyarakat Sistem Energi Berkelanjutan Indonesia",
+      role: "Partner Asosiasi (MASEBI)",
     },
   },
 ];

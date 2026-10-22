@@ -12,6 +12,9 @@ interface GraduateSeed {
   hours?: string;
   status: string;
   notes?: string;
+  certificateImageUrl?: string;
+  venue?: string;
+  instructor?: string;
 }
 
 export const INITIAL_GRADUATES: GraduateSeed[] = [
@@ -105,28 +108,34 @@ export const INITIAL_GRADUATES: GraduateSeed[] = [
     notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS.",
   },
 
-  // Commissioning Fasilitas Oil & Gas & Pembangkit Listrik (26 – 27 September 2026)
+  // Commissioning in Oil & Gas and Power Plant Project (26 – 27 September 2026)
   {
     fullName: "KAISAR ALI KAMARLIS",
     completionDate: "26 – 27 September 2026",
-    trainingTopic: "Commissioning Fasilitas Oil & Gas & Pembangkit Listrik",
+    trainingTopic: "Commissioning in Oil & Gas and Power Plant Project",
     trainingCategory: "Commissioning & Engineering",
-    certificateNumber: "",
+    certificateNumber: "MSS-COF22-092601",
     institution: "Peserta Profesional",
     hours: "40 Jam Pelatihan",
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Commissioning Fasilitas Oil & Gas & Pembangkit Listrik.",
+    venue: "BATAM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-kaisar-ali-kamarlis.png",
+    notes: "Menyelesaikan program pelatihan teknis Commissioning in Oil & Gas and Power Plant Project di Batam.",
   },
   {
     fullName: "WAHYU HIDAYAT",
     completionDate: "26 – 27 September 2026",
-    trainingTopic: "Commissioning Fasilitas Oil & Gas & Pembangkit Listrik",
+    trainingTopic: "Commissioning in Oil & Gas and Power Plant Project",
     trainingCategory: "Commissioning & Engineering",
-    certificateNumber: "",
+    certificateNumber: "MSS-COF22-092602",
     institution: "Peserta Profesional",
     hours: "40 Jam Pelatihan",
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Commissioning Fasilitas Oil & Gas & Pembangkit Listrik.",
+    venue: "BATAM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-wahyu-hidayat.png",
+    notes: "Menyelesaikan program pelatihan teknis Commissioning in Oil & Gas and Power Plant Project di Batam.",
   },
 ];
 
@@ -202,6 +211,9 @@ export const seedGraduates = mutation({
         hours: grad.hours,
         status: grad.status,
         notes: grad.notes,
+        certificateImageUrl: grad.certificateImageUrl,
+        venue: grad.venue,
+        instructor: grad.instructor,
         createdAt: now - i * 86400000,
       });
       insertedIds.push(id);
@@ -234,12 +246,51 @@ export const reseedWithOfficialGraduates = mutation({
         hours: grad.hours,
         status: grad.status,
         notes: grad.notes,
+        certificateImageUrl: grad.certificateImageUrl,
+        venue: grad.venue,
+        instructor: grad.instructor,
         createdAt: now - i * 86400000,
       });
       insertedIds.push(id);
     }
 
     return { status: "reseeded_success", count: insertedIds.length };
+  },
+});
+
+export const updateOfficialCertificates = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const graduates = await ctx.db.query("trainingGraduates").collect();
+    let updatedCount = 0;
+
+    for (const g of graduates) {
+      if (g.fullName.toUpperCase().includes("KAISAR ALI")) {
+        await ctx.db.patch(g._id, {
+          certificateNumber: "MSS-COF22-092601",
+          trainingTopic: "Commissioning in Oil & Gas and Power Plant Project",
+          completionDate: "26 – 27 September 2026",
+          certificateImageUrl: "/images/certificates/sertifikat-kaisar-ali-kamarlis.png",
+          venue: "BATAM",
+          instructor: "Emos Arapenta Ginting",
+          notes: "Menyelesaikan program pelatihan teknis Commissioning in Oil & Gas and Power Plant Project di Batam.",
+        });
+        updatedCount++;
+      } else if (g.fullName.toUpperCase().includes("WAHYU HIDAYAT")) {
+        await ctx.db.patch(g._id, {
+          certificateNumber: "MSS-COF22-092602",
+          trainingTopic: "Commissioning in Oil & Gas and Power Plant Project",
+          completionDate: "26 – 27 September 2026",
+          certificateImageUrl: "/images/certificates/sertifikat-wahyu-hidayat.png",
+          venue: "BATAM",
+          instructor: "Emos Arapenta Ginting",
+          notes: "Menyelesaikan program pelatihan teknis Commissioning in Oil & Gas and Power Plant Project di Batam.",
+        });
+        updatedCount++;
+      }
+    }
+
+    return { updatedCount };
   },
 });
 
@@ -254,6 +305,9 @@ export const addGraduate = mutation({
     grade: v.optional(v.string()),
     hours: v.optional(v.string()),
     notes: v.optional(v.string()),
+    certificateImageUrl: v.optional(v.string()),
+    venue: v.optional(v.string()),
+    instructor: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const existing = await ctx.db
@@ -278,6 +332,9 @@ export const addGraduate = mutation({
       hours: args.hours?.trim(),
       status: "verified",
       notes: args.notes?.trim(),
+      certificateImageUrl: args.certificateImageUrl?.trim(),
+      venue: args.venue?.trim(),
+      instructor: args.instructor?.trim(),
       createdAt: Date.now(),
     });
 
