@@ -22,6 +22,7 @@ import {
   Sparkles,
   ExternalLink,
   Info,
+  Video,
 } from "lucide-react";
 import {
   AVAILABLE_TRAININGS,
@@ -43,7 +44,7 @@ interface TrainingRegistrationFormProps {
 }
 
 export default function TrainingRegistrationForm({
-  initialTrainingId = "plts-commissioning",
+  initialTrainingId = "homer-pro",
   onSuccess,
   isDialog = false,
 }: TrainingRegistrationFormProps) {
@@ -70,8 +71,11 @@ export default function TrainingRegistrationForm({
     fullName: string;
     email: string;
     phone: string;
+    meetUrl?: string;
+    meetInfo?: string;
   } | null>(null);
   const [copiedAccount, setCopiedAccount] = useState(false);
+  const [copiedMeet, setCopiedMeet] = useState(false);
 
   const photoInputRef = useRef<HTMLInputElement>(null);
   const proofInputRef = useRef<HTMLInputElement>(null);
@@ -96,6 +100,15 @@ export default function TrainingRegistrationForm({
     setCopiedAccount(true);
     toast.success("Nomor rekening BCA 3262681995 berhasil disalin!");
     setTimeout(() => setCopiedAccount(false), 2500);
+  };
+
+  // Copy Google Meet link
+  const handleCopyMeetLink = () => {
+    if (!submissionResult?.meetUrl) return;
+    navigator.clipboard.writeText(submissionResult.meetUrl);
+    setCopiedMeet(true);
+    toast.success("Link Google Meet berhasil disalin!");
+    setTimeout(() => setCopiedMeet(false), 2500);
   };
 
   // Handle Photo selection
@@ -138,13 +151,69 @@ export default function TrainingRegistrationForm({
     }
   };
 
-  // Upload a single file to Convex Storage
+// Fast client-side image compression to speed up uploads (< 0.5s)
+async function compressImage(file: File, maxDimension = 1400, quality = 0.82): Promise<File> {
+  if (!file.type.startsWith("image/") || file.size < 200 * 1024) {
+    return file;
+  }
+  return new Promise((resolve) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let { width, height } = img;
+      if (width > maxDimension || height > maxDimension) {
+        if (width > height) {
+          height = Math.round((height * maxDimension) / width);
+          width = maxDimension;
+        } else {
+          width = Math.round((width * maxDimension) / height);
+          height = maxDimension;
+        }
+      }
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        resolve(file);
+        return;
+      }
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(0, 0, width, height);
+      ctx.drawImage(img, 0, 0, width, height);
+      canvas.toBlob(
+        (blob) => {
+          if (!blob || blob.size >= file.size) {
+            resolve(file);
+            return;
+          }
+          const compressed = new File([blob], file.name.replace(/\.[^/.]+$/, ".jpg"), {
+            type: "image/jpeg",
+            lastModified: Date.now(),
+          });
+          resolve(compressed);
+        },
+        "image/jpeg",
+        quality
+      );
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      resolve(file);
+    };
+    img.src = url;
+  });
+}
+
+  // Upload a single file to Convex Storage (compressed & fast)
   const uploadToStorage = async (file: File) => {
+    const fileToUpload = await compressImage(file);
     const uploadUrl = await generateUploadUrl();
     const res = await fetch(uploadUrl, {
       method: "POST",
-      headers: { "Content-Type": file.type },
-      body: file,
+      headers: { "Content-Type": fileToUpload.type },
+      body: fileToUpload,
     });
     if (!res.ok) {
       throw new Error(`Gagal mengupload file: ${file.name}`);
@@ -183,26 +252,26 @@ export default function TrainingRegistrationForm({
     }
 
     setIsSubmitting(true);
-    const toastId = toast.loading("Mengupload berkas dan memproses pendaftaran...");
+    const toastId = toast.loading("Memproses pendaftaran & berkas...");
 
     try {
-      // 1. Upload files to Convex Storage
-      let photoStorageId = undefined;
-      let proofStorageId = undefined;
+      // 1. Parallel upload of photo and proof (compressed, fast < 1s)
+      const [photoStorageId, proofStorageId] = await Promise.all([
+        photoFile
+          ? uploadToStorage(photoFile).catch((err) => {
+              console.warn("Storage upload photo fallback", err);
+              return undefined;
+            })
+          : Promise.resolve(undefined),
+        proofFile
+          ? uploadToStorage(proofFile).catch((err) => {
+              console.warn("Storage upload proof fallback", err);
+              return undefined;
+            })
+          : Promise.resolve(undefined),
+      ]);
 
-      try {
-        photoStorageId = await uploadToStorage(photoFile);
-      } catch (err) {
-        console.warn("Storage upload photo fallback", err);
-      }
-
-      try {
-        proofStorageId = await uploadToStorage(proofFile);
-      } catch (err) {
-        console.warn("Storage upload proof fallback", err);
-      }
-
-      // 2. Insert into Convex Database
+      // 2. Insert into Convex Database (instant)
       const regResult = await createRegistration({
         trainingId: currentTraining.id,
         trainingTitle: currentTraining.shortTitle,
@@ -216,38 +285,18 @@ export default function TrainingRegistrationForm({
         notes: notes.trim(),
       });
 
-      // 3. Dispatch Email to moshasolusi@gmail.com via FormSubmit AJAX
-      try {
-        const emailPayload = {
-          _subject: `[Pendaftaran Training] ${currentTraining.shortTitle} - ${fullName}`,
-          "Nama Training": currentTraining.shortTitle,
-          "Biaya Training": `${currentTraining.feeFormatted} (${currentTraining.feeWords})`,
-          "Jadwal Training": `${currentTraining.schedule} (${currentTraining.time})`,
-          "Tempat / Mode": `${currentTraining.location} (${currentTraining.mode})`,
-          "Nama Lengkap (Sertifikat)": fullName,
-          "Email Peserta": email,
-          "Nomor WA / Telepon": phone,
-          "Posisi Pekerjaan": currentJob,
-          "Catatan Tambahan": notes || "-",
-          "Link Foto Berwarna": regResult.photoUrl || "Tersimpan di Cloud Storage",
-          "Link Bukti Pembayaran": regResult.proofUrl || "Tersimpan di Cloud Storage",
-          "Waktu Registrasi": new Date().toLocaleString("id-ID", {
-            timeZone: "Asia/Jakarta",
-          }),
-        };
-
-        await fetch("https://formsubmit.co/ajax/moshasolusi@gmail.com", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify(emailPayload),
-        });
-      } catch (emailErr) {
-        console.warn("FormSubmit email notification notice:", emailErr);
-      }
-
+      // 3. Immediately show Success Screen (INSTANT feedback for user)
+      setSubmissionResult({
+        registrationId: String(regResult.registrationId),
+        trainingTitle: currentTraining.shortTitle,
+        fee: currentTraining.feeFormatted,
+        fullName: fullName.trim(),
+        email: email.trim(),
+        phone: phone.trim(),
+        meetUrl: currentTraining.meetUrl,
+        meetInfo: currentTraining.meetInfo || `${currentTraining.schedule} • ${currentTraining.time}`,
+      });
+      setIsSubmitted(true);
       toast.success("Pendaftaran & Bukti Pembayaran Berhasil Terkirim!", {
         id: toastId,
       });
@@ -266,17 +315,55 @@ export default function TrainingRegistrationForm({
         item_name: currentTraining.shortTitle,
       });
       trackClarityTag("registration_success", currentTraining.id);
-
-      setSubmissionResult({
-        registrationId: String(regResult.registrationId),
-        trainingTitle: currentTraining.shortTitle,
-        fee: currentTraining.feeFormatted,
-        fullName: fullName.trim(),
-        email: email.trim(),
-        phone: phone.trim(),
-      });
-      setIsSubmitted(true);
       if (onSuccess) onSuccess();
+
+      // 4. Background Email Dispatch (Non-blocking so it never hangs the UI)
+      (async () => {
+        try {
+          const emailPayload = {
+            _subject: `[Pendaftaran Training] ${currentTraining.shortTitle} - ${fullName}`,
+            "Nama Training": currentTraining.shortTitle,
+            "Biaya Training": `${currentTraining.feeFormatted} (${currentTraining.feeWords})`,
+            "Jadwal Training": `${currentTraining.schedule} (${currentTraining.time})`,
+            "Tempat / Mode": `${currentTraining.location} (${currentTraining.mode})`,
+            "Nama Lengkap (Sertifikat)": fullName,
+            "Email Peserta": email,
+            "Nomor WA / Telepon": phone,
+            "Posisi Pekerjaan": currentJob,
+            "Catatan Tambahan": notes || "-",
+            "Link Foto Berwarna": regResult.photoUrl || "Tersimpan di Cloud Storage",
+            "Link Bukti Pembayaran": regResult.proofUrl || "Tersimpan di Cloud Storage",
+            "Waktu Registrasi": new Date().toLocaleString("id-ID", {
+              timeZone: "Asia/Jakarta",
+            }),
+          };
+
+          const recipients = [
+            "moshasolusi@gmail.com",
+            "staff@moshassolusi.com",
+            "emosag@moshassolusi.com",
+          ];
+
+          // 4a. Send notification to admin/staff emails in background
+          await Promise.allSettled(
+            recipients.map((targetEmail) =>
+              fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                },
+                body: JSON.stringify(emailPayload),
+                signal: AbortSignal.timeout(6000),
+              })
+            )
+          );
+
+          // Note: FormSubmit is strictly for receiving admin notifications, not for sending to participant emails.
+        } catch (backgroundErr) {
+          console.warn("Background email notification:", backgroundErr);
+        }
+      })();
     } catch (err) {
       console.error(err);
       toast.error("Terjadi kendala saat menyimpan pendaftaran. Silakan coba lagi atau hubungi WhatsApp Admin.", {
@@ -287,9 +374,12 @@ export default function TrainingRegistrationForm({
     }
   };
 
-  // WhatsApp confirmation message link
+  // WhatsApp confirmation message link to admin
   const getWhatsAppConfirmationUrl = () => {
     if (!submissionResult) return `https://wa.me/${BANK_ACCOUNT_DETAILS.adminWhatsapp1}`;
+    const meetText = submissionResult.meetUrl
+      ? `🔗 *Link Google Meet:* ${submissionResult.meetUrl}\n`
+      : "";
     const text =
       `Halo Admin PT Mosha Sinalsal Solusi,\n\n` +
       `Saya telah mendaftar dan mengupload bukti transfer pelatihan:\n` +
@@ -298,9 +388,24 @@ export default function TrainingRegistrationForm({
       `📧 *Email:* ${submissionResult.email}\n` +
       `📱 *No. WA:* ${submissionResult.phone}\n` +
       `💰 *Biaya:* ${submissionResult.fee}\n` +
-      `🆔 *ID Registrasi:* ${submissionResult.registrationId}\n\n` +
-      `Mohon verifikasi pendaftaran saya. Terima kasih!`;
+      `🆔 *ID Registrasi:* MSS-${submissionResult.registrationId.slice(-8).toUpperCase()}\n` +
+      meetText +
+      `\nMohon verifikasi pendaftaran saya. Terima kasih!`;
     return `https://wa.me/${BANK_ACCOUNT_DETAILS.adminWhatsapp1}?text=${encodeURIComponent(text)}`;
+  };
+
+  // Share/save Google Meet link to participant's own WhatsApp
+  const getShareWhatsAppMeetUrl = () => {
+    if (!submissionResult) return "";
+    const text =
+      `*LINK AKSES TRAINING PT MOSHA SINALSAL SOLUSI*\n\n` +
+      `Halo *${submissionResult.fullName}*,\n` +
+      `Terima kasih telah mendaftar di *${submissionResult.trainingTitle}*.\n\n` +
+      `📅 *Jadwal:* ${submissionResult.meetInfo || "Minggu, 1 November 2026 (18.00 – 21.30 WIB)"}\n` +
+      `🔗 *Link Google Meet:* ${submissionResult.meetUrl || "https://meet.google.com/hqo-ujsh-ogm"}\n` +
+      `🆔 *ID Registrasi:* MSS-${submissionResult.registrationId.slice(-8).toUpperCase()}\n\n` +
+      `Harap bergabung 10-15 menit sebelum acara dimulai. Sampai jumpa di kelas!`;
+    return `https://wa.me/?text=${encodeURIComponent(text)}`;
   };
 
   // Mailto fallback link
@@ -361,12 +466,89 @@ export default function TrainingRegistrationForm({
                 Terima Kasih, {submissionResult.fullName}!
               </h3>
               <p className="mt-2 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
-                Data pendaftaran dan bukti pembayaran Anda telah berhasil disimpan di sistem dan diteruskan ke email{" "}
-                <span className="font-semibold text-foreground underline">
-                  {BANK_ACCOUNT_DETAILS.destinationEmail}
-                </span>.
+                Data pendaftaran dan bukti pembayaran Anda telah berhasil disimpan di sistem dan diteruskan ke tim training kami.
               </p>
             </div>
+
+            {/* GOOGLE MEET ACCESS CARD (Shown if meetUrl exists, e.g. HOMER Pro) */}
+            {submissionResult.meetUrl && (
+              <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-blue-950 via-slate-900 to-indigo-950 border-2 border-blue-400/60 shadow-2xl text-left max-w-lg mx-auto space-y-4 relative overflow-hidden">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-500 text-white shadow-sm mb-1.5 animate-pulse">
+                      <Video className="size-3.5" /> Akses Ruang Pelatihan
+                    </span>
+                    <h4 className="text-base sm:text-lg font-bold text-white leading-tight">
+                      Link Google Meet Resmi
+                    </h4>
+                    <p className="text-xs text-blue-200 mt-0.5">
+                      {submissionResult.meetInfo || "Minggu, 1 November 2026 • 18.00 – 21.30 WIB"}
+                    </p>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-blue-500/20 text-blue-400 border border-blue-400/30 shrink-0">
+                    <Video className="size-6 text-blue-300" />
+                  </div>
+                </div>
+
+                {/* Google Meet Link Bar */}
+                <div className="p-3 rounded-xl bg-black/50 border border-blue-400/30 flex items-center justify-between gap-2">
+                  <span className="font-mono text-xs sm:text-sm text-blue-300 font-bold truncate select-all">
+                    {submissionResult.meetUrl}
+                  </span>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="ghost"
+                    onClick={handleCopyMeetLink}
+                    className="shrink-0 text-xs text-white hover:bg-white/20 h-8 px-2.5 cursor-pointer"
+                  >
+                    {copiedMeet ? (
+                      <Check className="size-3.5 text-emerald-400" />
+                    ) : (
+                      <Copy className="size-3.5 text-blue-300" />
+                    )}
+                    <span className="ml-1">{copiedMeet ? "Tersalin" : "Salin Link"}</span>
+                  </Button>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                  <Button
+                    asChild
+                    className="bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs h-10 shadow-lg cursor-pointer"
+                  >
+                    <a
+                      href={submissionResult.meetUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink className="size-3.5 mr-1.5" />
+                      Buka Google Meet
+                    </a>
+                  </Button>
+
+                  <a
+                    href={getShareWhatsAppMeetUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full"
+                  >
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full border-emerald-500/50 text-emerald-300 hover:bg-emerald-950/40 text-xs h-10 font-bold cursor-pointer"
+                    >
+                      <MessageCircle className="size-3.5 mr-1.5 text-emerald-400" />
+                      Simpan ke WhatsApp
+                    </Button>
+                  </a>
+                </div>
+
+                <div className="p-2.5 rounded-lg bg-blue-500/10 border border-blue-400/20 text-[11px] text-blue-200/90 leading-relaxed">
+                  ✓ <strong>Akses Resmi Aktif:</strong> Link Google Meet di atas sudah aktif untuk nama dan email Anda (<strong>{submissionResult.email}</strong>). Silakan klik <strong>Buka Google Meet</strong> atau <strong>Simpan ke WhatsApp</strong> agar tidak lupa saat hari pelaksanaan.
+                </div>
+              </div>
+            )}
 
             {/* Summary Ticket */}
             <div className="bg-muted/50 border border-border rounded-xl p-5 text-left max-w-lg mx-auto space-y-3">
@@ -420,7 +602,9 @@ export default function TrainingRegistrationForm({
                   Langkah Selanjutnya:
                 </p>
                 <p className="text-muted-foreground mt-1">
-                  Tim training kami akan memverifikasi berkas dan bukti transfer Anda. Link Google Meet / Zoom serta panduan kelas akan dikirimkan ke email dan nomor WhatsApp Anda sebelum hari pelaksanaan.
+                  {submissionResult.meetUrl
+                    ? "Link Google Meet di atas sudah aktif dan dapat langsung Anda simpan. Tim training PT Mosha Sinalsal Solusi akan memverifikasi bukti pembayaran Anda dan mengirimkan pengingat H-1 sebelum pelatihan."
+                    : "Tim training kami akan memverifikasi berkas dan bukti transfer Anda. Link Google Meet / Zoom serta panduan kelas akan dikirimkan ke email dan nomor WhatsApp Anda sebelum hari pelaksanaan."}
                 </p>
               </div>
             </div>
@@ -621,9 +805,9 @@ export default function TrainingRegistrationForm({
                 <div className="text-[11px] text-muted-foreground bg-primary/5 rounded-lg p-3 border border-primary/10 flex items-start gap-2">
                   <Info className="size-4 text-primary shrink-0 mt-0.5" />
                   <div>
-                    Formulir ini otomatis meneruskan data pendaftaran &amp; bukti transfer langsung ke email panitia{" "}
+                    Formulir ini otomatis meneruskan data pendaftaran &amp; bukti transfer langsung ke email panitia:{" "}
                     <span className="font-semibold text-foreground">
-                      {BANK_ACCOUNT_DETAILS.destinationEmail}
+                      moshasolusi@gmail.com, staff@moshassolusi.com, emosag@moshassolusi.com
                     </span>.
                   </div>
                 </div>

@@ -15,6 +15,8 @@ export interface TrainingOption {
   description: string;
   badge?: string;
   image?: string;
+  meetUrl?: string;
+  meetInfo?: string;
 }
 
 export const BANK_ACCOUNT_DETAILS = {
@@ -28,6 +30,26 @@ export const BANK_ACCOUNT_DETAILS = {
 };
 
 export const AVAILABLE_TRAININGS: TrainingOption[] = [
+  {
+    id: "homer-pro",
+    name: "TRAINING HOMER PRO (Desain, Simulasi & Analisis PLTS Hybrid) - Rp 300.000",
+    shortTitle: "TRAINING HOMER PRO (Desain, Simulasi & Analisis PLTS Hybrid)",
+    category: "Renewable Energy (PLTS)",
+    fee: 300000,
+    feeFormatted: "Rp 300.000",
+    feeWords: "Tiga Ratus Ribu Rupiah",
+    schedule: "Minggu, 1 November 2026",
+    time: "18.00 – 21.30 WIB",
+    location: "Live Online Training Lewat Google Meet",
+    mode: "Online",
+    organizer: "PT Mosha Sinalsal Solusi dan Masyarakat Sistem Energi Berkelanjutan Indonesia (www.masebi.org)",
+    paymentDeadline: "31 Oktober 2026",
+    description: "Desain, Simulasi dan Analisis Pembangkit Listrik Tenaga Surya (PLTS) Hybrid Menggunakan HOMER Pro. Outline Materi: 01 Pendahuluan (Kapabilitas HOMER Pro), 02 Desain (Beban Listrik, Komponen & Parameter Ekonomi), 03 Simulasi & Optimasi Teknis & Biaya, 04 Analisis Teknis, Finansial (CAPEX, OPEX, LCOE) dan Emisi CO2.",
+    badge: "Terbaru & Online",
+    image: "/images/flyer-pelatihan-homer-pro.png",
+    meetUrl: "https://meet.google.com/hqo-ujsh-ogm",
+    meetInfo: "Sunday, November 1 · 6:00 – 9:30pm (Time zone: Asia/Jakarta)",
+  },
   {
     id: "plts-commissioning",
     name: "TRAINING PENGENALAN, DESAIN & COMMISSIONING PLTS - Rp 250.000",

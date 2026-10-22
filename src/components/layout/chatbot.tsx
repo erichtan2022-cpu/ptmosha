@@ -621,26 +621,31 @@ function generateSmartConsultantResponse(
   // 1a. Comparison / Difference between active trainings
   if (
     (text.includes("beda") || text.includes("perbedaan") || text.includes("banding") || text.includes("compare")) &&
-    (text.includes("plts") || text.includes("oil") || text.includes("gas") || text.includes("training") || text.includes("pelatihan") || text.includes("kursus"))
+    (text.includes("plts") || text.includes("oil") || text.includes("gas") || text.includes("homer") || text.includes("training") || text.includes("pelatihan") || text.includes("kursus"))
   ) {
     return {
       text:
-        "🔍 **Perbandingan 2 Program Pelatihan Unggulan PT Mosha:**\n\n" +
-        "☀️ **1. Pengenalan, Desain & Commissioning PLTS (Terbaru - Online)**\n" +
-        "• **Fokus**: Sistem Energi Terbarukan & Tenaga Surya (Modul PV, Inverter Hibrida Cerdas, Baterai Terintegrasi, Distribusi DC, Smart Metering, Desain & Commissioning PLTS).\n" +
-        "• **Metode**: **Online via Google Meet / Zoom** (bisa diikuti dari seluruh Indonesia).\n" +
-        "• **Jadwal**: Sabtu, 17 Oktober 2026 | 18.00 – 21.30 WIB.\n" +
+        "🔍 **Perbandingan 3 Program Pelatihan Unggulan PT Mosha:**\n\n" +
+        "🆕 **1. HOMER PRO – Desain, Simulasi & Analisis PLTS Hybrid (TERBARU - Online)**\n" +
+        "• **Fokus**: Software HOMER Pro untuk desain, simulasi & analisis ekonomi sistem PLTS Hybrid (Panel, Baterai, Genset, NPC, COE, ROI).\n" +
+        "• **Metode**: **Online via Google Meet** (dari seluruh Indonesia).\n" +
+        "• **Jadwal**: Minggu, 1 November 2026 | 18.00 – 21.30 WIB | Biaya: **Rp 300.000**\n" +
+        "• **Pendaftaran**: /pendaftaran?training=homer-pro | WA: 0822268195332 / 082392907198\n\n" +
+        "☀️ **2. Pengenalan, Desain & Commissioning PLTS (Online)**\n" +
+        "• **Fokus**: Sistem Energi Terbarukan & Tenaga Surya (Modul PV, Inverter Hibrida, Baterai, Distribusi DC, Desain & Commissioning PLTS).\n" +
+        "• **Metode**: **Online via Google Meet / Zoom** (dari seluruh Indonesia).\n" +
+        "• **Jadwal**: Sabtu, 17 Oktober 2026 | 18.00 – 21.30 WIB | Biaya: **Rp 250.000**\n" +
         "• **Pendaftaran**: [bit.ly/3T6EePy](https://bit.ly/3T6EePy) | WA: 0822268195332 / 082392907198\n\n" +
-        "⚙️ **2. Commissioning Fasilitas Oil & Gas & Pembangkit Listrik (Tatap Muka Batam)**\n" +
+        "⚙️ **3. Commissioning Fasilitas Oil & Gas & Pembangkit Listrik (Tatap Muka Batam)**\n" +
         "• **Fokus**: Fasilitas industri Migas & Pembangkit Listrik konvensional (10 Modul: P&ID Markup, Mechanical Completion, ITR, Vendor Support, Piping, E&I, Hydrocarbon Startup, Handover).\n" +
         "• **Metode**: **Offline Tatap Muka di Batam** (Ruko Bukit Kemuning Blok DD3 No. 02, Batam).\n" +
-        "• **Jadwal**: 26 – 27 September 2026 (Sabtu & Minggu) | 13.30 – 18.00 WIB.\n" +
+        "• **Jadwal**: 26 – 27 September 2026 (Sabtu & Minggu) | 13.30 – 18.00 WIB | Biaya: **Rp 1.500.000**\n" +
         "• **Pendaftaran**: [bit.ly/4cz9xct](https://bit.ly/4cz9xct) | WA: 082268195332\n\n" +
-        "💡 **Rekomendasi**: Pilih **PLTS** jika ingin belajar energi terbarukan secara fleksibel dari rumah, atau pilih **Oil & Gas** jika ingin mendalami commissioning industri migas tatap muka di Batam!",
-      options: ["☀️ Daftar PLTS Online", "⚙️ Daftar Oil & Gas Batam", "💬 Hubungi WA Admin"],
+        "💡 **Rekomendasi**: Pilih **HOMER Pro** jika ingin kuasai software simulasi PLTS Hybrid, pilih **PLTS** untuk dasar energi surya online, atau pilih **Oil & Gas** untuk commissioning industri migas tatap muka di Batam!",
+      options: ["🆕 Daftar HOMER Pro (1 Nov)", "☀️ Daftar PLTS Online", "⚙️ Daftar Oil & Gas Batam", "💬 Hubungi WA Admin"],
       actionLink: {
-        label: "Daftar Training PLTS (Online)",
-        url: REGISTRATION_LINK_PLTS,
+        label: "Daftar Training HOMER Pro (Terbaru)",
+        url: "/pendaftaran?training=homer-pro",
       },
     };
   }
@@ -657,28 +662,64 @@ function generateSmartConsultantResponse(
     return {
       text:
         "📅 **Jadwal & Program Pelatihan Unggulan Terdekat di PT Mosha:**\n\n" +
-        "☀️ **1. [TERBARU - ONLINE] Pengenalan, Desain & Commissioning PLTS**\n" +
+        "🆕 **1. [TERBARU - ONLINE] HOMER PRO – Desain, Simulasi & Analisis PLTS Hybrid**\n" +
+        "• 🗓️ **Jadwal**: Minggu, 1 November 2026\n" +
+        "• ⏰ **Waktu**: 18.00 – 21.30 WIB\n" +
+        "• 💻 **Media**: Online via Google Meet\n" +
+        "• 💰 **Biaya**: Rp 300.000 (batas bayar: 31 Okt 2026)\n" +
+        "• 📚 **Materi**: Pengenalan HOMER Pro, Input Data Lokasi & Beban, Konfigurasi PLTS Hybrid, Simulasi & Optimasi, Analisis NPC/COE/ROI\n" +
+        "• 📝 **Daftar**: /pendaftaran?training=homer-pro\n\n" +
+        "☀️ **2. [ONLINE] Pengenalan, Desain & Commissioning PLTS**\n" +
         "• 🗓️ **Jadwal**: Sabtu, 17 Oktober 2026\n" +
         "• ⏰ **Waktu**: 18.00 – 21.30 WIB\n" +
         "• 💻 **Media**: Online via Google Meet / Zoom\n" +
+        "• 💰 **Biaya**: Rp 250.000\n" +
         "• 📚 **Materi**: Modul PV, Inverter Hibrida Cerdas, Baterai Terintegrasi, Distribusi DC, Smart Grid, Desain & Commissioning PLTS\n" +
         "• 📝 **Daftar**: [bit.ly/3T6EePy](https://bit.ly/3T6EePy)\n\n" +
-        "⚙️ **2. [OFFLINE BATAM] Commissioning Fasilitas Oil & Gas & Pembangkit Listrik**\n" +
+        "⚙️ **3. [OFFLINE BATAM] Commissioning Fasilitas Oil & Gas & Pembangkit Listrik**\n" +
         "• 🗓️ **Jadwal**: 26 – 27 September 2026 (Sabtu & Minggu)\n" +
         "• ⏰ **Waktu**: 13.30 – 18.00 WIB\n" +
         "• 📍 **Lokasi**: Ruko Bukit Kemuning Blok DD3 No. 02, Batam\n" +
         "• 📚 **Materi**: 10 Modul Lengkap Commissioning Migas, P&ID Markup, Mechanical Completion, ITR, Piping, E&I, Hydrocarbon Startup\n" +
         "• 📝 **Daftar**: [bit.ly/4cz9xct](https://bit.ly/4cz9xct)\n\n" +
         "Pelatihan mana yang ingin Anda ikuti?",
-      options: ["☀️ Daftar PLTS Online (17 Okt)", "⚙️ Daftar Oil & Gas Batam (26-27 Sept)", "❓ Beda PLTS & Oil Gas?", "💬 WA Admin"],
+      options: ["🆕 Daftar HOMER Pro (1 Nov)", "☀️ Daftar PLTS Online (17 Okt)", "⚙️ Daftar Oil & Gas Batam (26-27 Sept)", "💬 WA Admin"],
       actionLink: {
-        label: "Daftar Pelatihan PLTS (Online)",
-        url: REGISTRATION_LINK_PLTS,
+        label: "Daftar Pelatihan HOMER Pro (Terbaru)",
+        url: "/pendaftaran?training=homer-pro",
       },
     };
   }
 
-  // 1c. PLTS Specific Training Query
+  // 1c. HOMER Pro Specific Training Query
+  if (text.includes("homer") || text.includes("homer pro") || text.includes("hybrid") || text.includes("simulasi plts")) {
+    return {
+      text:
+        "🆕 **Pelatihan Terbaru: HOMER PRO – Desain, Simulasi & Analisis PLTS Hybrid Menggunakan HOMER Pro**\n\n" +
+        "Diselenggarakan oleh **PT Mosha Sinalsal Solusi & Masebi** secara Online via Google Meet.\n\n" +
+        "• 🗓️ **Hari & Tanggal**: Minggu, 1 November 2026\n" +
+        "• ⏰ **Waktu**: 18.00 – 21.30 WIB\n" +
+        "• 💻 **Platform**: Online via Google Meet\n" +
+        "• 💰 **Biaya**: Rp 300.000 (batas pembayaran: 31 Oktober 2026)\n" +
+        "• ⚡ **Topik Bahasan Utama**:\n" +
+        "  1. Pengenalan Software HOMER Pro & Antarmuka\n" +
+        "  2. Input Data Lokasi, Sumber Energi & Beban\n" +
+        "  3. Konfigurasi Komponen PLTS Hybrid (Panel, Baterai, Genset)\n" +
+        "  4. Simulasi & Optimasi Sistem PLTS Hybrid\n" +
+        "  5. Analisis Kelayakan Teknis & Ekonomis (NPC, COE, ROI)\n" +
+        "  6. Interpretasi Hasil Simulasi & Laporan Output\n" +
+        "• 🎁 **Benefit**: Softcopy Modul, Sertifikat dari PT Mosha & Masebi, Rekaman Video Training, Akses File HOMER Pro Contoh Project, Bergabung Grup Komunitas PLTS, Peluang Kerjasama Bisnis.\n\n" +
+        "📝 Formulir pendaftaran: /pendaftaran?training=homer-pro\n" +
+        "📞 WhatsApp Pendaftaran: 0822268195332 / 082392907198",
+      options: ["📝 Daftar HOMER Pro (1 Nov)", "💬 Chat WA Admin", "❓ Apa Beda HOMER Pro & PLTS Biasa?"],
+      actionLink: {
+        label: "Buka Form Daftar HOMER Pro",
+        url: "/pendaftaran?training=homer-pro",
+      },
+    };
+  }
+
+  // 1d. PLTS Specific Training Query
   if (text.includes("plts") || text.includes("surya") || text.includes("solar") || text.includes("photovoltaic")) {
     return {
       text:
@@ -697,7 +738,7 @@ function generateSmartConsultantResponse(
         "• 🎁 **Benefit**: Softcopy Modul Training, Sertifikat Dari Perusahaan, Rekaman Video Training, Bergabung Dalam Grup & Komunitas PLTS, Peluang Kerjasama Bisnis.\n\n" +
         "📝 Formulir pendaftaran resmi: [bit.ly/3T6EePy](https://bit.ly/3T6EePy)\n" +
         "📞 WhatsApp Pendaftaran: 0822268195332 / 082392907198",
-      options: ["📝 Daftar PLTS (bit.ly/3T6EePy)", "💬 Chat WA Admin PLTS", "❓ Apa Beda PLTS & Oil Gas?"],
+      options: ["📝 Daftar PLTS (bit.ly/3T6EePy)", "💬 Chat WA Admin PLTS", "🆕 Lihat Training HOMER Pro (Terbaru)"],
       actionLink: {
         label: "Buka Form Daftar PLTS (bit.ly/3T6EePy)",
         url: REGISTRATION_LINK_PLTS,
@@ -738,15 +779,16 @@ function generateSmartConsultantResponse(
     return {
       text:
         "💳 **Informasi Biaya & Pembayaran Pelatihan PT Mosha Sinalsal Solusi:**\n\n" +
+        "• **Training HOMER PRO (Online - 1 Nov 2026)**: Rp 300.000 *(Terbaru!)*\n" +
         "• **Training PLTS (Online - 17 Okt 2026)**: Rp 250.000\n" +
         "• **Training Oil & Gas (Offline Batam)**: Rp 1.500.000\n" +
         "• **Training Oil & Gas (Online)**: Rp 500.000\n\n" +
         "📝 **Rekening Resmi Pembayaran:**\n" +
         "• **Bank Central Asia (BCA)**: 3262681995\n" +
         "• **Atas Nama**: PT Mosha Sinalsal Solusi\n" +
-        "• **Email Verifikasi**: moshasolusi@gmail.com\n\n" +
+        "• **Email Konfirmasi**: moshasolusi@gmail.com | staff@moshassolusi.com | emosag@moshassolusi.com\n\n" +
         "Anda dapat langsung mendaftar dan mengunggah bukti transfer melalui formulir online kami:",
-      options: ["📝 Buka Formulir Pendaftaran", "💬 Hubungi WA Training", "📅 Jadwal Terdekat"],
+      options: ["🆕 Daftar HOMER Pro (Rp 300rb)", "📝 Buka Formulir Pendaftaran", "💬 Hubungi WA Training", "📅 Jadwal Terdekat"],
       actionLink: {
         label: "Buka Formulir Pendaftaran & Bayar",
         url: "/pendaftaran",

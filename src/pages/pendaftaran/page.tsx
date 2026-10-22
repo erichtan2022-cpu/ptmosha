@@ -97,7 +97,7 @@ export default function PendaftaranPage() {
             <div>
               <h4 className="text-xs font-bold text-foreground">Verifikasi &amp; Email Konfirmasi</h4>
               <p className="text-[11px] text-muted-foreground mt-0.5">
-                Data pendaftaran dan bukti transfer langsung diverifikasi dan diteruskan ke email panitia (moshasolusi@gmail.com).
+                Data pendaftaran dan bukti transfer langsung diverifikasi dan diteruskan ke email panitia: moshasolusi@gmail.com, staff@moshassolusi.com, emosag@moshassolusi.com.
               </p>
             </div>
           </div>
