@@ -207,7 +207,7 @@ export default function VerifikasiSertifikatPage() {
               </div>
               <div>
                 <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
-                  Sertifikat Digital
+                  Dokumen Asli Resmi
                 </p>
                 <h4 className="text-base font-bold text-foreground">
                   Dilengkapi QR Verifikasi
