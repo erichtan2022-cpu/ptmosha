@@ -1,10 +1,19 @@
 import { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button.tsx";
 import SEOHead from "@/components/seo/seo-head.tsx";
 
 export default function NotFound() {
   const location = useLocation();
+
+  // If user scans a custom or typo QR URL like /pendaftaran-corporate%20esg%20strategy
+  if (
+    location.pathname.startsWith("/pendaftaran-") ||
+    location.pathname.startsWith("/pendaftaran/")
+  ) {
+    const rawSlug = location.pathname.replace(/^\/pendaftaran[-/]?/, "");
+    return <Navigate to={`/pendaftaran?training=${encodeURIComponent(rawSlug)}`} replace />;
+  }
 
   useEffect(() => {
     console.error(

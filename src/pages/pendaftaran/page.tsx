@@ -1,30 +1,55 @@
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams, useParams, useLocation, Link } from "react-router-dom";
 import { motion } from "motion/react";
 import {
   GraduationCap,
   ArrowLeft,
   ShieldCheck,
   Zap,
-  HelpCircle,
   FileCheck2,
   PhoneCall,
+  Sparkles,
 } from "lucide-react";
 import TrainingRegistrationForm from "@/components/training/training-registration-form.tsx";
-import { BANK_ACCOUNT_DETAILS } from "@/data/training-programs.ts";
-import { Button } from "@/components/ui/button.tsx";
+import {
+  BANK_ACCOUNT_DETAILS,
+  findTrainingBySlug,
+  AVAILABLE_TRAININGS,
+} from "@/data/training-programs.ts";
 import SEOHead from "@/components/seo/seo-head.tsx";
 
 export default function PendaftaranPage() {
   const [searchParams] = useSearchParams();
-  const trainingParam = searchParams.get("training") || "plts-commissioning";
+  const params = useParams<{ slug?: string }>();
+  const location = useLocation();
+
+  // Resolve training from query param, path param, or raw pathname
+  const queryTraining = searchParams.get("training");
+  const pathSlug = params.slug;
+  const fullPath = location.pathname;
+
+  const matchedTraining =
+    (queryTraining ? findTrainingBySlug(queryTraining) : undefined) ||
+    (pathSlug ? findTrainingBySlug(pathSlug) : undefined) ||
+    findTrainingBySlug(fullPath);
+
+  // If matched, pre-select it; otherwise leave empty so user must select first
+  const initialTrainingId = matchedTraining ? matchedTraining.id : "";
+
+  const pageTitle = matchedTraining
+    ? `Pendaftaran & Pembayaran ${matchedTraining.shortTitle}`
+    : "Pendaftaran & Pembayaran Training Resmi";
+
+  const pageDesc = matchedTraining
+    ? `Formulir pendaftaran resmi & konfirmasi pembayaran ${matchedTraining.shortTitle}. Biaya: ${matchedTraining.feeFormatted}. Pembayaran ke BCA 3262681995 a.n PT Mosha Sinalsal Solusi.`
+    : "Formulir pendaftaran resmi dan konfirmasi pembayaran pelatihan PT Mosha Sinalsal Solusi. Pilih program training, bayar ke BCA 3262681995, dan upload bukti transfer langsung.";
 
   return (
     <div className="min-h-screen bg-muted/20 py-8 sm:py-12">
       <SEOHead
-        title="Pendaftaran & Pembayaran Training"
-        path="/pendaftaran"
-        description="Formulir pendaftaran resmi dan konfirmasi pembayaran pelatihan PT Mosha Sinalsal Solusi. Pilih program training, bayar ke BCA 3262681995, dan upload bukti transfer langsung."
-        keywords="pendaftaran training, pembayaran pelatihan, formulir registrasi, BCA PT Mosha, daftar training PLTS, daftar commissioning"
+        title={pageTitle}
+        path={location.pathname}
+        description={pageDesc}
+        keywords="pendaftaran training, pembayaran pelatihan, formulir registrasi, BCA PT Mosha, corporate esg strategy, daftar training PLTS, daftar commissioning"
       />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Navigation Breadcrumb / Back button */}
@@ -38,7 +63,9 @@ export default function PendaftaranPage() {
           </Link>
 
           <a
-            href={`https://wa.me/${BANK_ACCOUNT_DETAILS.adminWhatsapp1}?text=Halo%20Admin%20PT%20Mosha,%20saya%20butuh%20bantuan%20terkait%20pendaftaran%20training`}
+            href={`https://wa.me/${BANK_ACCOUNT_DETAILS.adminWhatsapp1}?text=Halo%20Admin%20PT%20Mosha,%20saya%20butuh%20bantuan%20terkait%20pendaftaran%20training${
+              matchedTraining ? `%20${encodeURIComponent(matchedTraining.shortTitle)}` : ""
+            }`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 text-xs text-emerald-600 hover:text-emerald-700 font-semibold"
@@ -59,16 +86,31 @@ export default function PendaftaranPage() {
             <GraduationCap className="size-4" />
             Pendaftaran &amp; Pembayaran Resmi
           </div>
+
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
-            Formulir Pendaftaran &amp; Konfirmasi Pembayaran
+            {matchedTraining ? (
+              <>
+                Pendaftaran{" "}
+                <span className="text-accent">{matchedTraining.shortTitle}</span>
+              </>
+            ) : (
+              "Formulir Pendaftaran & Konfirmasi Pembayaran"
+            )}
           </h1>
+
           <p className="text-sm sm:text-base text-muted-foreground">
-            Lengkapi data diri Anda, pilih program pelatihan yang sedang dibuka, lakukan pembayaran ke rekening resmi PT Mosha Sinalsal Solusi, dan lampirkan bukti transfer untuk validasi.
+            {matchedTraining ? (
+              <>
+                Program terpilih otomatis: <strong className="text-foreground">{matchedTraining.name}</strong>. Silakan periksa rincian biaya, lakukan pembayaran ke rekening resmi BCA, dan lengkapi data diri Anda di bawah.
+              </>
+            ) : (
+              "Silakan pilih program pelatihan yang ingin Anda ikuti pada dropdown di bawah, kemudian lengkapi data diri dan lampirkan bukti pembayaran resmi untuk validasi."
+            )}
           </p>
         </motion.div>
 
         {/* Core Form Component */}
-        <TrainingRegistrationForm initialTrainingId={trainingParam} />
+        <TrainingRegistrationForm initialTrainingId={initialTrainingId} />
 
         {/* Value Props & Guarantee Footnotes */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-border">

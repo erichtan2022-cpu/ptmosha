@@ -18,8 +18,9 @@ type Training = {
 };
 
 const TRAININGS: Training[] = [
-  { no: 1, topic: "HOMER PRO - Desain, Simulasi & Analisis PLTS Hybrid Menggunakan HOMER Pro", duration: "1 x 3,5 jam (1 Nov 2026)", mode: "Online", notes: "Live Online Google Meet – Rp 300.000" },
-  { no: 2, topic: "Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya)", duration: "1 x 3,5 jam (17 Okt 2026)", mode: "Online", notes: "Google Meet / Zoom (Penyelenggara PT Mosha & Masebi)" },
+  { no: 1, topic: "BOOTCAMP CORPORATE ESG STRATEGY & SUSTAINABILITY MANAGEMENT (8+ Sesi Live & Intensif)", duration: "8+ Sesi Live (Mulai 6 Nov 2026)", mode: "Online", notes: "Live Zoom Meeting – Promo Rp 3.100.000 (Coret Rp 5 Juta)" },
+  { no: 2, topic: "HOMER PRO - Desain, Simulasi & Analisis PLTS Hybrid Menggunakan HOMER Pro", duration: "1 x 3,5 jam (1 Nov 2026)", mode: "Online", notes: "Live Online Google Meet – Rp 300.000" },
+  { no: 3, topic: "Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya)", duration: "1 x 3,5 jam (17 Okt 2026)", mode: "Online", notes: "Google Meet / Zoom (Penyelenggara PT Mosha & Masebi)" },
   { no: 3, topic: "Commissioning Oil & Gas dan Sistem Pembangkit Listrik", duration: "2 x 2,5 jam", mode: "Online", notes: "-" },
   { no: 4, topic: "Commissioning Oil & Gas dan Sistem Pembangkit Listrik", duration: "2 x 5 jam", mode: "Offline (Tatap muka)", notes: "4 hingga 12 peserta (Batam)" },
   { no: 5, topic: "Commissioning Mechanical & Piping", duration: "2 x 2,5 jam", mode: "Online", notes: "-" },

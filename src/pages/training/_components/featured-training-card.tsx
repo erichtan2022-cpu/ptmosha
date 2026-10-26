@@ -21,12 +21,23 @@ import {
   Monitor,
   BarChart3,
   Cpu,
+  Sparkles,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button.tsx";
 import { Badge } from "@/components/ui/badge.tsx";
 
 // Data for HOMER Pro (Featured Top Card)
+const ESG_OUTLINE = [
+  "ESG Communication, Avoiding Greenwashing & Career Path",
+  "Materiality Assessment & Stakeholder Mapping",
+  "Corporate Carbon Accounting & GHG Protocol",
+  "Decarbonization Strategy & Circular Economy",
+  "Social Impact, DEI, and Human Rights in Business",
+  "Corporate Governance, Risk Management & Sustainable Finance",
+  "Mastering Sustainability Reporting",
+];
+
 const HOMER_OUTLINE = [
   "Pengenalan Software HOMER Pro & Antarmuka",
   "Input Data Lokasi, Sumber Energi & Beban",
@@ -117,6 +128,156 @@ export default function FeaturedTrainingCard() {
           <p className="mt-3 text-muted-foreground text-sm sm:text-base">
             Tingkatkan kompetensi profesional Anda melalui pelatihan intensif Energi Terbarukan (PLTS) online dan Commissioning Industri Oil &amp; Gas tatap muka.
           </p>
+        </motion.div>
+
+        {/* =========================================================================
+            FEATURED HERO BOOTCAMP: CORPORATE ESG STRATEGY & SUSTAINABILITY MANAGEMENT
+            ========================================================================= */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-10 rounded-2xl border-2 border-emerald-500/60 hover:border-emerald-500 bg-gradient-to-br from-card via-card to-emerald-500/5 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden"
+        >
+          <div className="h-2 w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-amber-500" />
+          <div className="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+            {/* Left: Poster / Flyer Preview */}
+            <div className="lg:col-span-4 flex flex-col items-center justify-center">
+              <div
+                onClick={() =>
+                  setPreviewImage({
+                    src: "/images/flyer-corporate-esg-strategy.jpg",
+                    title: "Brosur Corporate ESG Strategy & Sustainability Management",
+                  })
+                }
+                className="relative bg-black/90 p-2 rounded-xl shadow-lg border border-emerald-500/30 overflow-hidden cursor-pointer group/img max-w-xs w-full"
+              >
+                <img
+                  src="/images/flyer-corporate-esg-strategy.jpg"
+                  alt="Corporate ESG Strategy & Sustainability Management Bootcamp"
+                  className="w-full h-auto max-h-72 object-contain rounded transition-transform duration-500 group-hover/img:scale-105"
+                />
+                <span className="absolute top-4 right-4 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-black bg-emerald-600 text-white shadow-md animate-pulse">
+                  <Sparkles className="size-3.5" /> Bootcamp Terpopuler
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end justify-center p-3">
+                  <span className="text-white text-xs font-semibold drop-shadow flex items-center gap-1">
+                    <Maximize2 className="size-3.5" /> Klik untuk perbesar brosur
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Middle: Details & Silabus */}
+            <div className="lg:col-span-5 space-y-4">
+              <div className="space-y-1.5">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Badge className="bg-emerald-600 text-white font-bold text-xs uppercase">
+                    Bootcamp Intensif
+                  </Badge>
+                  <Badge variant="outline" className="border-emerald-500/40 text-emerald-600 dark:text-emerald-400 font-semibold text-xs">
+                    Online Zoom Meeting
+                  </Badge>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black text-foreground tracking-tight">
+                  CORPORATE ESG STRATEGY &amp; SUSTAINABILITY MANAGEMENT
+                </h3>
+                <p className="text-xs sm:text-sm text-muted-foreground">
+                  Tingkatkan karir profesional Anda dengan kurikulum terlengkap: Carbon Accounting, GHG Protocol, Decarbonization, Governance &amp; Sustainability Reporting.
+                </p>
+              </div>
+
+              {/* Schedule Info Box */}
+              <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                <div className="flex items-center gap-2 text-foreground">
+                  <Calendar className="size-4 text-emerald-600 shrink-0" />
+                  <div>
+                    <span className="font-bold block">Jumat, 6 Nov 2026</span>
+                    <span className="text-[11px] text-muted-foreground">8+ Sesi Live &amp; Intensif</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 text-foreground">
+                  <Video className="size-4 text-emerald-600 shrink-0" />
+                  <div>
+                    <span className="font-bold block">Online Zoom Meeting</span>
+                    <span className="text-[11px] text-muted-foreground">Live interaktif &amp; diskusi</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Benefits Chips */}
+              <div className="space-y-1.5">
+                <h5 className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1">
+                  <Award className="size-3.5 text-emerald-600" /> Benefit Peserta:
+                </h5>
+                <div className="flex flex-wrap gap-1.5">
+                  <span className="text-[11px] px-2 py-0.5 rounded-md bg-muted border border-border text-foreground">
+                    ✓ E-Sertifikat Kelulusan
+                  </span>
+                  <span className="text-[11px] px-2 py-0.5 rounded-md bg-muted border border-border text-foreground">
+                    ✓ E-Sertifikat Karbon
+                  </span>
+                  <span className="text-[11px] px-2 py-0.5 rounded-md bg-muted border border-border text-foreground">
+                    ✓ Gratis Mini Class Zonaebt
+                  </span>
+                  <span className="text-[11px] px-2 py-0.5 rounded-md bg-muted border border-border text-foreground">
+                    ✓ Recording &amp; Study Case
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Investment & Register CTA */}
+            <div className="lg:col-span-3 flex flex-col justify-center space-y-4 p-5 rounded-2xl bg-card border-2 border-emerald-500/30 text-center sm:text-left">
+              <div>
+                <span className="text-xs uppercase font-bold text-muted-foreground tracking-wider block">
+                  Biaya Investasi
+                </span>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="text-sm line-through text-rose-500 font-bold">
+                    Rp 5.000.000
+                  </span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-600 font-extrabold border border-rose-500/20">
+                    Hemat 38%
+                  </span>
+                </div>
+                <span className="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400 block mt-0.5">
+                  Rp 3.100.000
+                </span>
+                <p className="text-[11px] text-muted-foreground mt-1">
+                  Pembayaran via transfer BCA 3262681995 a.n PT Mosha Sinalsal Solusi
+                </p>
+              </div>
+
+              <div className="space-y-2 pt-2 border-t border-border">
+                <Button
+                  asChild
+                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm h-11 shadow-lg cursor-pointer"
+                >
+                  <Link to="/pendaftaran-corporate-esg-strategy">
+                    <CreditCard className="size-4 mr-2" />
+                    Daftar Sekarang
+                  </Link>
+                </Button>
+
+                <a
+                  href="https://wa.me/62822268195332?text=Halo%20Admin%20PT%20Mosha,%20saya%20tertarik%20dengan%20Bootcamp%20Corporate%20ESG%20Strategy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Button
+                    variant="outline"
+                    className="w-full border-emerald-600/40 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-xs font-semibold h-9 cursor-pointer"
+                  >
+                    <MessageCircle className="size-3.5 mr-1.5 text-emerald-600" />
+                    Tanya via WhatsApp
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </div>
         </motion.div>
 
         {/* 3-Column Grid: All 3 Training Programs in ONE ROW on desktop */}

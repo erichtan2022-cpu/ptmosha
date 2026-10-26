@@ -34,11 +34,25 @@ export default function App() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/training" element={<TrainingPage />} />
               <Route path="/consultant" element={<ConsultantPage />} />
+
+              {/* General & Dynamic registration routes */}
               <Route path="/pendaftaran" element={<PendaftaranPage />} />
+              <Route path="/pendaftaran/:slug" element={<PendaftaranPage />} />
               <Route path="/pendaftaran-training" element={<PendaftaranPage />} />
+
+              {/* Direct QR code registration routes for all programs */}
+              <Route path="/pendaftaran-corporate-esg-strategy" element={<PendaftaranPage />} />
+              <Route path="/pendaftaran-corporate-esg" element={<PendaftaranPage />} />
+              <Route path="/pendaftaran-esg" element={<PendaftaranPage />} />
+              <Route path="/pendaftaran-homer-pro" element={<PendaftaranPage />} />
+              <Route path="/pendaftaran-plts-commissioning" element={<PendaftaranPage />} />
+              <Route path="/pendaftaran-oil-gas-power-plant-offline" element={<PendaftaranPage />} />
+              <Route path="/pendaftaran-oil-gas-power-plant-online" element={<PendaftaranPage />} />
+              <Route path="/pendaftaran-mechanical-piping-commissioning" element={<PendaftaranPage />} />
+              <Route path="/pendaftaran-electrical-instrument-commissioning" element={<PendaftaranPage />} />
+
               <Route path="/verifikasi-sertifikat" element={<VerifikasiSertifikatPage />} />
               <Route path="/alumni" element={<VerifikasiSertifikatPage />} />
-              {/* ADD CUSTOM ROUTES HERE */}
             </Route>
 
             <Route path="*" element={<NotFound />} />

@@ -5,6 +5,8 @@ export interface TrainingOption {
   category: string;
   fee: number;
   feeFormatted: string;
+  originalFee?: number;
+  originalFeeFormatted?: string;
   feeWords: string;
   schedule: string;
   time: string;
@@ -17,6 +19,9 @@ export interface TrainingOption {
   image?: string;
   meetUrl?: string;
   meetInfo?: string;
+  syllabus?: string[];
+  benefits?: string[];
+  slugAliases?: string[];
 }
 
 export const BANK_ACCOUNT_DETAILS = {
@@ -30,6 +35,54 @@ export const BANK_ACCOUNT_DETAILS = {
 };
 
 export const AVAILABLE_TRAININGS: TrainingOption[] = [
+  {
+    id: "corporate-esg-strategy",
+    name: "BOOTCAMP CORPORATE ESG STRATEGY & SUSTAINABILITY MANAGEMENT - Rp 3.100.000",
+    shortTitle: "Corporate ESG Strategy & Sustainability Management Bootcamp",
+    category: "ESG & Sustainability",
+    fee: 3100000,
+    feeFormatted: "Rp 3.100.000",
+    originalFee: 5000000,
+    originalFeeFormatted: "Rp 5.000.000",
+    feeWords: "Tiga Juta Seratus Ribu Rupiah",
+    schedule: "Mulai Jumat, 6 November 2026",
+    time: "8+ Sesi Live & Intensif (19.00 – 21.00 WIB)",
+    location: "Online Zoom Meeting",
+    mode: "Online",
+    organizer: "PT Mosha Sinalsal Solusi, Zonaebt & Masebi",
+    paymentDeadline: "5 November 2026",
+    description: "Tingkatkan karir profesional Anda dengan program Bootcamp intensif Corporate ESG Strategy & Sustainability Management. Diselenggarakan melalui Online Zoom Meeting 8+ Sesi Live & Intensif.",
+    badge: "Bootcamp Intensif",
+    image: "/images/flyer-corporate-esg-strategy.jpg",
+    meetUrl: "https://zoom.us/j/ptmosha-esg-bootcamp",
+    meetInfo: "Jumat, 6 Nov 2026 · 8+ Sesi Live Online Zoom Meeting",
+    syllabus: [
+      "ESG Communication, Avoiding Greenwashing & Career Path",
+      "Materiality Assessment & Stakeholder Mapping",
+      "Corporate Carbon Accounting & GHG Protocol",
+      "Decarbonization Strategy & Circular Economy",
+      "Social Impact, DEI, and Human Rights in Business",
+      "Corporate Governance, Risk Management & Sustainable Finance",
+      "Mastering Sustainability Reporting",
+    ],
+    benefits: [
+      "E-Sertifikat kelulusan resmi PT Mosha",
+      "Gratis mini class Zonaebt",
+      "E-Sertifikat karbon",
+      "Mentor profesional berpengalaman",
+      "Akses rekaman video & materi lengkap",
+      "Studi kasus nyata industri (Study case)",
+      "Grup diskusi interaktif bareng mentor",
+    ],
+    slugAliases: [
+      "corporate-esg-strategy",
+      "corporate-esg",
+      "esg-strategy",
+      "esg",
+      "pendaftaran-corporate-esg-strategy",
+      "pendaftaran-corporate-esg",
+    ],
+  },
   {
     id: "homer-pro",
     name: "TRAINING HOMER PRO (Desain, Simulasi & Analisis PLTS Hybrid) - Rp 300.000",
@@ -49,6 +102,25 @@ export const AVAILABLE_TRAININGS: TrainingOption[] = [
     image: "/images/flyer-pelatihan-homer-pro.png",
     meetUrl: "https://meet.google.com/hqo-ujsh-ogm",
     meetInfo: "Sunday, November 1 · 6:00 – 9:30pm (Time zone: Asia/Jakarta)",
+    syllabus: [
+      "Pendahuluan Kapabilitas Software HOMER Pro",
+      "Desain Beban Listrik, Komponen & Parameter Ekonomi",
+      "Simulasi & Optimasi Teknis dan Biaya",
+      "Analisis Teknis, Finansial (CAPEX, OPEX, LCOE) dan Emisi CO2",
+    ],
+    benefits: [
+      "Softcopy modul & materi pelatihan",
+      "E-Sertifikat resmi PT Mosha & Masebi",
+      "Akses rekaman video training",
+      "File contoh project HOMER Pro",
+      "Grup komunitas alumni PLTS",
+    ],
+    slugAliases: [
+      "homer-pro",
+      "homer",
+      "plts-homer",
+      "pendaftaran-homer-pro",
+    ],
   },
   {
     id: "plts-commissioning",
@@ -67,6 +139,24 @@ export const AVAILABLE_TRAININGS: TrainingOption[] = [
     description: "Diselenggarakan oleh PT Mosha Sinalsal Solusi dan Masyarakat Sistem Energi Berkelanjutan Indonesia (www.masebi.org). Membahas Modul PV, Inverter Hibrida Cerdas, Sistem Penyimpanan Baterai Terintegrasi, Distribusi DC, Smart Metering, Desain & Prosedur Commissioning PLTS.",
     badge: "Terbaru & Online",
     image: "/images/plts-commissioning-training.jpg",
+    syllabus: [
+      "Perkenalan Sistem PLTS",
+      "Komponen Sistem PLTS (Modul PV, Inverter, Baterai)",
+      "Desain Sistem PLTS",
+      "Commissioning & Pengujian Sistem PLTS",
+    ],
+    benefits: [
+      "Softcopy modul & materi training",
+      "E-Sertifikat resmi PT Mosha",
+      "Akses rekaman video training",
+      "Grup diskusi & konsultasi",
+    ],
+    slugAliases: [
+      "plts-commissioning",
+      "plts",
+      "commissioning-plts",
+      "pendaftaran-plts-commissioning",
+    ],
   },
   {
     id: "oil-gas-power-plant-offline",
@@ -85,6 +175,12 @@ export const AVAILABLE_TRAININGS: TrainingOption[] = [
     description: "Pelatihan tatap muka intensif 10 modul: P&ID Markup, Mechanical Completion, ITR, Piping, E&I, Hydrocarbon Startup, System Handover.",
     badge: "Offline Batam",
     image: "/images/PT_MOSHA_New.jpg",
+    slugAliases: [
+      "oil-gas-power-plant-offline",
+      "oil-gas-offline",
+      "commissioning-offline",
+      "pendaftaran-oil-gas-power-plant-offline",
+    ],
   },
   {
     id: "oil-gas-power-plant-online",
@@ -102,6 +198,12 @@ export const AVAILABLE_TRAININGS: TrainingOption[] = [
     paymentDeadline: "H-1 sebelum pelaksanaan",
     description: "Prinsip dasar, strategi, prosedur ITR, P&ID markup, mechanical completion, dan startup sistem Hydrocarbon & Non-hydrocarbon.",
     badge: "Online Class",
+    slugAliases: [
+      "oil-gas-power-plant-online",
+      "oil-gas-online",
+      "commissioning-online",
+      "pendaftaran-oil-gas-power-plant-online",
+    ],
   },
   {
     id: "mechanical-piping-commissioning",
@@ -119,6 +221,12 @@ export const AVAILABLE_TRAININGS: TrainingOption[] = [
     paymentDeadline: "H-1 sebelum pelaksanaan",
     description: "Pengujian mekanikal, hydrotest, flushing, punch list management, dan alignment peralatan rotating.",
     badge: "Online Class",
+    slugAliases: [
+      "mechanical-piping-commissioning",
+      "mechanical-piping",
+      "piping",
+      "pendaftaran-mechanical-piping-commissioning",
+    ],
   },
   {
     id: "electrical-instrument-commissioning",
@@ -136,5 +244,94 @@ export const AVAILABLE_TRAININGS: TrainingOption[] = [
     paymentDeadline: "H-1 sebelum pelaksanaan",
     description: "Pengujian isolasi listrik, loop check instrumen, kalibrasi sensor, proteksi rele, dan pengujian sistem kontrol otomatis.",
     badge: "Online Class",
+    slugAliases: [
+      "electrical-instrument-commissioning",
+      "electrical-instrument",
+      "instrument",
+      "pendaftaran-electrical-instrument-commissioning",
+    ],
   },
 ];
+
+/**
+ * Robust slug/URL parser to resolve any QR code link or route parameter into a TrainingOption
+ */
+export function findTrainingBySlug(slugOrPath?: string | null): TrainingOption | undefined {
+  if (!slugOrPath) return undefined;
+
+  let cleaned = decodeURIComponent(slugOrPath).trim().toLowerCase();
+
+  // Strip origin or URL if full URL is passed
+  try {
+    if (cleaned.startsWith("http://") || cleaned.startsWith("https://")) {
+      const parsedUrl = new URL(cleaned);
+      cleaned = parsedUrl.pathname + parsedUrl.search;
+    }
+  } catch {
+    // ignore
+  }
+
+  // Check query parameter if present: ?training=xyz
+  const queryMatch = cleaned.match(/[?&]training=([^&#]+)/i);
+  if (queryMatch && queryMatch[1]) {
+    const qVal = queryMatch[1].toLowerCase().trim();
+    const byQuery = AVAILABLE_TRAININGS.find((t) => t.id === qVal || t.slugAliases?.includes(qVal));
+    if (byQuery) return byQuery;
+  }
+
+  // Strip query strings and hash
+  cleaned = cleaned.split("?")[0].split("#")[0];
+
+  // Strip leading/trailing slashes
+  cleaned = cleaned.replace(/^\/+|\/+$/g, "");
+
+  // Strip prefixes like "pendaftaran-" or "pendaftaran/"
+  cleaned = cleaned.replace(/^pendaftaran[-/]?/, "");
+
+  // Normalize spaces/punctuation to hyphens
+  cleaned = cleaned.replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+
+  if (!cleaned) return undefined;
+
+  // 1. Direct ID match
+  const byId = AVAILABLE_TRAININGS.find((t) => t.id.toLowerCase() === cleaned);
+  if (byId) return byId;
+
+  // 2. Exact slug alias match
+  const byAlias = AVAILABLE_TRAININGS.find((t) =>
+    t.slugAliases?.some((alias) => {
+      const normAlias = alias.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+      return normAlias === cleaned;
+    })
+  );
+  if (byAlias) return byAlias;
+
+  // 3. Substring / Keyword matching (e.g. contains "esg", "homer", "plts", "piping", "electrical", "oil")
+  if (cleaned.includes("esg") || cleaned.includes("sustainability")) {
+    return AVAILABLE_TRAININGS.find((t) => t.id === "corporate-esg-strategy");
+  }
+  if (cleaned.includes("homer")) {
+    return AVAILABLE_TRAININGS.find((t) => t.id === "homer-pro");
+  }
+  if (cleaned.includes("plts")) {
+    return AVAILABLE_TRAININGS.find((t) => t.id === "plts-commissioning");
+  }
+  if (cleaned.includes("piping") || cleaned.includes("mechanical")) {
+    return AVAILABLE_TRAININGS.find((t) => t.id === "mechanical-piping-commissioning");
+  }
+  if (cleaned.includes("electrical") || cleaned.includes("instrument")) {
+    return AVAILABLE_TRAININGS.find((t) => t.id === "electrical-instrument-commissioning");
+  }
+  if (cleaned.includes("oil") || cleaned.includes("gas")) {
+    if (cleaned.includes("offline") || cleaned.includes("batam")) {
+      return AVAILABLE_TRAININGS.find((t) => t.id === "oil-gas-power-plant-offline");
+    }
+    return AVAILABLE_TRAININGS.find((t) => t.id === "oil-gas-power-plant-online");
+  }
+
+  // 4. Fuzzy fallback check on title
+  return AVAILABLE_TRAININGS.find((t) => {
+    const normTitle = t.shortTitle.toLowerCase().replace(/[^a-z0-9]/g, "-");
+    return normTitle.includes(cleaned) || cleaned.includes(t.id);
+  });
+}

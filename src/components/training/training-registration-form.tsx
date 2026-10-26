@@ -23,6 +23,8 @@ import {
   ExternalLink,
   Info,
   Video,
+  X,
+  GraduationCap,
 } from "lucide-react";
 import {
   AVAILABLE_TRAININGS,
@@ -44,11 +46,11 @@ interface TrainingRegistrationFormProps {
 }
 
 export default function TrainingRegistrationForm({
-  initialTrainingId = "homer-pro",
+  initialTrainingId = "",
   onSuccess,
   isDialog = false,
 }: TrainingRegistrationFormProps) {
-  const [selectedTrainingId, setSelectedTrainingId] = useState<string>(initialTrainingId);
+  const [selectedTrainingId, setSelectedTrainingId] = useState<string>(initialTrainingId || "");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -76,6 +78,7 @@ export default function TrainingRegistrationForm({
   } | null>(null);
   const [copiedAccount, setCopiedAccount] = useState(false);
   const [copiedMeet, setCopiedMeet] = useState(false);
+  const [previewFlyer, setPreviewFlyer] = useState<string | null>(null);
 
   const photoInputRef = useRef<HTMLInputElement>(null);
   const proofInputRef = useRef<HTMLInputElement>(null);
@@ -83,14 +86,15 @@ export default function TrainingRegistrationForm({
   const generateUploadUrl = useMutation(api.registrations.generateUploadUrl);
   const createRegistration = useMutation(api.registrations.createRegistration);
 
-  const currentTraining: TrainingOption =
-    AVAILABLE_TRAININGS.find((t) => t.id === selectedTrainingId) ||
-    AVAILABLE_TRAININGS[0];
+  const currentTraining: TrainingOption | undefined =
+    AVAILABLE_TRAININGS.find((t) => t.id === selectedTrainingId);
 
   useEffect(() => {
     if (initialTrainingId) {
       const found = AVAILABLE_TRAININGS.find((t) => t.id === initialTrainingId);
-      if (found) setSelectedTrainingId(initialTrainingId);
+      if (found) {
+        setSelectedTrainingId(initialTrainingId);
+      }
     }
   }, [initialTrainingId]);
 
@@ -102,12 +106,12 @@ export default function TrainingRegistrationForm({
     setTimeout(() => setCopiedAccount(false), 2500);
   };
 
-  // Copy Google Meet link
+  // Copy Google Meet / Zoom link
   const handleCopyMeetLink = () => {
     if (!submissionResult?.meetUrl) return;
     navigator.clipboard.writeText(submissionResult.meetUrl);
     setCopiedMeet(true);
-    toast.success("Link Google Meet berhasil disalin!");
+    toast.success("Link ruang pelatihan berhasil disalin!");
     setTimeout(() => setCopiedMeet(false), 2500);
   };
 
@@ -151,60 +155,60 @@ export default function TrainingRegistrationForm({
     }
   };
 
-// Fast client-side image compression to speed up uploads (< 0.5s)
-async function compressImage(file: File, maxDimension = 1400, quality = 0.82): Promise<File> {
-  if (!file.type.startsWith("image/") || file.size < 200 * 1024) {
-    return file;
-  }
-  return new Promise((resolve) => {
-    const img = new Image();
-    const url = URL.createObjectURL(file);
-    img.onload = () => {
-      URL.revokeObjectURL(url);
-      let { width, height } = img;
-      if (width > maxDimension || height > maxDimension) {
-        if (width > height) {
-          height = Math.round((height * maxDimension) / width);
-          width = maxDimension;
-        } else {
-          width = Math.round((width * maxDimension) / height);
-          height = maxDimension;
-        }
-      }
-      const canvas = document.createElement("canvas");
-      canvas.width = width;
-      canvas.height = height;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) {
-        resolve(file);
-        return;
-      }
-      ctx.fillStyle = "#FFFFFF";
-      ctx.fillRect(0, 0, width, height);
-      ctx.drawImage(img, 0, 0, width, height);
-      canvas.toBlob(
-        (blob) => {
-          if (!blob || blob.size >= file.size) {
-            resolve(file);
-            return;
+  // Fast client-side image compression to speed up uploads (< 0.5s)
+  async function compressImage(file: File, maxDimension = 1400, quality = 0.82): Promise<File> {
+    if (!file.type.startsWith("image/") || file.size < 200 * 1024) {
+      return file;
+    }
+    return new Promise((resolve) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        let { width, height } = img;
+        if (width > maxDimension || height > maxDimension) {
+          if (width > height) {
+            height = Math.round((height * maxDimension) / width);
+            width = maxDimension;
+          } else {
+            width = Math.round((width * maxDimension) / height);
+            height = maxDimension;
           }
-          const compressed = new File([blob], file.name.replace(/\.[^/.]+$/, ".jpg"), {
-            type: "image/jpeg",
-            lastModified: Date.now(),
-          });
-          resolve(compressed);
-        },
-        "image/jpeg",
-        quality
-      );
-    };
-    img.onerror = () => {
-      URL.revokeObjectURL(url);
-      resolve(file);
-    };
-    img.src = url;
-  });
-}
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          resolve(file);
+          return;
+        }
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0, 0, width, height);
+        ctx.drawImage(img, 0, 0, width, height);
+        canvas.toBlob(
+          (blob) => {
+            if (!blob || blob.size >= file.size) {
+              resolve(file);
+              return;
+            }
+            const compressed = new File([blob], file.name.replace(/\.[^/.]+$/, ".jpg"), {
+              type: "image/jpeg",
+              lastModified: Date.now(),
+            });
+            resolve(compressed);
+          },
+          "image/jpeg",
+          quality
+        );
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        resolve(file);
+      };
+      img.src = url;
+    });
+  }
 
   // Upload a single file to Convex Storage (compressed & fast)
   const uploadToStorage = async (file: File) => {
@@ -225,6 +229,11 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
   // Handle Form Submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!currentTraining) {
+      toast.error("Silakan pilih program training terlebih dahulu di Langkah 1");
+      return;
+    }
 
     if (!fullName.trim()) {
       toast.error("Mohon isi Nama Lengkap sesuai sertifikat");
@@ -255,7 +264,7 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
     const toastId = toast.loading("Memproses pendaftaran & berkas...");
 
     try {
-      // 1. Parallel upload of photo and proof (compressed, fast < 1s)
+      // 1. Parallel upload of photo and proof
       const [photoStorageId, proofStorageId] = await Promise.all([
         photoFile
           ? uploadToStorage(photoFile).catch((err) => {
@@ -271,7 +280,7 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
           : Promise.resolve(undefined),
       ]);
 
-      // 2. Insert into Convex Database (instant)
+      // 2. Insert into Convex Database
       const regResult = await createRegistration({
         trainingId: currentTraining.id,
         trainingTitle: currentTraining.shortTitle,
@@ -285,7 +294,7 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
         notes: notes.trim(),
       });
 
-      // 3. Immediately show Success Screen (INSTANT feedback for user)
+      // 3. Immediately show Success Screen
       setSubmissionResult({
         registrationId: String(regResult.registrationId),
         trainingTitle: currentTraining.shortTitle,
@@ -301,7 +310,7 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
         id: toastId,
       });
 
-      // Track conversion in Google Analytics 4 & Microsoft Clarity
+      // Track conversion
       trackEvent("generate_lead", {
         event_category: "Training Registration",
         event_label: currentTraining.shortTitle,
@@ -317,7 +326,7 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
       trackClarityTag("registration_success", currentTraining.id);
       if (onSuccess) onSuccess();
 
-      // 4. Background Email Dispatch (Non-blocking so it never hangs the UI)
+      // 4. Background Email Dispatch
       (async () => {
         try {
           const emailPayload = {
@@ -344,7 +353,6 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
             "emosag@moshassolusi.com",
           ];
 
-          // 4a. Send notification to admin/staff emails in background
           await Promise.allSettled(
             recipients.map((targetEmail) =>
               fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
@@ -358,15 +366,13 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
               })
             )
           );
-
-          // Note: FormSubmit is strictly for receiving admin notifications, not for sending to participant emails.
         } catch (backgroundErr) {
           console.warn("Background email notification:", backgroundErr);
         }
       })();
     } catch (err) {
       console.error(err);
-      toast.error("Terjadi kendala saat menyimpan pendaftaran. Silakan coba lagi atau hubungi WhatsApp Admin.", {
+      toast.error("Terjadi kendala saat menyimpan pendaftaran. Silakan hubungi WhatsApp Admin.", {
         id: toastId,
       });
     } finally {
@@ -378,7 +384,7 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
   const getWhatsAppConfirmationUrl = () => {
     if (!submissionResult) return `https://wa.me/${BANK_ACCOUNT_DETAILS.adminWhatsapp1}`;
     const meetText = submissionResult.meetUrl
-      ? `🔗 *Link Google Meet:* ${submissionResult.meetUrl}\n`
+      ? `🔗 *Link Kelas:* ${submissionResult.meetUrl}\n`
       : "";
     const text =
       `Halo Admin PT Mosha Sinalsal Solusi,\n\n` +
@@ -394,15 +400,16 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
     return `https://wa.me/${BANK_ACCOUNT_DETAILS.adminWhatsapp1}?text=${encodeURIComponent(text)}`;
   };
 
-  // Share/save Google Meet link to participant's own WhatsApp
+  // Share/save Meet or Zoom link to participant's own WhatsApp
   const getShareWhatsAppMeetUrl = () => {
     if (!submissionResult) return "";
+    const platform = submissionResult.meetUrl?.includes("zoom") ? "Zoom Meeting" : "Google Meet";
     const text =
       `*LINK AKSES TRAINING PT MOSHA SINALSAL SOLUSI*\n\n` +
       `Halo *${submissionResult.fullName}*,\n` +
       `Terima kasih telah mendaftar di *${submissionResult.trainingTitle}*.\n\n` +
-      `📅 *Jadwal:* ${submissionResult.meetInfo || "Minggu, 1 November 2026 (18.00 – 21.30 WIB)"}\n` +
-      `🔗 *Link Google Meet:* ${submissionResult.meetUrl || "https://meet.google.com/hqo-ujsh-ogm"}\n` +
+      `📅 *Jadwal:* ${submissionResult.meetInfo || "Sesuai Jadwal Pelatihan"}\n` +
+      `🔗 *Link Akses (${platform}):* ${submissionResult.meetUrl || "-"}\n` +
       `🆔 *ID Registrasi:* MSS-${submissionResult.registrationId.slice(-8).toUpperCase()}\n\n` +
       `Harap bergabung 10-15 menit sebelum acara dimulai. Sampai jumpa di kelas!`;
     return `https://wa.me/?text=${encodeURIComponent(text)}`;
@@ -442,6 +449,38 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
 
   return (
     <div className="w-full">
+      {/* Flyer Image Preview Modal */}
+      <AnimatePresence>
+        {previewFlyer && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={() => setPreviewFlyer(null)}
+          >
+            <div
+              className="relative max-w-2xl max-h-[90vh] bg-card rounded-2xl overflow-hidden p-2 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setPreviewFlyer(null)}
+                className="absolute top-4 right-4 z-10 size-9 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black/90 transition-colors cursor-pointer"
+                aria-label="Tutup Preview"
+              >
+                <X className="size-5" />
+              </button>
+              <img
+                src={previewFlyer}
+                alt="Poster Flyer Pelatihan Resmi"
+                className="w-full h-auto max-h-[85vh] object-contain rounded-xl"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <AnimatePresence mode="wait">
         {isSubmitted && submissionResult ? (
           /* =========================================================================
@@ -470,7 +509,7 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
               </p>
             </div>
 
-            {/* GOOGLE MEET ACCESS CARD (Shown if meetUrl exists, e.g. HOMER Pro) */}
+            {/* CLASS ACCESS CARD (Google Meet / Zoom) */}
             {submissionResult.meetUrl && (
               <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-blue-950 via-slate-900 to-indigo-950 border-2 border-blue-400/60 shadow-2xl text-left max-w-lg mx-auto space-y-4 relative overflow-hidden">
                 <div className="flex items-start justify-between gap-3">
@@ -479,10 +518,10 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
                       <Video className="size-3.5" /> Akses Ruang Pelatihan
                     </span>
                     <h4 className="text-base sm:text-lg font-bold text-white leading-tight">
-                      Link Google Meet Resmi
+                      Link Ruang Kelas Resmi ({submissionResult.meetUrl.includes("zoom") ? "Zoom" : "Google Meet"})
                     </h4>
                     <p className="text-xs text-blue-200 mt-0.5">
-                      {submissionResult.meetInfo || "Minggu, 1 November 2026 • 18.00 – 21.30 WIB"}
+                      {submissionResult.meetInfo || "Sesuai Jadwal Pelatihan"}
                     </p>
                   </div>
                   <div className="p-2.5 rounded-xl bg-blue-500/20 text-blue-400 border border-blue-400/30 shrink-0">
@@ -490,7 +529,7 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
                   </div>
                 </div>
 
-                {/* Google Meet Link Bar */}
+                {/* Link Bar */}
                 <div className="p-3 rounded-xl bg-black/50 border border-blue-400/30 flex items-center justify-between gap-2">
                   <span className="font-mono text-xs sm:text-sm text-blue-300 font-bold truncate select-all">
                     {submissionResult.meetUrl}
@@ -523,7 +562,7 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
                       rel="noopener noreferrer"
                     >
                       <ExternalLink className="size-3.5 mr-1.5" />
-                      Buka Google Meet
+                      {submissionResult.meetUrl.includes("zoom") ? "Buka Ruang Zoom" : "Buka Google Meet"}
                     </a>
                   </Button>
 
@@ -545,7 +584,7 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
                 </div>
 
                 <div className="p-2.5 rounded-lg bg-blue-500/10 border border-blue-400/20 text-[11px] text-blue-200/90 leading-relaxed">
-                  ✓ <strong>Akses Resmi Aktif:</strong> Link Google Meet di atas sudah aktif untuk nama dan email Anda (<strong>{submissionResult.email}</strong>). Silakan klik <strong>Buka Google Meet</strong> atau <strong>Simpan ke WhatsApp</strong> agar tidak lupa saat hari pelaksanaan.
+                  ✓ <strong>Akses Resmi Aktif:</strong> Link ruang kelas di atas siap digunakan untuk peserta atas nama <strong>{submissionResult.fullName}</strong>.
                 </div>
               </div>
             )}
@@ -560,62 +599,37 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
                   MSS-{submissionResult.registrationId.slice(-8).toUpperCase()}
                 </span>
               </div>
-              <div className="space-y-1.5 text-xs sm:text-sm">
+
+              <div className="space-y-1.5 text-xs">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Pelatihan:</span>
-                  <span className="font-semibold text-foreground text-right">
-                    {submissionResult.trainingTitle}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Investasi Biaya:</span>
-                  <span className="font-bold text-emerald-600 dark:text-emerald-400">
-                    {submissionResult.fee}
-                  </span>
+                  <span className="text-muted-foreground">Program Pelatihan:</span>
+                  <span className="font-bold text-foreground text-right">{submissionResult.trainingTitle}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Nama Peserta:</span>
-                  <span className="font-medium text-foreground">
-                    {submissionResult.fullName}
-                  </span>
+                  <span className="font-semibold text-foreground">{submissionResult.fullName}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Email:</span>
-                  <span className="font-medium text-foreground">
-                    {submissionResult.email}
-                  </span>
+                  <span className="text-muted-foreground">Nominal Biaya:</span>
+                  <span className="font-bold text-emerald-600">{submissionResult.fee}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">WhatsApp / Telepon:</span>
-                  <span className="font-medium text-foreground">
-                    {submissionResult.phone}
+                  <span className="text-muted-foreground">Status Verifikasi:</span>
+                  <span className="inline-flex items-center text-amber-600 font-semibold gap-1">
+                    <span className="size-1.5 rounded-full bg-amber-500 animate-pulse" />
+                    Menunggu Konfirmasi Admin
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Next Steps Guidance */}
-            <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 text-xs sm:text-sm text-foreground max-w-lg mx-auto text-left flex gap-3">
-              <Info className="size-5 text-amber-600 shrink-0 mt-0.5" />
-              <div>
-                <p className="font-bold text-amber-800 dark:text-amber-400">
-                  Langkah Selanjutnya:
-                </p>
-                <p className="text-muted-foreground mt-1">
-                  {submissionResult.meetUrl
-                    ? "Link Google Meet di atas sudah aktif dan dapat langsung Anda simpan. Tim training PT Mosha Sinalsal Solusi akan memverifikasi bukti pembayaran Anda dan mengirimkan pengingat H-1 sebelum pelatihan."
-                    : "Tim training kami akan memverifikasi berkas dan bukti transfer Anda. Link Google Meet / Zoom serta panduan kelas akan dikirimkan ke email dan nomor WhatsApp Anda sebelum hari pelaksanaan."}
-                </p>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto">
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
               <a
                 href={getWhatsAppConfirmationUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:flex-1"
+                className="w-full sm:w-auto"
               >
                 <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold h-11 cursor-pointer shadow-md">
                   <MessageCircle className="size-4 mr-2" />
@@ -663,7 +677,7 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
              ========================================================================= */
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
             {/* ---------------------------------------------------------------------
-                LEFT / TOP COLUMN: TRAINING INFO & BANK TRANSFER DETAILS (5 Cols)
+                LEFT COLUMN: BANK TRANSFER DETAILS & TRAINING OVERVIEW (5 Cols)
                 --------------------------------------------------------------------- */}
             <div className="lg:col-span-5 space-y-5">
               {/* Card Rekening Resmi */}
@@ -737,69 +751,161 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
                 </div>
 
                 {/* Training Fee Overview */}
-                <div className="p-4 rounded-xl bg-muted/60 border border-border space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-muted-foreground font-medium">
-                      Biaya Pelatihan Terpilih:
-                    </span>
-                    <Badge variant="outline" className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 text-xs font-bold">
-                      {currentTraining.mode}
-                    </Badge>
+                {currentTraining ? (
+                  <div className="p-4 rounded-xl bg-muted/60 border border-border space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-muted-foreground font-medium">
+                        Biaya Pelatihan Terpilih:
+                      </span>
+                      <Badge variant="outline" className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 text-xs font-bold">
+                        {currentTraining.mode}
+                      </Badge>
+                    </div>
+
+                    <div>
+                      {currentTraining.originalFeeFormatted && (
+                        <div className="flex items-center gap-2 mb-0.5">
+                          <span className="text-xs line-through text-rose-500 font-semibold">
+                            {currentTraining.originalFeeFormatted}
+                          </span>
+                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-600 font-bold border border-rose-500/20">
+                            Diskon Spesial
+                          </span>
+                        </div>
+                      )}
+                      <div className="flex items-baseline justify-between">
+                        <span className="text-2xl font-black text-foreground">
+                          {currentTraining.feeFormatted}
+                        </span>
+                        <span className="text-xs text-muted-foreground text-right italic max-w-[180px]">
+                          ({currentTraining.feeWords})
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="pt-2 border-t border-border/80 flex items-center justify-between text-xs">
+                      <span className="text-muted-foreground">Batas Pembayaran:</span>
+                      <span className="font-semibold text-rose-600 dark:text-rose-400">
+                        Paling lambat {currentTraining.paymentDeadline}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex items-baseline justify-between">
-                    <span className="text-2xl font-black text-foreground">
-                      {currentTraining.feeFormatted}
-                    </span>
-                    <span className="text-xs text-muted-foreground text-right italic max-w-[180px]">
-                      ({currentTraining.feeWords})
-                    </span>
+                ) : (
+                  <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 space-y-2">
+                    <div className="flex items-center gap-2 text-amber-700 dark:text-amber-400">
+                      <AlertCircle className="size-4 shrink-0" />
+                      <span className="text-xs font-bold">Pilih Program Terlebih Dahulu</span>
+                    </div>
+                    <p className="text-[11px] text-muted-foreground">
+                      Silakan pilih program pelatihan pada langkah 1 untuk menampilkan rincian nominal transfer, batas pembayaran, dan jadwal kelas.
+                    </p>
                   </div>
-                  <div className="pt-2 border-t border-border/80 flex items-center justify-between text-xs">
-                    <span className="text-muted-foreground">Batas Pembayaran:</span>
-                    <span className="font-semibold text-rose-600 dark:text-rose-400">
-                      Paling lambat {currentTraining.paymentDeadline}
-                    </span>
-                  </div>
-                </div>
+                )}
 
                 {/* Training Details Box */}
-                <div className="space-y-3 pt-1">
-                  <h5 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                    <Sparkles className="size-3.5 text-accent" />
-                    Informasi Pelatihan
-                  </h5>
+                {currentTraining ? (
+                  <div className="space-y-3 pt-1">
+                    <div className="flex items-center justify-between">
+                      <h5 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                        <Sparkles className="size-3.5 text-accent" />
+                        Informasi Pelatihan
+                      </h5>
+                      {currentTraining.badge && (
+                        <Badge variant="outline" className="text-[10px] bg-accent/10 text-accent border-accent/20">
+                          {currentTraining.badge}
+                        </Badge>
+                      )}
+                    </div>
 
-                  <div className="space-y-2 text-xs">
-                    <div className="flex items-start gap-2 text-muted-foreground">
-                      <Calendar className="size-4 text-accent shrink-0 mt-0.5" />
-                      <div>
-                        <span className="text-foreground font-medium">Hari, Tanggal: </span>
-                        <span>{currentTraining.schedule}</span>
+                    <div className="space-y-2 text-xs">
+                      <div className="flex items-start gap-2 text-muted-foreground">
+                        <Calendar className="size-4 text-accent shrink-0 mt-0.5" />
+                        <div>
+                          <span className="text-foreground font-medium">Hari, Tanggal: </span>
+                          <span>{currentTraining.schedule}</span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start gap-2 text-muted-foreground">
+                        <Clock className="size-4 text-accent shrink-0 mt-0.5" />
+                        <div>
+                          <span className="text-foreground font-medium">Pukul / Waktu: </span>
+                          <span>{currentTraining.time}</span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start gap-2 text-muted-foreground">
+                        <MapPin className="size-4 text-accent shrink-0 mt-0.5" />
+                        <div>
+                          <span className="text-foreground font-medium">Tempat / Media: </span>
+                          <span>{currentTraining.location}</span>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-2 text-muted-foreground">
-                      <Clock className="size-4 text-accent shrink-0 mt-0.5" />
-                      <div>
-                        <span className="text-foreground font-medium">Pukul / Waktu: </span>
-                        <span>{currentTraining.time}</span>
+                    {currentTraining.image && (
+                      <div className="pt-2">
+                        <button
+                          type="button"
+                          onClick={() => setPreviewFlyer(currentTraining.image || null)}
+                          className="w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-card border border-border hover:border-accent text-xs font-semibold text-accent transition-colors cursor-pointer"
+                        >
+                          <ImageIcon className="size-3.5" />
+                          Lihat Poster / Flyer Resmi
+                        </button>
                       </div>
-                    </div>
+                    )}
 
-                    <div className="flex items-start gap-2 text-muted-foreground">
-                      <MapPin className="size-4 text-accent shrink-0 mt-0.5" />
-                      <div>
-                        <span className="text-foreground font-medium">Tempat / Media: </span>
-                        <span>{currentTraining.location}</span>
+                    {currentTraining.syllabus && currentTraining.syllabus.length > 0 && (
+                      <div className="pt-2 border-t border-border">
+                        <span className="text-[11px] font-bold text-foreground block mb-1.5">
+                          Silabus Materi:
+                        </span>
+                        <ul className="space-y-1 text-[11px] text-muted-foreground">
+                          {currentTraining.syllabus.slice(0, 4).map((item, idx) => (
+                            <li key={idx} className="flex items-start gap-1.5">
+                              <Check className="size-3 text-emerald-500 shrink-0 mt-0.5" />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                          {currentTraining.syllabus.length > 4 && (
+                            <li className="text-[10px] text-accent font-medium italic">
+                              + {currentTraining.syllabus.length - 4} modul silabus lainnya
+                            </li>
+                          )}
+                        </ul>
                       </div>
+                    )}
+
+                    <p className="text-[11px] text-muted-foreground border-t border-border pt-2 leading-relaxed">
+                      <span className="font-semibold text-foreground">Diselenggarakan oleh: </span>
+                      {currentTraining.organizer}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-2 pt-1 border-t border-border">
+                    <span className="text-[11px] font-bold text-foreground block">
+                      Program Pelatihan Tersedia:
+                    </span>
+                    <div className="space-y-1.5">
+                      {AVAILABLE_TRAININGS.map((tr) => (
+                        <button
+                          key={tr.id}
+                          type="button"
+                          onClick={() => setSelectedTrainingId(tr.id)}
+                          className="w-full text-left p-2.5 rounded-lg bg-card border border-border hover:border-accent hover:bg-accent/5 transition-all text-xs flex items-center justify-between group cursor-pointer"
+                        >
+                          <span className="font-medium text-foreground group-hover:text-accent line-clamp-1 pr-2">
+                            {tr.shortTitle}
+                          </span>
+                          <span className="font-bold text-accent shrink-0 text-[11px]">
+                            {tr.feeFormatted}
+                          </span>
+                        </button>
+                      ))}
                     </div>
                   </div>
-
-                  <p className="text-[11px] text-muted-foreground border-t border-border pt-2 leading-relaxed">
-                    <span className="font-semibold text-foreground">Diselenggarakan oleh: </span>
-                    {currentTraining.organizer}
-                  </p>
-                </div>
+                )}
 
                 {/* Destination Notice */}
                 <div className="text-[11px] text-muted-foreground bg-primary/5 rounded-lg p-3 border border-primary/10 flex items-start gap-2">
@@ -815,7 +921,7 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
             </div>
 
             {/* ---------------------------------------------------------------------
-                RIGHT / MAIN COLUMN: REGISTRATION FORM (7 Cols)
+                RIGHT COLUMN: STEP-BY-STEP REGISTRATION FORM (7 Cols)
                 --------------------------------------------------------------------- */}
             <div className="lg:col-span-7">
               <div className="rounded-2xl border-2 border-border bg-card shadow-xl p-6 sm:p-8 space-y-6">
@@ -827,259 +933,340 @@ async function compressImage(file: File, maxDimension = 1400, quality = 0.82): P
                     Pendaftaran &amp; Konfirmasi Pembayaran
                   </h3>
                   <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-                    Silakan isi data lengkap Anda untuk penerbitan sertifikat resmi dan konfirmasi akses pelatihan.
-                  </p>
-                  <p className="text-xs text-rose-500 font-medium mt-1">
-                    * Menunjukkan pertanyaan yang wajib diisi
+                    Silakan tentukan program pelatihan yang Anda pilih, kemudian lengkapi data diri untuk penerbitan e-sertifikat resmi.
                   </p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
-                  {/* 1. DROPDOWN PILIH TRAINING */}
-                  <div className="space-y-1.5">
+                  {/* STEP 1: DROPDOWN PILIH TRAINING */}
+                  <div className="space-y-2 p-4 rounded-xl bg-accent/5 border-2 border-accent/30 shadow-sm">
                     <Label htmlFor="training-select" className="text-xs sm:text-sm font-bold text-foreground flex items-center justify-between">
-                      <span>Pilih Program Training *</span>
-                      <span className="text-[11px] text-accent font-semibold">Tersedia nominal &amp; jadwal</span>
+                      <span className="flex items-center gap-1.5">
+                        <Sparkles className="size-4 text-accent" />
+                        Langkah 1: Pilih Program Training *
+                      </span>
+                      {currentTraining ? (
+                        <Badge variant="outline" className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30 text-[11px] font-bold">
+                          {currentTraining.mode}
+                        </Badge>
+                      ) : (
+                        <span className="text-[11px] text-amber-600 dark:text-amber-400 font-semibold animate-pulse">
+                          Wajib dipilih dulu
+                        </span>
+                      )}
                     </Label>
                     <select
                       id="training-select"
                       value={selectedTrainingId}
                       onChange={(e) => setSelectedTrainingId(e.target.value)}
-                      className="w-full rounded-lg border border-input bg-background px-3 py-2.5 text-xs sm:text-sm font-medium text-foreground shadow-sm focus:border-accent focus:ring-1 focus:ring-accent outline-none cursor-pointer"
+                      className="w-full rounded-lg border-2 border-accent/40 bg-background px-3.5 py-3 text-xs sm:text-sm font-bold text-foreground shadow-sm focus:border-accent focus:ring-2 focus:ring-accent outline-none cursor-pointer transition-colors"
                       required
                     >
+                      <option value="">-- Silakan Pilih Program Training Terlebih Dahulu --</option>
                       {AVAILABLE_TRAININGS.map((tr) => (
                         <option key={tr.id} value={tr.id}>
                           {tr.name}
                         </option>
                       ))}
                     </select>
-                    <p className="text-[11px] text-muted-foreground">
-                      Program terpilih: <strong className="text-foreground">{currentTraining.shortTitle}</strong> ({currentTraining.feeFormatted})
-                    </p>
+
+                    {currentTraining ? (
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] pt-1">
+                        <span className="text-muted-foreground">
+                          Program terpilih: <strong className="text-foreground">{currentTraining.shortTitle}</strong>
+                        </span>
+                        <span className="font-bold text-emerald-600 dark:text-emerald-400">
+                          Biaya: {currentTraining.feeFormatted} {currentTraining.originalFeeFormatted && `(Hemat dari ${currentTraining.originalFeeFormatted})`}
+                        </span>
+                      </div>
+                    ) : (
+                      <p className="text-[11px] text-amber-600 dark:text-amber-400 font-medium pt-1">
+                        ⚠️ Pilih salah satu program pelatihan di atas untuk membuka formulir pengisian data diri dan mengunggah bukti pembayaran.
+                      </p>
+                    )}
                   </div>
 
-                  {/* 2. NAMA LENGKAP */}
-                  <div className="space-y-1.5">
-                    <Label htmlFor="fullName" className="text-xs sm:text-sm font-bold text-foreground">
-                      Nama Lengkap (Sesuai Nama yang dicantumkan di Sertifikat) *
-                    </Label>
-                    <Input
-                      id="fullName"
-                      type="text"
-                      placeholder="Contoh: Ir. Muhammad Rizky, S.T."
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      required
-                      className="h-10 text-xs sm:text-sm"
-                    />
-                    <p className="text-[11px] text-muted-foreground">
-                      Pastikan ejaan nama dan gelar sudah benar untuk dicetak pada sertifikat.
-                    </p>
-                  </div>
-
-                  {/* 3. EMAIL */}
-                  <div className="space-y-1.5">
-                    <Label htmlFor="email" className="text-xs sm:text-sm font-bold text-foreground">
-                      Alamat Email *
-                    </Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="nama@email.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="h-10 text-xs sm:text-sm"
-                    />
-                    <p className="text-[11px] text-muted-foreground">
-                      Link Google Meet / Zoom dan e-sertifikat akan dikirimkan ke email ini.
-                    </p>
-                  </div>
-
-                  {/* 4. NOMOR WA / TELEPON */}
-                  <div className="space-y-1.5">
-                    <Label htmlFor="phone" className="text-xs sm:text-sm font-bold text-foreground">
-                      Nomor WA/Telepon *
-                    </Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      placeholder="Contoh: 081234567890"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      required
-                      className="h-10 text-xs sm:text-sm"
-                    />
-                    <p className="text-[11px] text-muted-foreground">
-                      Untuk dimasukkan ke grup koordinasi peserta &amp; reminder jadwal.
-                    </p>
-                  </div>
-
-                  {/* 5. POSISI PEKERJAAN SEKARANG */}
-                  <div className="space-y-1.5">
-                    <Label htmlFor="currentJob" className="text-xs sm:text-sm font-bold text-foreground">
-                      Posisi Pekerjaan Sekarang (Bila sedang bekerja) *
-                    </Label>
-                    <Input
-                      id="currentJob"
-                      type="text"
-                      placeholder="Contoh: Electrical Engineer / Mahasiswa Teknik Mesin / Belum Bekerja"
-                      value={currentJob}
-                      onChange={(e) => setCurrentJob(e.target.value)}
-                      required
-                      className="h-10 text-xs sm:text-sm"
-                    />
-                  </div>
-
-                  {/* 6. UPLOAD PHOTO BERWARNA (UNTUK SERTIFIKAT) */}
-                  <div className="space-y-1.5">
-                    <Label className="text-xs sm:text-sm font-bold text-foreground flex items-center justify-between">
-                      <span>Kirim Photo Berwarna (Untuk sertifikat) *</span>
-                      <span className="text-[11px] text-muted-foreground">Maks 10 MB</span>
-                    </Label>
-                    <div
-                      onClick={() => photoInputRef.current?.click()}
-                      className={`border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-colors ${
-                        photoFile
-                          ? "border-emerald-500 bg-emerald-500/5"
-                          : "border-border hover:border-accent bg-muted/30 hover:bg-muted/50"
-                      }`}
+                  {/* CONDITIONAL: STEP 2 IS LOCKED UNTIL A TRAINING IS SELECTED */}
+                  {!currentTraining ? (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="rounded-2xl border-2 border-dashed border-border bg-muted/20 p-8 sm:p-12 text-center space-y-4"
                     >
-                      <input
-                        ref={photoInputRef}
-                        type="file"
-                        accept="image/png,image/jpeg,image/webp,image/jpg"
-                        onChange={handlePhotoChange}
-                        className="hidden"
-                      />
-                      {photoFile ? (
-                        <div className="flex items-center justify-center gap-3">
-                          {photoPreview && (
-                            <img
-                              src={photoPreview}
-                              alt="Preview Foto"
-                              className="size-12 rounded-lg object-cover border border-emerald-500"
-                            />
-                          )}
-                          <div className="text-left">
-                            <p className="text-xs font-bold text-foreground flex items-center gap-1.5">
-                              <FileCheck className="size-3.5 text-emerald-600" />
-                              {photoFile.name}
-                            </p>
-                            <p className="text-[11px] text-muted-foreground">
-                              {(photoFile.size / 1024 / 1024).toFixed(2)} MB • Klik untuk ganti
-                            </p>
-                          </div>
+                      <div className="mx-auto size-16 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent shadow-inner">
+                        <GraduationCap className="size-8" />
+                      </div>
+                      <div className="space-y-1.5">
+                        <h4 className="font-bold text-base sm:text-lg text-foreground">
+                          Formulir Data Diri Belum Terbuka
+                        </h4>
+                        <p className="text-xs sm:text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
+                          Sesuai alur pendaftaran, Anda harus memilih program pelatihan yang ingin diikuti terlebih dahulu pada menu dropdown di atas.
+                        </p>
+                      </div>
+                      <div className="pt-2">
+                        <span className="text-xs text-muted-foreground block mb-2 font-medium">
+                          Atau klik pilihan cepat di bawah:
+                        </span>
+                        <div className="flex flex-wrap justify-center gap-2">
+                          {AVAILABLE_TRAININGS.map((tr) => (
+                            <button
+                              key={tr.id}
+                              type="button"
+                              onClick={() => setSelectedTrainingId(tr.id)}
+                              className="text-xs px-3 py-1.5 rounded-lg bg-card border border-border hover:border-accent hover:bg-accent/10 font-semibold text-foreground cursor-pointer transition-all shadow-sm"
+                            >
+                              {tr.shortTitle.split("(")[0].trim()}
+                            </button>
+                          ))}
                         </div>
-                      ) : (
-                        <div className="space-y-1.5 py-1">
-                          <Upload className="size-6 text-muted-foreground mx-auto" />
-                          <p className="text-xs font-semibold text-foreground">
-                            Pilih Foto Berwarna (Pasfoto formal)
-                          </p>
-                          <p className="text-[11px] text-muted-foreground">
-                            Format JPG, PNG, atau WebP (Maksimal 10 MB)
+                      </div>
+                    </motion.div>
+                  ) : (
+                    /* STEP 2: PERSONAL DATA & PROOF OF PAYMENT */
+                    <motion.div
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-5"
+                    >
+                      <div className="flex items-center justify-between border-b border-border pb-3">
+                        <div>
+                          <h4 className="font-bold text-foreground text-sm sm:text-base">
+                            Langkah 2: Lengkapi Data Peserta &amp; Bukti Transfer
+                          </h4>
+                          <p className="text-xs text-muted-foreground mt-0.5">
+                            Data ini akan dicetak langsung pada e-sertifikat resmi PT Mosha Sinalsal Solusi.
                           </p>
                         </div>
-                      )}
-                    </div>
-                  </div>
+                        <Badge className="bg-emerald-600 text-white text-[10px]">
+                          Siap Diisi
+                        </Badge>
+                      </div>
 
-                  {/* 7. UPLOAD BUKTI BAYAR TRAINING */}
-                  <div className="space-y-1.5">
-                    <Label className="text-xs sm:text-sm font-bold text-foreground flex items-center justify-between">
-                      <span>Kirim Bukti Bayar Training *</span>
-                      <span className="text-[11px] text-muted-foreground">Maks 10 MB</span>
-                    </Label>
-                    <div
-                      onClick={() => proofInputRef.current?.click()}
-                      className={`border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-colors ${
-                        proofFile
-                          ? "border-emerald-500 bg-emerald-500/5"
-                          : "border-border hover:border-accent bg-muted/30 hover:bg-muted/50"
-                      }`}
-                    >
-                      <input
-                        ref={proofInputRef}
-                        type="file"
-                        accept="image/png,image/jpeg,image/webp,image/jpg,application/pdf"
-                        onChange={handleProofChange}
-                        className="hidden"
-                      />
-                      {proofFile ? (
-                        <div className="flex items-center justify-center gap-3">
-                          {proofPreview ? (
-                            <img
-                              src={proofPreview}
-                              alt="Preview Bukti Bayar"
-                              className="size-12 rounded-lg object-cover border border-emerald-500"
-                            />
+                      {/* 2. NAMA LENGKAP */}
+                      <div className="space-y-1.5">
+                        <Label htmlFor="fullName" className="text-xs sm:text-sm font-bold text-foreground">
+                          Nama Lengkap (Sesuai Nama yang dicantumkan di Sertifikat) *
+                        </Label>
+                        <Input
+                          id="fullName"
+                          type="text"
+                          placeholder="Contoh: Ir. Muhammad Rizky, S.T."
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          required
+                          className="h-10 text-xs sm:text-sm"
+                        />
+                        <p className="text-[11px] text-muted-foreground">
+                          Pastikan ejaan nama dan gelar sudah benar untuk dicetak pada sertifikat.
+                        </p>
+                      </div>
+
+                      {/* 3. EMAIL */}
+                      <div className="space-y-1.5">
+                        <Label htmlFor="email" className="text-xs sm:text-sm font-bold text-foreground">
+                          Alamat Email *
+                        </Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="nama@email.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                          className="h-10 text-xs sm:text-sm"
+                        />
+                        <p className="text-[11px] text-muted-foreground">
+                          Link Google Meet / Zoom dan e-sertifikat akan dikirimkan ke email ini.
+                        </p>
+                      </div>
+
+                      {/* 4. NOMOR WA / TELEPON */}
+                      <div className="space-y-1.5">
+                        <Label htmlFor="phone" className="text-xs sm:text-sm font-bold text-foreground">
+                          Nomor WA/Telepon *
+                        </Label>
+                        <Input
+                          id="phone"
+                          type="tel"
+                          placeholder="Contoh: 081234567890"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          required
+                          className="h-10 text-xs sm:text-sm"
+                        />
+                        <p className="text-[11px] text-muted-foreground">
+                          Untuk dimasukkan ke grup koordinasi peserta &amp; reminder jadwal.
+                        </p>
+                      </div>
+
+                      {/* 5. POSISI PEKERJAAN SEKARANG */}
+                      <div className="space-y-1.5">
+                        <Label htmlFor="currentJob" className="text-xs sm:text-sm font-bold text-foreground">
+                          Posisi Pekerjaan Sekarang (Bila sedang bekerja) *
+                        </Label>
+                        <Input
+                          id="currentJob"
+                          type="text"
+                          placeholder="Contoh: Sustainability Specialist / Engineer / Mahasiswa / Fresh Graduate"
+                          value={currentJob}
+                          onChange={(e) => setCurrentJob(e.target.value)}
+                          required
+                          className="h-10 text-xs sm:text-sm"
+                        />
+                      </div>
+
+                      {/* 6. UPLOAD PHOTO BERWARNA (UNTUK SERTIFIKAT) */}
+                      <div className="space-y-1.5">
+                        <Label className="text-xs sm:text-sm font-bold text-foreground flex items-center justify-between">
+                          <span>Kirim Photo Berwarna (Untuk sertifikat) *</span>
+                          <span className="text-[11px] text-muted-foreground">Maks 10 MB</span>
+                        </Label>
+                        <div
+                          onClick={() => photoInputRef.current?.click()}
+                          className={`border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-colors ${
+                            photoFile
+                              ? "border-emerald-500 bg-emerald-500/5"
+                              : "border-border hover:border-accent bg-muted/30 hover:bg-muted/50"
+                          }`}
+                        >
+                          <input
+                            ref={photoInputRef}
+                            type="file"
+                            accept="image/png,image/jpeg,image/webp,image/jpg"
+                            onChange={handlePhotoChange}
+                            className="hidden"
+                          />
+                          {photoFile ? (
+                            <div className="flex items-center justify-center gap-3">
+                              {photoPreview && (
+                                <img
+                                  src={photoPreview}
+                                  alt="Preview Foto"
+                                  className="size-12 rounded-lg object-cover border border-emerald-500"
+                                />
+                              )}
+                              <div className="text-left">
+                                <p className="text-xs font-bold text-foreground flex items-center gap-1.5">
+                                  <FileCheck className="size-3.5 text-emerald-600" />
+                                  {photoFile.name}
+                                </p>
+                                <p className="text-[11px] text-muted-foreground">
+                                  {(photoFile.size / 1024 / 1024).toFixed(2)} MB • Klik untuk ganti
+                                </p>
+                              </div>
+                            </div>
                           ) : (
-                            <FileText className="size-8 text-emerald-600" />
+                            <div className="space-y-1.5 py-1">
+                              <Upload className="size-6 text-muted-foreground mx-auto" />
+                              <p className="text-xs font-semibold text-foreground">
+                                Pilih Foto Berwarna (Pasfoto formal)
+                              </p>
+                              <p className="text-[11px] text-muted-foreground">
+                                Format JPG, PNG, atau WebP (Maksimal 10 MB)
+                              </p>
+                            </div>
                           )}
-                          <div className="text-left">
-                            <p className="text-xs font-bold text-foreground flex items-center gap-1.5">
-                              <FileCheck className="size-3.5 text-emerald-600" />
-                              {proofFile.name}
-                            </p>
-                            <p className="text-[11px] text-muted-foreground">
-                              {(proofFile.size / 1024 / 1024).toFixed(2)} MB • Klik untuk ganti
-                            </p>
-                          </div>
                         </div>
-                      ) : (
-                        <div className="space-y-1.5 py-1">
-                          <CreditCard className="size-6 text-muted-foreground mx-auto" />
-                          <p className="text-xs font-semibold text-foreground">
-                            Upload Bukti Transfer / Resi Pembayaran
-                          </p>
-                          <p className="text-[11px] text-muted-foreground">
-                            Format JPG, PNG, WebP atau PDF (Maksimal 10 MB)
-                          </p>
+                      </div>
+
+                      {/* 7. UPLOAD BUKTI BAYAR TRAINING */}
+                      <div className="space-y-1.5">
+                        <Label className="text-xs sm:text-sm font-bold text-foreground flex items-center justify-between">
+                          <span>Kirim Bukti Bayar Training *</span>
+                          <span className="text-[11px] text-muted-foreground">Maks 10 MB</span>
+                        </Label>
+                        <div
+                          onClick={() => proofInputRef.current?.click()}
+                          className={`border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-colors ${
+                            proofFile
+                              ? "border-emerald-500 bg-emerald-500/5"
+                              : "border-border hover:border-accent bg-muted/30 hover:bg-muted/50"
+                          }`}
+                        >
+                          <input
+                            ref={proofInputRef}
+                            type="file"
+                            accept="image/png,image/jpeg,image/webp,image/jpg,application/pdf"
+                            onChange={handleProofChange}
+                            className="hidden"
+                          />
+                          {proofFile ? (
+                            <div className="flex items-center justify-center gap-3">
+                              {proofPreview ? (
+                                <img
+                                  src={proofPreview}
+                                  alt="Preview Bukti Bayar"
+                                  className="size-12 rounded-lg object-cover border border-emerald-500"
+                                />
+                              ) : (
+                                <FileText className="size-8 text-emerald-600" />
+                              )}
+                              <div className="text-left">
+                                <p className="text-xs font-bold text-foreground flex items-center gap-1.5">
+                                  <FileCheck className="size-3.5 text-emerald-600" />
+                                  {proofFile.name}
+                                </p>
+                                <p className="text-[11px] text-muted-foreground">
+                                  {(proofFile.size / 1024 / 1024).toFixed(2)} MB • Klik untuk ganti
+                                </p>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="space-y-1.5 py-1">
+                              <CreditCard className="size-6 text-muted-foreground mx-auto" />
+                              <p className="text-xs font-semibold text-foreground">
+                                Upload Bukti Transfer / Resi Pembayaran
+                              </p>
+                              <p className="text-[11px] text-muted-foreground">
+                                Format JPG, PNG, WebP atau PDF (Maksimal 10 MB)
+                              </p>
+                            </div>
+                          )}
                         </div>
-                      )}
-                    </div>
-                  </div>
+                      </div>
 
-                  {/* 8. CATATAN TAMBAHAN (OPSIONAL) */}
-                  <div className="space-y-1.5">
-                    <Label htmlFor="notes" className="text-xs sm:text-sm font-medium text-foreground">
-                      Catatan / Pertanyaan Tambahan (Opsional)
-                    </Label>
-                    <Textarea
-                      id="notes"
-                      rows={2}
-                      placeholder="Tuliskan catatan khusus atau permintaan faktur / invoice bila ada..."
-                      value={notes}
-                      onChange={(e) => setNotes(e.target.value)}
-                      className="text-xs sm:text-sm resize-none"
-                    />
-                  </div>
+                      {/* 8. CATATAN TAMBAHAN (OPSIONAL) */}
+                      <div className="space-y-1.5">
+                        <Label htmlFor="notes" className="text-xs sm:text-sm font-medium text-foreground">
+                          Catatan / Pertanyaan Tambahan (Opsional)
+                        </Label>
+                        <Textarea
+                          id="notes"
+                          rows={2}
+                          placeholder="Tuliskan catatan khusus atau permintaan faktur / invoice bila ada..."
+                          value={notes}
+                          onChange={(e) => setNotes(e.target.value)}
+                          className="text-xs sm:text-sm resize-none"
+                        />
+                      </div>
 
-                  {/* SUBMIT BUTTON */}
-                  <div className="pt-2">
-                    <Button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-extrabold h-12 text-sm sm:text-base shadow-lg cursor-pointer transition-all"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <Loader2 className="size-5 mr-2 animate-spin" />
-                          Mengirimkan Pendaftaran &amp; Bukti Bayar...
-                        </>
-                      ) : (
-                        <>
-                          <Send className="size-4 mr-2" />
-                          Kirim Formulir Pendaftaran &amp; Bukti Pembayaran
-                        </>
-                      )}
-                    </Button>
-                    <p className="text-center text-[11px] text-muted-foreground mt-2">
-                      Data Anda aman dan akan diproses langsung oleh tim panitia PT Mosha Sinalsal Solusi ({BANK_ACCOUNT_DETAILS.destinationEmail}).
-                    </p>
-                  </div>
+                      {/* SUBMIT BUTTON */}
+                      <div className="pt-2">
+                        <Button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-extrabold h-12 text-sm sm:text-base shadow-lg cursor-pointer transition-all"
+                        >
+                          {isSubmitting ? (
+                            <>
+                              <Loader2 className="size-5 mr-2 animate-spin" />
+                              Mengirimkan Pendaftaran &amp; Bukti Bayar...
+                            </>
+                          ) : (
+                            <>
+                              <Send className="size-4 mr-2" />
+                              Kirim Formulir Pendaftaran &amp; Bukti Pembayaran
+                            </>
+                          )}
+                        </Button>
+                        <p className="text-center text-[11px] text-muted-foreground mt-2">
+                          Data Anda aman dan akan diproses langsung oleh tim panitia PT Mosha Sinalsal Solusi ({BANK_ACCOUNT_DETAILS.destinationEmail}).
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
                 </form>
               </div>
             </div>
