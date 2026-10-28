@@ -206,6 +206,44 @@ export const AVAILABLE_TRAININGS: TrainingOption[] = [
     ],
   },
   {
+    id: "commissioning-oil-gas-pembangkit-online",
+    name: "COMMISSIONING OIL & GAS & PEMBANGKIT (Online) - Rp 600.000",
+    shortTitle: "Commissioning Oil & Gas & Pembangkit (Online)",
+    category: "Commissioning & Engineering",
+    fee: 600000,
+    feeFormatted: "Rp 600.000",
+    feeWords: "Enam Ratus Ribu Rupiah",
+    schedule: "Jumat, 13 November 2026 (1 Hari)",
+    time: "18.00 – 22.00 WIB",
+    location: "Online Training Lewat Google Meet / Zoom",
+    mode: "Online",
+    organizer: "PT Mosha Sinalsal Solusi & Masebi",
+    paymentDeadline: "12 November 2026",
+    description: "Pelatihan online intensif Commissioning Oil & Gas & Pembangkit mencakup prinsip dasar, strategi, prosedur ITR, P&ID markup, mechanical completion, dan startup sistem Hydrocarbon & Non-hydrocarbon untuk fasilitas Oil & Gas dan Pembangkit Listrik.",
+    badge: "Online Class",
+    syllabus: [
+      "Prinsip Dasar & Strategi Commissioning",
+      "P&ID Markup & Mechanical Completion",
+      "Prosedur ITR (Inspection & Test Record)",
+      "Commissioning Sistem Hydrocarbon & Non-hydrocarbon",
+      "Startup Fasilitas Oil & Gas",
+      "Commissioning Sistem Pembangkit Listrik",
+      "System Handover & Documentation",
+    ],
+    benefits: [
+      "Softcopy modul & materi pelatihan",
+      "E-Sertifikat resmi PT Mosha & Masebi",
+      "Akses rekaman video training",
+      "Grup diskusi & konsultasi alumni",
+    ],
+    slugAliases: [
+      "commissioning-oil-gas-pembangkit-online",
+      "commissioning-oil-gas-pembangkit",
+      "oil-gas-pembangkit-online",
+      "pendaftaran-commissioning-oil-gas-pembangkit-online",
+    ],
+  },
+  {
     id: "mechanical-piping-commissioning",
     name: "COMMISSIONING MECHANICAL & PIPING (Online) - Rp 450.000",
     shortTitle: "Commissioning Mechanical & Piping",
@@ -325,6 +363,13 @@ export function findTrainingBySlug(slugOrPath?: string | null): TrainingOption |
   if (cleaned.includes("oil") || cleaned.includes("gas")) {
     if (cleaned.includes("offline") || cleaned.includes("batam")) {
       return AVAILABLE_TRAININGS.find((t) => t.id === "oil-gas-power-plant-offline");
+    }
+    if (cleaned.includes("pembangkit") && cleaned.includes("600")) {
+      return AVAILABLE_TRAININGS.find((t) => t.id === "commissioning-oil-gas-pembangkit-online");
+    }
+    // If slug explicitly contains "commissioning-oil-gas-pembangkit" pattern
+    if (cleaned === "commissioning-oil-gas-pembangkit-online" || cleaned === "commissioning-oil-gas-pembangkit" || cleaned === "oil-gas-pembangkit-online") {
+      return AVAILABLE_TRAININGS.find((t) => t.id === "commissioning-oil-gas-pembangkit-online");
     }
     return AVAILABLE_TRAININGS.find((t) => t.id === "oil-gas-power-plant-online");
   }

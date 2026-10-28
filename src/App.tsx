@@ -48,6 +48,8 @@ export default function App() {
               <Route path="/pendaftaran-plts-commissioning" element={<PendaftaranPage />} />
               <Route path="/pendaftaran-oil-gas-power-plant-offline" element={<PendaftaranPage />} />
               <Route path="/pendaftaran-oil-gas-power-plant-online" element={<PendaftaranPage />} />
+              <Route path="/pendaftaran-commissioning-oil-gas-pembangkit-online" element={<PendaftaranPage />} />
+              <Route path="/pendaftaran-commissioning-oil-gas-pembangkit" element={<PendaftaranPage />} />
               <Route path="/pendaftaran-mechanical-piping-commissioning" element={<PendaftaranPage />} />
               <Route path="/pendaftaran-electrical-instrument-commissioning" element={<PendaftaranPage />} />
 

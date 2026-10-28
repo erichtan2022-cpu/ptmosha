@@ -280,16 +280,173 @@ export default function FeaturedTrainingCard() {
           </div>
         </motion.div>
 
-        {/* 3-Column Grid: All 3 Training Programs in ONE ROW on desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+        {/* 4-card Grid: 2x2 on desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6 items-stretch">
           {/* =========================================================================
-              CARD 1: HOMER PRO – DESAIN, SIMULASI & ANALISIS PLTS HYBRID (TERBARU)
+              CARD 1: COMMISSIONING OIL & GAS & PEMBANGKIT LISTRIK (ONLINE - 13 NOV 2026 - TERBARU)
               ========================================================================= */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
+            className="rounded-2xl border-2 border-orange-500/50 hover:border-orange-500 bg-card shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col justify-between group"
+          >
+            <div>
+              {/* Top gradient accent bar */}
+              <div className="h-1.5 w-full bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500" />
+
+              {/* Image placeholder (banner belum tersedia) */}
+              <div className="relative bg-gradient-to-br from-orange-950 via-slate-900 to-orange-900 p-2.5 h-48 sm:h-52 flex items-center justify-center border-b border-border overflow-hidden">
+                {/* Decorative background */}
+                <div className="absolute inset-0 opacity-10">
+                  <div className="absolute top-4 left-4 size-24 rounded-full bg-orange-500 blur-2xl" />
+                  <div className="absolute bottom-4 right-4 size-20 rounded-full bg-amber-400 blur-2xl" />
+                </div>
+                {/* Icon placeholder */}
+                <div className="relative flex flex-col items-center justify-center gap-3 text-center">
+                  <div className="size-16 rounded-full bg-orange-500/20 border border-orange-500/40 flex items-center justify-center">
+                    <Zap className="size-8 text-orange-400" />
+                  </div>
+                  <div>
+                    <p className="text-orange-300 font-black text-sm tracking-tight">COMMISSIONING</p>
+                    <p className="text-white/70 text-xs">Oil &amp; Gas &amp; Pembangkit</p>
+                    <p className="text-orange-400 text-[10px] mt-1 font-semibold">Online Training</p>
+                  </div>
+                </div>
+                {/* Badge Online */}
+                <span className="absolute top-2.5 right-2.5 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-orange-600 text-white shadow-md animate-pulse">
+                  <Sparkles className="size-3" />
+                  Terbaru
+                </span>
+              </div>
+
+              {/* Content Body */}
+              <div className="p-4 sm:p-5 space-y-4">
+                <div>
+                  <div className="flex items-center justify-between gap-1 mb-1.5">
+                    <Badge className="bg-orange-600 hover:bg-orange-700 text-white text-[10px] font-semibold px-2 py-0.5">
+                      Online Class
+                    </Badge>
+                    <span className="text-[11px] font-medium text-muted-foreground">PT Mosha &amp; Masebi</span>
+                  </div>
+                  <h3 className="text-base sm:text-lg font-black text-foreground tracking-tight leading-snug line-clamp-2 min-h-[2.8rem]">
+                    Commissioning Oil &amp; Gas &amp; Pembangkit
+                  </h3>
+                  <p className="text-xs font-semibold text-orange-600 dark:text-orange-400 uppercase tracking-wide">
+                    Fasilitas Oil &amp; Gas &amp; Sistem Pembangkit Listrik
+                  </p>
+                </div>
+
+                {/* Schedule Info Box */}
+                <div className="p-3 rounded-xl bg-orange-500/5 border border-orange-500/20 space-y-1.5 text-xs">
+                  <div className="flex items-center gap-2 text-foreground">
+                    <Calendar className="size-3.5 text-orange-500 shrink-0" />
+                    <span className="font-bold">Jumat, 13 Nov 2026 (1 Hari)</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <Clock className="size-3.5 text-orange-500 shrink-0" />
+                    <span>18.00 – 22.00 WIB</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <Video className="size-3.5 text-orange-500 shrink-0" />
+                    <span>Google Meet / Zoom (Online)</span>
+                  </div>
+                </div>
+
+                {/* Outline Ringkas */}
+                <div>
+                  <h4 className="text-[11px] font-bold uppercase tracking-wider text-foreground mb-1.5 flex items-center gap-1">
+                    <Layers className="size-3 text-orange-500" />
+                    Materi Utama (7 Modul)
+                  </h4>
+                  <ul className="space-y-1 text-xs text-muted-foreground">
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-orange-500 font-bold">•</span>
+                      <span className="line-clamp-1">Prinsip Dasar &amp; Strategi Commissioning</span>
+                    </li>
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-orange-500 font-bold">•</span>
+                      <span className="line-clamp-1">P&amp;ID Markup &amp; Mechanical Completion</span>
+                    </li>
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-orange-500 font-bold">•</span>
+                      <span className="line-clamp-1">Prosedur ITR (Inspection &amp; Test Record)</span>
+                    </li>
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-orange-500 font-bold">•</span>
+                      <span className="line-clamp-1">Hydrocarbon Commissioning &amp; System Handover</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Benefit Ringkas */}
+                <div className="grid grid-cols-2 gap-1.5 text-[11px] text-muted-foreground">
+                  <span className="inline-flex items-center gap-1 bg-muted/60 px-2 py-1 rounded border border-border">
+                    <FileText className="size-3 text-orange-500 shrink-0" /> Modul &amp; Materi
+                  </span>
+                  <span className="inline-flex items-center gap-1 bg-muted/60 px-2 py-1 rounded border border-border">
+                    <Award className="size-3 text-orange-500 shrink-0" /> Sertifikat Resmi
+                  </span>
+                  <span className="inline-flex items-center gap-1 bg-muted/60 px-2 py-1 rounded border border-border">
+                    <Video className="size-3 text-orange-500 shrink-0" /> Rekaman Video
+                  </span>
+                  <span className="inline-flex items-center gap-1 bg-muted/60 px-2 py-1 rounded border border-border">
+                    <Users className="size-3 text-orange-500 shrink-0" /> Grup Alumni
+                  </span>
+                </div>
+
+                {/* Price Box */}
+                <div className="p-3 rounded-xl bg-orange-500/10 border border-orange-500/25 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] uppercase font-bold text-orange-700 dark:text-orange-300">Biaya Investasi</span>
+                    <Badge className="bg-orange-600 text-white font-extrabold text-xs px-2 py-0.5">
+                      Rp 600.000
+                    </Badge>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground">
+                    Batas bayar: <strong className="text-foreground">12 Nov 2026</strong> • BCA 3262681995
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Actions */}
+            <div className="p-4 pt-0 flex items-center gap-2">
+              <Button
+                asChild
+                className="flex-1 bg-orange-600 hover:bg-orange-700 text-white font-bold cursor-pointer text-xs h-10 shadow-sm"
+              >
+                <Link to="/pendaftaran?training=commissioning-oil-gas-pembangkit-online">
+                  <CreditCard className="size-3.5 mr-1.5" />
+                  Daftar (Rp 600rb)
+                </Link>
+              </Button>
+              <a
+                href="https://wa.me/62822268195332?text=Halo%20PT%20Mosha%20Sinalsal%20Solusi,%20saya%20ingin%20mendaftar%20Training%20Commissioning%20Oil%20%26%20Gas%20%26%20Pembangkit%20Online%2013%20November%202026%20Rp%20600.000"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="size-10 border-orange-600 text-orange-600 dark:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-950/40 cursor-pointer shrink-0"
+                  title="Hubungi via WhatsApp"
+                >
+                  <MessageCircle className="size-4 text-orange-600" />
+                </Button>
+              </a>
+            </div>
+          </motion.div>
+
+          {/* =========================================================================
+              CARD 2: HOMER PRO – DESAIN, SIMULASI & ANALISIS PLTS HYBRID (1 NOV 2026)
+              ========================================================================= */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.1 }}
             className="rounded-2xl border-2 border-blue-500/50 hover:border-blue-500 bg-card shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col justify-between group"
           >
             <div>
@@ -312,9 +469,9 @@ export default function FeaturedTrainingCard() {
                   className="h-full w-auto max-w-full object-contain drop-shadow-md rounded transition-transform duration-500 group-hover/img:scale-105"
                 />
                 {/* Ribbon Terbaru */}
-                <span className="absolute top-2.5 right-2.5 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-600 text-white shadow-md animate-pulse">
+                <span className="absolute top-2.5 right-2.5 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-600 text-white shadow-md">
                   <Cpu className="size-3" />
-                  Terbaru
+                  Online
                 </span>
                 {/* Hover overlay with zoom icon */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end justify-between p-2.5">
@@ -444,13 +601,13 @@ export default function FeaturedTrainingCard() {
           </motion.div>
 
           {/* =========================================================================
-              CARD 2: PENGENALAN, DESAIN & COMMISSIONING PLTS
+              CARD 3: PENGENALAN, DESAIN & COMMISSIONING PLTS (17 OKT 2026)
               ========================================================================= */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.1 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
             className="rounded-2xl border-2 border-emerald-500/50 hover:border-emerald-500 bg-card shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col justify-between group"
           >
             <div>
@@ -605,13 +762,13 @@ export default function FeaturedTrainingCard() {
           </motion.div>
 
           {/* =========================================================================
-              CARD 3: COMMISSIONING FASILITAS OIL & GAS & PEMBANGKIT LISTRIK (OFFLINE)
+              CARD 4: COMMISSIONING FASILITAS OIL & GAS & PEMBANGKIT LISTRIK (OFFLINE BATAM - 26-27 SEPT 2026)
               ========================================================================= */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.3 }}
             className="rounded-2xl border-2 border-red-500/40 hover:border-red-500 bg-card shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col justify-between group"
           >
             <div>
