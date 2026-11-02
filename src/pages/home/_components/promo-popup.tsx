@@ -50,47 +50,47 @@ export default function PromoPopup() {
               {/* Card Container */}
               <div className="rounded-2xl overflow-hidden shadow-2xl bg-card border border-border/80 flex flex-col max-h-[90vh]">
                 <Link
-                  to="/pendaftaran?training=homer-pro"
+                  to="/pendaftaran?training=commissioning-oil-gas-pembangkit-online"
                   onClick={() => setOpen(false)}
                   className="block relative group overflow-hidden bg-black/5"
                 >
                   <img
-                    src="/images/flyer-pelatihan-homer-pro.png"
-                    alt="Training HOMER Pro: Desain, Simulasi dan Analisis PLTS Hybrid - PT Mosha Sinalsal Solusi & Masebi"
+                    src="/images/flyer-commissioning-oil-gas.jpg"
+                    alt="Training Online Commissioning Fasilitas Oil & Gas dan Pembangkit Listrik - PT Mosha Sinalsal Solusi & Masebi"
                     className="w-full h-auto max-h-[64vh] object-contain mx-auto block transition-transform duration-300 group-hover:scale-[1.02]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
-                    <span className="bg-amber-500 text-slate-950 font-extrabold text-xs px-3.5 py-1.5 rounded-full shadow-lg">
+                    <span className="bg-orange-600 text-white font-extrabold text-xs px-3.5 py-1.5 rounded-full shadow-lg">
                       Klik untuk Daftar &amp; Bayar Online
                     </span>
                   </div>
                 </Link>
 
                 {/* Training & Bank Notice strip */}
-                <div className="bg-blue-500/10 border-t border-border px-3 py-2 flex items-center justify-between text-xs">
+                <div className="bg-orange-500/10 border-t border-border px-3 py-2 flex items-center justify-between text-xs">
                   <div className="flex items-center gap-1.5 text-foreground font-semibold">
-                    <Calendar className="size-3.5 text-blue-600 dark:text-blue-400" />
-                    <span>Minggu, 1 Nov 2026 (18.00 WIB)</span>
+                    <Calendar className="size-3.5 text-orange-600 dark:text-orange-400" />
+                    <span>Jumat, 13 Nov 2026 (18.00 WIB)</span>
                   </div>
-                  <Badge className="bg-blue-600 text-white font-bold text-[11px] px-2.5 py-0.5">
-                    Rp 300.000
+                  <Badge className="bg-orange-600 text-white font-bold text-[11px] px-2.5 py-0.5">
+                    Rp 600.000
                   </Badge>
                 </div>
 
                 {/* Bottom Actions */}
                 <div className="p-3 sm:p-4 bg-card border-t border-border flex flex-col sm:flex-row items-center gap-2">
                   <Link
-                    to="/pendaftaran?training=homer-pro"
+                    to="/pendaftaran?training=commissioning-oil-gas-pembangkit-online"
                     onClick={() => setOpen(false)}
                     className="w-full sm:flex-1"
                   >
-                    <Button className="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold shadow-md cursor-pointer text-xs sm:text-sm h-10">
+                    <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold shadow-md cursor-pointer text-xs sm:text-sm h-10">
                       <CreditCard className="size-4 mr-1.5" />
-                      Daftar &amp; Bayar Sekarang
+                      Daftar Sekarang
                     </Button>
                   </Link>
                   <a
-                    href="https://wa.me/62822268195332?text=Halo%20PT%20Mosha%20Sinalsal%20Solusi,%20saya%20ingin%20mendaftar%20Pelatihan%20HOMER%20Pro%201%20November%202026"
+                    href="https://wa.me/62822268195332?text=Halo%20PT%20Mosha%20Sinalsal%20Solusi,%20saya%20ingin%20mendaftar%20Training%20Commissioning%20Oil%20%26%20Gas%20%26%20Pembangkit%20Online%2013%20November%202026%20Rp%20600.000"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full sm:w-auto"

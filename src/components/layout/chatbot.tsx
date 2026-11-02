@@ -662,31 +662,29 @@ function generateSmartConsultantResponse(
     return {
       text:
         "📅 **Jadwal & Program Pelatihan Unggulan Terdekat di PT Mosha:**\n\n" +
-        "🆕 **1. [TERBARU - ONLINE] HOMER PRO – Desain, Simulasi & Analisis PLTS Hybrid**\n" +
+        "🔥 **1. [TERBARU - ONLINE] Commissioning Fasilitas Oil & Gas dan Pembangkit Listrik**\n" +
+        "• 🗓️ **Jadwal**: Jumat, 13 November 2026\n" +
+        "• ⏰ **Waktu**: 18.00 – 22.00 WIB\n" +
+        "• 💻 **Media**: Online Training Lewat Google Meet\n" +
+        "• 💰 **Biaya**: Rp 600.000 (batas bayar: 12 Nov 2026)\n" +
+        "• 📚 **Materi**: 7 Topik Bahasan (Precommissioning, Markup P&ID, Strategi Commissioning, Mechanical Completion, System Prioritas, Hydrocarbon, Handover)\n" +
+        "• 📝 **Daftar**: /pendaftaran?training=commissioning-oil-gas-pembangkit-online\n\n" +
+        "🆕 **2. [ONLINE] HOMER PRO – Desain, Simulasi & Analisis PLTS Hybrid**\n" +
         "• 🗓️ **Jadwal**: Minggu, 1 November 2026\n" +
         "• ⏰ **Waktu**: 18.00 – 21.30 WIB\n" +
         "• 💻 **Media**: Online via Google Meet\n" +
-        "• 💰 **Biaya**: Rp 300.000 (batas bayar: 31 Okt 2026)\n" +
-        "• 📚 **Materi**: Pengenalan HOMER Pro, Input Data Lokasi & Beban, Konfigurasi PLTS Hybrid, Simulasi & Optimasi, Analisis NPC/COE/ROI\n" +
+        "• 💰 **Biaya**: Rp 300.000\n" +
         "• 📝 **Daftar**: /pendaftaran?training=homer-pro\n\n" +
-        "☀️ **2. [ONLINE] Pengenalan, Desain & Commissioning PLTS**\n" +
-        "• 🗓️ **Jadwal**: Sabtu, 17 Oktober 2026\n" +
-        "• ⏰ **Waktu**: 18.00 – 21.30 WIB\n" +
-        "• 💻 **Media**: Online via Google Meet / Zoom\n" +
-        "• 💰 **Biaya**: Rp 250.000\n" +
-        "• 📚 **Materi**: Modul PV, Inverter Hibrida Cerdas, Baterai Terintegrasi, Distribusi DC, Smart Grid, Desain & Commissioning PLTS\n" +
-        "• 📝 **Daftar**: [bit.ly/3T6EePy](https://bit.ly/3T6EePy)\n\n" +
         "⚙️ **3. [OFFLINE BATAM] Commissioning Fasilitas Oil & Gas & Pembangkit Listrik**\n" +
         "• 🗓️ **Jadwal**: 26 – 27 September 2026 (Sabtu & Minggu)\n" +
         "• ⏰ **Waktu**: 13.30 – 18.00 WIB\n" +
         "• 📍 **Lokasi**: Ruko Bukit Kemuning Blok DD3 No. 02, Batam\n" +
-        "• 📚 **Materi**: 10 Modul Lengkap Commissioning Migas, P&ID Markup, Mechanical Completion, ITR, Piping, E&I, Hydrocarbon Startup\n" +
-        "• 📝 **Daftar**: [bit.ly/4cz9xct](https://bit.ly/4cz9xct)\n\n" +
+        "• 💰 **Biaya**: Rp 1.500.000\n\n" +
         "Pelatihan mana yang ingin Anda ikuti?",
-      options: ["🆕 Daftar HOMER Pro (1 Nov)", "☀️ Daftar PLTS Online (17 Okt)", "⚙️ Daftar Oil & Gas Batam (26-27 Sept)", "💬 WA Admin"],
+      options: ["🔥 Daftar Commissioning Online (13 Nov)", "🆕 Daftar HOMER Pro (1 Nov)", "⚙️ Daftar Oil & Gas Batam", "💬 WA Admin"],
       actionLink: {
-        label: "Daftar Pelatihan HOMER Pro (Terbaru)",
-        url: "/pendaftaran?training=homer-pro",
+        label: "Daftar Commissioning Oil & Gas Online (13 Nov)",
+        url: "/pendaftaran?training=commissioning-oil-gas-pembangkit-online",
       },
     };
   }
@@ -779,10 +777,11 @@ function generateSmartConsultantResponse(
     return {
       text:
         "💳 **Informasi Biaya & Pembayaran Pelatihan PT Mosha Sinalsal Solusi:**\n\n" +
-        "• **Training HOMER PRO (Online - 1 Nov 2026)**: Rp 300.000 *(Terbaru!)*\n" +
+        "• **Training Commissioning Oil & Gas & Pembangkit (Online - 13 Nov 2026)**: Rp 600.000 *(Terbaru!)*\n" +
+        "• **Bootcamp Corporate ESG Strategy (Online - 6 Nov 2026)**: Rp 3.100.000\n" +
+        "• **Training HOMER PRO (Online - 1 Nov 2026)**: Rp 300.000\n" +
         "• **Training PLTS (Online - 17 Okt 2026)**: Rp 250.000\n" +
-        "• **Training Oil & Gas (Offline Batam)**: Rp 1.500.000\n" +
-        "• **Training Oil & Gas (Online)**: Rp 500.000\n\n" +
+        "• **Training Oil & Gas (Offline Batam)**: Rp 1.500.000\n\n" +
         "📝 **Rekening Resmi Pembayaran:**\n" +
         "• **Bank Central Asia (BCA)**: 3262681995\n" +
         "• **Atas Nama**: PT Mosha Sinalsal Solusi\n" +

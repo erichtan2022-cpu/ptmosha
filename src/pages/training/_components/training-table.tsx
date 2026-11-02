@@ -18,7 +18,7 @@ type Training = {
 };
 
 const TRAININGS: Training[] = [
-  { no: 1, topic: "Commissioning Oil & Gas & Pembangkit Listrik (Online)", duration: "1 x 4 jam (13 Nov 2026)", mode: "Online", notes: "Live Google Meet / Zoom (18.00 – 22.00 WIB) – Rp 600.000" },
+  { no: 1, topic: "Commissioning Fasilitas Oil & Gas dan Pembangkit Listrik (Online)", duration: "1 x 4 jam (Jumat, 13 November 2026)", mode: "Online", notes: "Live Google Meet (18.00 – 22.00 WIB) – Rp 600.000" },
   { no: 2, topic: "BOOTCAMP CORPORATE ESG STRATEGY & SUSTAINABILITY MANAGEMENT (8+ Sesi Live & Intensif)", duration: "8+ Sesi Live (Mulai 6 Nov 2026)", mode: "Online", notes: "Live Zoom Meeting – Promo Rp 3.100.000 (Coret Rp 5 Juta)" },
   { no: 3, topic: "HOMER PRO - Desain, Simulasi & Analisis PLTS Hybrid Menggunakan HOMER Pro", duration: "1 x 3,5 jam (1 Nov 2026)", mode: "Online", notes: "Live Online Google Meet – Rp 300.000" },
   { no: 4, topic: "Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya)", duration: "1 x 3,5 jam (17 Okt 2026)", mode: "Online", notes: "Google Meet / Zoom (Penyelenggara PT Mosha & Masebi)" },
