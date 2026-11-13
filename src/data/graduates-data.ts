@@ -38,6 +38,68 @@ export const COMMISSIONING_TOPICS = [
   "10 System Handover",
 ];
 
+export const PLTS_TOPICS = [
+  "01 Perkenalan System PLTS",
+  "02 Komponen System PLTS : Modul PV Inverter dan Baterai",
+  "03 Desain System PLTS",
+  "04 Commissioning PLTS",
+];
+
+export const CERTIFICATE_NUMBER_MAP: Record<string, string> = {
+  "SAMUEL FEBRIANTO SIMBOLON": "MSS-PVOL06-102601",
+  "RIZKY NAHDATUL": "MSS-PVOL06-102602",
+  "SEKAR AYU ARUMNINGTYAS": "MSS-PVOL06-102603",
+  "GINANJAR RAGANATA": "MSS-PVOL06-102604",
+  "ZAKI IMAMI": "MSS-PVOL06-102605",
+  "YUDHA SEPTIAWAN": "MSS-PVOL06-102606",
+  "MUHAMMAD REZA FATHONI": "MSS-PVOL06-102607",
+  "JETHRO BRYAN SITORUS": "MSS-PVOL06-102608",
+  "KAISAR ALI KAMARLIS": "MSS-COF22-092601",
+  "WAHYU HIDAYAT": "MSS-COF22-092602",
+};
+
+export const CERTIFICATE_IMAGE_MAP: Record<string, string> = {
+  "MSS-COF22-092601": "/images/certificates/sertifikat-kaisar-ali-kamarlis.png",
+  "MSS-COF22-092602": "/images/certificates/sertifikat-wahyu-hidayat.png",
+  "MSS-PVOL06-102601": "/images/certificates/sertifikat-samuel-febrianto-simbolon.jpg",
+  "MSS-PVOL06-102602": "/images/certificates/sertifikat-rizky-nahdatul.jpg",
+  "MSS-PVOL06-102603": "/images/certificates/sertifikat-sekar-ayu-arumningtyas.jpg",
+  "MSS-PVOL06-102604": "/images/certificates/sertifikat-ginanjar-raganata.jpg",
+  "MSS-PVOL06-102605": "/images/certificates/sertifikat-zaki-imami.jpg",
+  "MSS-PVOL06-102606": "/images/certificates/sertifikat-yudha-septiawan.jpg",
+  "MSS-PVOL06-102607": "/images/certificates/sertifikat-muhammad-reza-fathoni.jpg",
+  "MSS-PVOL06-102608": "/images/certificates/sertifikat-jethro-bryan-sitorus.jpg",
+};
+
+export function getCertificateNumber(fullName?: string, existingCertNumber?: string): string {
+  if (existingCertNumber && existingCertNumber.trim() !== "") {
+    return existingCertNumber.trim();
+  }
+  if (!fullName) return "";
+  const norm = fullName.trim().toUpperCase();
+  for (const [name, num] of Object.entries(CERTIFICATE_NUMBER_MAP)) {
+    if (norm.includes(name) || name.includes(norm)) {
+      return num;
+    }
+  }
+  return "";
+}
+
+export function getCertificateImage(certNumber?: string, fullName?: string): string | undefined {
+  if (certNumber && CERTIFICATE_IMAGE_MAP[certNumber]) {
+    return CERTIFICATE_IMAGE_MAP[certNumber];
+  }
+  if (fullName) {
+    const norm = fullName.trim().toUpperCase();
+    for (const [name, num] of Object.entries(CERTIFICATE_NUMBER_MAP)) {
+      if (norm.includes(name) || name.includes(norm)) {
+        return CERTIFICATE_IMAGE_MAP[num];
+      }
+    }
+  }
+  return undefined;
+}
+
 export const OFFICIAL_CERTIFICATE_CONFIG = {
   companyName: "PT MOSHA SINALSAL SOLUSI",
   companySub: "Consultant, Training & Manpower Supply",
@@ -65,19 +127,23 @@ export const INITIAL_GRADUATES_LIST: GraduateRecord[] = [
     completionDate: "17 Oktober 2026",
     trainingTopic: "Pengenalan, Desain & Commissioning PLTS",
     trainingCategory: "Renewable Energy (PLTS)",
-    certificateNumber: "",
+    certificateNumber: "MSS-PVOL06-102601",
     institution: "Peserta Profesional",
     hours: "32 Jam Pelatihan",
+    venue: "ONLINE VIA ZOOM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-samuel-febrianto-simbolon.jpg",
+    topics: PLTS_TOPICS,
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS.",
+    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya).",
     issuer: "PT Mosha Sinalsal Solusi & MASEBI",
     signatory1: {
-      name: "Ir. Mosha Sinalsal, M.T., IPM.",
-      role: "Direktur Utama PT Mosha Sinalsal Solusi",
+      name: "Emos Arapenta Ginting",
+      role: "Manager & Instructor PT Mosha Sinalsal Solusi",
     },
     signatory2: {
-      name: "Ir. Ardiansyah, S.T., M.Eng.",
-      role: "Lead Trainer & Commissioning Specialist",
+      name: "Masyarakat Sistem Energi Berkelanjutan Indonesia",
+      role: "Partner Asosiasi (MASEBI)",
     },
   },
   {
@@ -86,19 +152,23 @@ export const INITIAL_GRADUATES_LIST: GraduateRecord[] = [
     completionDate: "17 Oktober 2026",
     trainingTopic: "Pengenalan, Desain & Commissioning PLTS",
     trainingCategory: "Renewable Energy (PLTS)",
-    certificateNumber: "",
+    certificateNumber: "MSS-PVOL06-102602",
     institution: "Peserta Profesional",
     hours: "32 Jam Pelatihan",
+    venue: "ONLINE VIA ZOOM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-rizky-nahdatul.jpg",
+    topics: PLTS_TOPICS,
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS.",
+    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya).",
     issuer: "PT Mosha Sinalsal Solusi & MASEBI",
     signatory1: {
-      name: "Ir. Mosha Sinalsal, M.T., IPM.",
-      role: "Direktur Utama PT Mosha Sinalsal Solusi",
+      name: "Emos Arapenta Ginting",
+      role: "Manager & Instructor PT Mosha Sinalsal Solusi",
     },
     signatory2: {
-      name: "Ir. Ardiansyah, S.T., M.Eng.",
-      role: "Lead Trainer & Commissioning Specialist",
+      name: "Masyarakat Sistem Energi Berkelanjutan Indonesia",
+      role: "Partner Asosiasi (MASEBI)",
     },
   },
   {
@@ -107,19 +177,23 @@ export const INITIAL_GRADUATES_LIST: GraduateRecord[] = [
     completionDate: "17 Oktober 2026",
     trainingTopic: "Pengenalan, Desain & Commissioning PLTS",
     trainingCategory: "Renewable Energy (PLTS)",
-    certificateNumber: "",
+    certificateNumber: "MSS-PVOL06-102603",
     institution: "Peserta Profesional",
     hours: "32 Jam Pelatihan",
+    venue: "ONLINE VIA ZOOM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-sekar-ayu-arumningtyas.jpg",
+    topics: PLTS_TOPICS,
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS.",
+    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya).",
     issuer: "PT Mosha Sinalsal Solusi & MASEBI",
     signatory1: {
-      name: "Ir. Mosha Sinalsal, M.T., IPM.",
-      role: "Direktur Utama PT Mosha Sinalsal Solusi",
+      name: "Emos Arapenta Ginting",
+      role: "Manager & Instructor PT Mosha Sinalsal Solusi",
     },
     signatory2: {
-      name: "Ir. Ardiansyah, S.T., M.Eng.",
-      role: "Lead Trainer & Commissioning Specialist",
+      name: "Masyarakat Sistem Energi Berkelanjutan Indonesia",
+      role: "Partner Asosiasi (MASEBI)",
     },
   },
   {
@@ -128,19 +202,23 @@ export const INITIAL_GRADUATES_LIST: GraduateRecord[] = [
     completionDate: "17 Oktober 2026",
     trainingTopic: "Pengenalan, Desain & Commissioning PLTS",
     trainingCategory: "Renewable Energy (PLTS)",
-    certificateNumber: "",
+    certificateNumber: "MSS-PVOL06-102604",
     institution: "Peserta Profesional",
     hours: "32 Jam Pelatihan",
+    venue: "ONLINE VIA ZOOM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-ginanjar-raganata.jpg",
+    topics: PLTS_TOPICS,
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS.",
+    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya).",
     issuer: "PT Mosha Sinalsal Solusi & MASEBI",
     signatory1: {
-      name: "Ir. Mosha Sinalsal, M.T., IPM.",
-      role: "Direktur Utama PT Mosha Sinalsal Solusi",
+      name: "Emos Arapenta Ginting",
+      role: "Manager & Instructor PT Mosha Sinalsal Solusi",
     },
     signatory2: {
-      name: "Ir. Ardiansyah, S.T., M.Eng.",
-      role: "Lead Trainer & Commissioning Specialist",
+      name: "Masyarakat Sistem Energi Berkelanjutan Indonesia",
+      role: "Partner Asosiasi (MASEBI)",
     },
   },
   {
@@ -149,19 +227,23 @@ export const INITIAL_GRADUATES_LIST: GraduateRecord[] = [
     completionDate: "17 Oktober 2026",
     trainingTopic: "Pengenalan, Desain & Commissioning PLTS",
     trainingCategory: "Renewable Energy (PLTS)",
-    certificateNumber: "",
+    certificateNumber: "MSS-PVOL06-102605",
     institution: "Peserta Profesional",
     hours: "32 Jam Pelatihan",
+    venue: "ONLINE VIA ZOOM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-zaki-imami.jpg",
+    topics: PLTS_TOPICS,
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS.",
+    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya).",
     issuer: "PT Mosha Sinalsal Solusi & MASEBI",
     signatory1: {
-      name: "Ir. Mosha Sinalsal, M.T., IPM.",
-      role: "Direktur Utama PT Mosha Sinalsal Solusi",
+      name: "Emos Arapenta Ginting",
+      role: "Manager & Instructor PT Mosha Sinalsal Solusi",
     },
     signatory2: {
-      name: "Ir. Ardiansyah, S.T., M.Eng.",
-      role: "Lead Trainer & Commissioning Specialist",
+      name: "Masyarakat Sistem Energi Berkelanjutan Indonesia",
+      role: "Partner Asosiasi (MASEBI)",
     },
   },
   {
@@ -170,19 +252,23 @@ export const INITIAL_GRADUATES_LIST: GraduateRecord[] = [
     completionDate: "17 Oktober 2026",
     trainingTopic: "Pengenalan, Desain & Commissioning PLTS",
     trainingCategory: "Renewable Energy (PLTS)",
-    certificateNumber: "",
+    certificateNumber: "MSS-PVOL06-102606",
     institution: "Peserta Profesional",
     hours: "32 Jam Pelatihan",
+    venue: "ONLINE VIA ZOOM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-yudha-septiawan.jpg",
+    topics: PLTS_TOPICS,
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS.",
+    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya).",
     issuer: "PT Mosha Sinalsal Solusi & MASEBI",
     signatory1: {
-      name: "Ir. Mosha Sinalsal, M.T., IPM.",
-      role: "Direktur Utama PT Mosha Sinalsal Solusi",
+      name: "Emos Arapenta Ginting",
+      role: "Manager & Instructor PT Mosha Sinalsal Solusi",
     },
     signatory2: {
-      name: "Ir. Ardiansyah, S.T., M.Eng.",
-      role: "Lead Trainer & Commissioning Specialist",
+      name: "Masyarakat Sistem Energi Berkelanjutan Indonesia",
+      role: "Partner Asosiasi (MASEBI)",
     },
   },
   {
@@ -191,19 +277,23 @@ export const INITIAL_GRADUATES_LIST: GraduateRecord[] = [
     completionDate: "17 Oktober 2026",
     trainingTopic: "Pengenalan, Desain & Commissioning PLTS",
     trainingCategory: "Renewable Energy (PLTS)",
-    certificateNumber: "",
+    certificateNumber: "MSS-PVOL06-102607",
     institution: "Peserta Profesional",
     hours: "32 Jam Pelatihan",
+    venue: "ONLINE VIA ZOOM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-muhammad-reza-fathoni.jpg",
+    topics: PLTS_TOPICS,
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS.",
+    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya).",
     issuer: "PT Mosha Sinalsal Solusi & MASEBI",
     signatory1: {
-      name: "Ir. Mosha Sinalsal, M.T., IPM.",
-      role: "Direktur Utama PT Mosha Sinalsal Solusi",
+      name: "Emos Arapenta Ginting",
+      role: "Manager & Instructor PT Mosha Sinalsal Solusi",
     },
     signatory2: {
-      name: "Ir. Ardiansyah, S.T., M.Eng.",
-      role: "Lead Trainer & Commissioning Specialist",
+      name: "Masyarakat Sistem Energi Berkelanjutan Indonesia",
+      role: "Partner Asosiasi (MASEBI)",
     },
   },
   {
@@ -212,19 +302,23 @@ export const INITIAL_GRADUATES_LIST: GraduateRecord[] = [
     completionDate: "17 Oktober 2026",
     trainingTopic: "Pengenalan, Desain & Commissioning PLTS",
     trainingCategory: "Renewable Energy (PLTS)",
-    certificateNumber: "",
+    certificateNumber: "MSS-PVOL06-102608",
     institution: "Peserta Profesional",
     hours: "32 Jam Pelatihan",
+    venue: "ONLINE VIA ZOOM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-jethro-bryan-sitorus.jpg",
+    topics: PLTS_TOPICS,
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS.",
+    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya).",
     issuer: "PT Mosha Sinalsal Solusi & MASEBI",
     signatory1: {
-      name: "Ir. Mosha Sinalsal, M.T., IPM.",
-      role: "Direktur Utama PT Mosha Sinalsal Solusi",
+      name: "Emos Arapenta Ginting",
+      role: "Manager & Instructor PT Mosha Sinalsal Solusi",
     },
     signatory2: {
-      name: "Ir. Ardiansyah, S.T., M.Eng.",
-      role: "Lead Trainer & Commissioning Specialist",
+      name: "Masyarakat Sistem Energi Berkelanjutan Indonesia",
+      role: "Partner Asosiasi (MASEBI)",
     },
   },
 

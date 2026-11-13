@@ -24,88 +24,112 @@ export const INITIAL_GRADUATES: GraduateSeed[] = [
     completionDate: "17 Oktober 2026",
     trainingTopic: "Pengenalan, Desain & Commissioning PLTS",
     trainingCategory: "Renewable Energy (PLTS)",
-    certificateNumber: "",
+    certificateNumber: "MSS-PVOL06-102601",
     institution: "Peserta Profesional",
     hours: "32 Jam Pelatihan",
+    venue: "ONLINE VIA ZOOM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-samuel-febrianto-simbolon.jpg",
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS.",
+    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya).",
   },
   {
     fullName: "RIZKY NAHDATUL",
     completionDate: "17 Oktober 2026",
     trainingTopic: "Pengenalan, Desain & Commissioning PLTS",
     trainingCategory: "Renewable Energy (PLTS)",
-    certificateNumber: "",
+    certificateNumber: "MSS-PVOL06-102602",
     institution: "Peserta Profesional",
     hours: "32 Jam Pelatihan",
+    venue: "ONLINE VIA ZOOM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-rizky-nahdatul.jpg",
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS.",
+    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya).",
   },
   {
     fullName: "SEKAR AYU ARUMNINGTYAS",
     completionDate: "17 Oktober 2026",
     trainingTopic: "Pengenalan, Desain & Commissioning PLTS",
     trainingCategory: "Renewable Energy (PLTS)",
-    certificateNumber: "",
+    certificateNumber: "MSS-PVOL06-102603",
     institution: "Peserta Profesional",
     hours: "32 Jam Pelatihan",
+    venue: "ONLINE VIA ZOOM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-sekar-ayu-arumningtyas.jpg",
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS.",
+    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya).",
   },
   {
     fullName: "GINANJAR RAGANATA",
     completionDate: "17 Oktober 2026",
     trainingTopic: "Pengenalan, Desain & Commissioning PLTS",
     trainingCategory: "Renewable Energy (PLTS)",
-    certificateNumber: "",
+    certificateNumber: "MSS-PVOL06-102604",
     institution: "Peserta Profesional",
     hours: "32 Jam Pelatihan",
+    venue: "ONLINE VIA ZOOM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-ginanjar-raganata.jpg",
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS.",
+    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya).",
   },
   {
     fullName: "ZAKI IMAMI",
     completionDate: "17 Oktober 2026",
     trainingTopic: "Pengenalan, Desain & Commissioning PLTS",
     trainingCategory: "Renewable Energy (PLTS)",
-    certificateNumber: "",
+    certificateNumber: "MSS-PVOL06-102605",
     institution: "Peserta Profesional",
     hours: "32 Jam Pelatihan",
+    venue: "ONLINE VIA ZOOM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-zaki-imami.jpg",
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS.",
+    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya).",
   },
   {
     fullName: "YUDHA SEPTIAWAN",
     completionDate: "17 Oktober 2026",
     trainingTopic: "Pengenalan, Desain & Commissioning PLTS",
     trainingCategory: "Renewable Energy (PLTS)",
-    certificateNumber: "",
+    certificateNumber: "MSS-PVOL06-102606",
     institution: "Peserta Profesional",
     hours: "32 Jam Pelatihan",
+    venue: "ONLINE VIA ZOOM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-yudha-septiawan.jpg",
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS.",
+    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya).",
   },
   {
     fullName: "MUHAMMAD REZA FATHONI",
     completionDate: "17 Oktober 2026",
     trainingTopic: "Pengenalan, Desain & Commissioning PLTS",
     trainingCategory: "Renewable Energy (PLTS)",
-    certificateNumber: "",
+    certificateNumber: "MSS-PVOL06-102607",
     institution: "Peserta Profesional",
     hours: "32 Jam Pelatihan",
+    venue: "ONLINE VIA ZOOM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-muhammad-reza-fathoni.jpg",
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS.",
+    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya).",
   },
   {
     fullName: "JETHRO BRYAN SITORUS",
     completionDate: "17 Oktober 2026",
     trainingTopic: "Pengenalan, Desain & Commissioning PLTS",
     trainingCategory: "Renewable Energy (PLTS)",
-    certificateNumber: "",
+    certificateNumber: "MSS-PVOL06-102608",
     institution: "Peserta Profesional",
     hours: "32 Jam Pelatihan",
+    venue: "ONLINE VIA ZOOM",
+    instructor: "Emos Arapenta Ginting",
+    certificateImageUrl: "/images/certificates/sertifikat-jethro-bryan-sitorus.jpg",
     status: "verified",
-    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS.",
+    notes: "Menyelesaikan program pelatihan teknis Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya).",
   },
 
   // Commissioning in Oil & Gas and Power Plant Project (26 – 27 September 2026)
@@ -265,7 +289,8 @@ export const updateOfficialCertificates = mutation({
     let updatedCount = 0;
 
     for (const g of graduates) {
-      if (g.fullName.toUpperCase().includes("KAISAR ALI")) {
+      const nameUpper = g.fullName.toUpperCase();
+      if (nameUpper.includes("KAISAR ALI")) {
         await ctx.db.patch(g._id, {
           certificateNumber: "MSS-COF22-092601",
           trainingTopic: "Commissioning in Oil & Gas and Power Plant Project",
@@ -276,7 +301,7 @@ export const updateOfficialCertificates = mutation({
           notes: "Menyelesaikan program pelatihan teknis Commissioning in Oil & Gas and Power Plant Project di Batam.",
         });
         updatedCount++;
-      } else if (g.fullName.toUpperCase().includes("WAHYU HIDAYAT")) {
+      } else if (nameUpper.includes("WAHYU HIDAYAT")) {
         await ctx.db.patch(g._id, {
           certificateNumber: "MSS-COF22-092602",
           trainingTopic: "Commissioning in Oil & Gas and Power Plant Project",
@@ -285,6 +310,70 @@ export const updateOfficialCertificates = mutation({
           venue: "BATAM",
           instructor: "Emos Arapenta Ginting",
           notes: "Menyelesaikan program pelatihan teknis Commissioning in Oil & Gas and Power Plant Project di Batam.",
+        });
+        updatedCount++;
+      } else if (nameUpper.includes("SAMUEL FEBRIANTO")) {
+        await ctx.db.patch(g._id, {
+          certificateNumber: "MSS-PVOL06-102601",
+          certificateImageUrl: "/images/certificates/sertifikat-samuel-febrianto-simbolon.jpg",
+          venue: "ONLINE VIA ZOOM",
+          instructor: "Emos Arapenta Ginting",
+        });
+        updatedCount++;
+      } else if (nameUpper.includes("RIZKY NAHDATUL")) {
+        await ctx.db.patch(g._id, {
+          certificateNumber: "MSS-PVOL06-102602",
+          certificateImageUrl: "/images/certificates/sertifikat-rizky-nahdatul.jpg",
+          venue: "ONLINE VIA ZOOM",
+          instructor: "Emos Arapenta Ginting",
+        });
+        updatedCount++;
+      } else if (nameUpper.includes("SEKAR AYU")) {
+        await ctx.db.patch(g._id, {
+          certificateNumber: "MSS-PVOL06-102603",
+          certificateImageUrl: "/images/certificates/sertifikat-sekar-ayu-arumningtyas.jpg",
+          venue: "ONLINE VIA ZOOM",
+          instructor: "Emos Arapenta Ginting",
+        });
+        updatedCount++;
+      } else if (nameUpper.includes("GINANJAR")) {
+        await ctx.db.patch(g._id, {
+          certificateNumber: "MSS-PVOL06-102604",
+          certificateImageUrl: "/images/certificates/sertifikat-ginanjar-raganata.jpg",
+          venue: "ONLINE VIA ZOOM",
+          instructor: "Emos Arapenta Ginting",
+        });
+        updatedCount++;
+      } else if (nameUpper.includes("ZAKI IMAMI")) {
+        await ctx.db.patch(g._id, {
+          certificateNumber: "MSS-PVOL06-102605",
+          certificateImageUrl: "/images/certificates/sertifikat-zaki-imami.jpg",
+          venue: "ONLINE VIA ZOOM",
+          instructor: "Emos Arapenta Ginting",
+        });
+        updatedCount++;
+      } else if (nameUpper.includes("YUDHA SEPTIAWAN")) {
+        await ctx.db.patch(g._id, {
+          certificateNumber: "MSS-PVOL06-102606",
+          certificateImageUrl: "/images/certificates/sertifikat-yudha-septiawan.jpg",
+          venue: "ONLINE VIA ZOOM",
+          instructor: "Emos Arapenta Ginting",
+        });
+        updatedCount++;
+      } else if (nameUpper.includes("MUHAMMAD REZA")) {
+        await ctx.db.patch(g._id, {
+          certificateNumber: "MSS-PVOL06-102607",
+          certificateImageUrl: "/images/certificates/sertifikat-muhammad-reza-fathoni.jpg",
+          venue: "ONLINE VIA ZOOM",
+          instructor: "Emos Arapenta Ginting",
+        });
+        updatedCount++;
+      } else if (nameUpper.includes("JETHRO BRYAN")) {
+        await ctx.db.patch(g._id, {
+          certificateNumber: "MSS-PVOL06-102608",
+          certificateImageUrl: "/images/certificates/sertifikat-jethro-bryan-sitorus.jpg",
+          venue: "ONLINE VIA ZOOM",
+          instructor: "Emos Arapenta Ginting",
         });
         updatedCount++;
       }

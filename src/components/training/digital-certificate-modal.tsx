@@ -17,7 +17,11 @@ import {
   Award,
   FileCheck,
 } from "lucide-react";
-import { type GraduateRecord } from "@/data/graduates-data.ts";
+import {
+  type GraduateRecord,
+  getCertificateNumber,
+  getCertificateImage,
+} from "@/data/graduates-data.ts";
 import { toast } from "sonner";
 
 interface DigitalCertificateModalProps {
@@ -36,12 +40,15 @@ export default function DigitalCertificateModal({
 
   if (!graduate) return null;
 
+  const certNumber = getCertificateNumber(graduate.fullName, graduate.certificateNumber);
+  const certImageUrl = graduate.certificateImageUrl || getCertificateImage(certNumber, graduate.fullName);
+
   const verificationUrl =
     typeof window !== "undefined"
       ? `${window.location.origin}/verifikasi-sertifikat?cert=${encodeURIComponent(
-          graduate.certificateNumber
+          certNumber
         )}`
-      : `/verifikasi-sertifikat?cert=${encodeURIComponent(graduate.certificateNumber)}`;
+      : `/verifikasi-sertifikat?cert=${encodeURIComponent(certNumber)}`;
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(verificationUrl);
@@ -76,7 +83,7 @@ export default function DigitalCertificateModal({
               <p className="text-xs text-muted-foreground">
                 No. Registrasi:{" "}
                 <span className="font-mono font-bold text-foreground">
-                  {graduate.certificateNumber || "-"}
+                  {certNumber || "-"}
                 </span>
                 {graduate.venue && (
                   <span className="ml-2 text-muted-foreground">
@@ -127,12 +134,12 @@ export default function DigitalCertificateModal({
             <div className="flex items-center gap-2 text-foreground font-medium">
               <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
               <span>
-                Dokumen fisik asli diterbitkan untuk <strong>{graduate.fullName}</strong> ({graduate.certificateNumber}).
+                Dokumen fisik asli diterbitkan untuk <strong>{graduate.fullName}</strong> ({certNumber || "Terverifikasi"}).
               </span>
             </div>
-            {graduate.certificateImageUrl && (
+            {certImageUrl && (
               <a
-                href={graduate.certificateImageUrl}
+                href={certImageUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-accent font-semibold hover:underline shrink-0 text-xs"
@@ -144,14 +151,14 @@ export default function DigitalCertificateModal({
           </div>
 
           {/* Certificate Image Frame */}
-          {graduate.certificateImageUrl ? (
+          {certImageUrl ? (
             <div
               ref={certificateRef}
               id="official-certificate-canvas"
               className="relative rounded-xl overflow-hidden border-2 border-border shadow-lg bg-neutral-900 flex items-center justify-center p-1 sm:p-2"
             >
               <img
-                src={graduate.certificateImageUrl}
+                src={certImageUrl}
                 alt={`Sertifikat Resmi ${graduate.fullName}`}
                 className="w-full h-auto max-h-[76vh] object-contain shadow-2xl rounded"
               />

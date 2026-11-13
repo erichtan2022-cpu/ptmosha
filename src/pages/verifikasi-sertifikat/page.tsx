@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useQuery } from "convex/react";
+import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api.js";
 import { motion } from "motion/react";
 import {
@@ -29,6 +29,9 @@ import {
   type GraduateRecord,
   INITIAL_GRADUATES_LIST,
   COMMISSIONING_TOPICS,
+  PLTS_TOPICS,
+  getCertificateNumber,
+  getCertificateImage,
 } from "@/data/graduates-data.ts";
 
 const HERO_IMAGE =
@@ -55,6 +58,18 @@ export default function VerifikasiSertifikatPage() {
     category: selectedCategory !== "all" ? selectedCategory : undefined,
   });
 
+  const updateCertificates = useMutation(api.graduates.updateOfficialCertificates);
+
+  // Auto-sync Convex database in the background if any records are missing certificate numbers or images
+  useEffect(() => {
+    if (convexGraduates && convexGraduates.length > 0) {
+      const needsPatch = convexGraduates.some((g: any) => !g.certificateNumber || !g.certificateImageUrl);
+      if (needsPatch) {
+        updateCertificates().catch(() => {});
+      }
+    }
+  }, [convexGraduates, updateCertificates]);
+
   // Harmonize data: use Convex if returned and has items, otherwise fallback to rich local verified dataset
   const graduatesList: GraduateRecord[] = useMemo(() => {
     if (convexGraduates && convexGraduates.length > 0) {
@@ -62,33 +77,34 @@ export default function VerifikasiSertifikatPage() {
         const isCommissioning =
           g.trainingTopic?.toLowerCase().includes("commissioning") ||
           g.certificateNumber?.includes("COF22");
+        const isPLTS =
+          g.trainingTopic?.toLowerCase().includes("plts") ||
+          g.certificateNumber?.includes("PVOL06") ||
+          g.trainingCategory?.includes("PLTS");
+
+        const certNumber = getCertificateNumber(g.fullName, g.certificateNumber);
+        const certImageUrl = g.certificateImageUrl || getCertificateImage(certNumber, g.fullName);
 
         return {
           id: g._id || g.id,
           fullName: g.fullName,
           completionDate: g.completionDate,
           trainingTopic: g.trainingTopic,
-          trainingCategory: g.trainingCategory || "Pelatihan Profesional",
-          certificateNumber: g.certificateNumber,
+          trainingCategory: g.trainingCategory || (isPLTS ? "Renewable Energy (PLTS)" : "Pelatihan Profesional"),
+          certificateNumber: certNumber,
           institution: g.institution,
           grade: g.grade,
           hours: g.hours,
           status: (g.status as "verified") || "verified",
           notes: g.notes,
-          venue: g.venue || (isCommissioning ? "BATAM" : undefined),
-          instructor: g.instructor || (isCommissioning ? "Emos Arapenta Ginting" : undefined),
-          certificateImageUrl:
-            g.certificateImageUrl ||
-            (g.fullName?.toUpperCase().includes("KAISAR ALI")
-              ? "/images/certificates/sertifikat-kaisar-ali-kamarlis.png"
-              : g.fullName?.toUpperCase().includes("WAHYU HIDAYAT")
-                ? "/images/certificates/sertifikat-wahyu-hidayat.png"
-                : undefined),
-          topics: isCommissioning ? COMMISSIONING_TOPICS : undefined,
+          venue: g.venue || (isCommissioning ? "BATAM" : isPLTS ? "ONLINE VIA ZOOM" : undefined),
+          instructor: g.instructor || ((isCommissioning || isPLTS) ? "Emos Arapenta Ginting" : undefined),
+          certificateImageUrl: certImageUrl,
+          topics: isCommissioning ? COMMISSIONING_TOPICS : isPLTS ? PLTS_TOPICS : undefined,
           issuer: "PT Mosha Sinalsal Solusi & MASEBI",
           signatory1: {
-            name: isCommissioning ? "Emos Arapenta Ginting" : "Ir. Mosha Sinalsal, M.T., IPM.",
-            role: isCommissioning
+            name: (isCommissioning || isPLTS) ? "Emos Arapenta Ginting" : "Ir. Mosha Sinalsal, M.T., IPM.",
+            role: (isCommissioning || isPLTS)
               ? "Manager & Instructor PT Mosha Sinalsal Solusi"
               : "Direktur Utama PT Mosha Sinalsal Solusi",
           },
@@ -371,24 +387,14 @@ export default function VerifikasiSertifikatPage() {
 
                           {/* Aksi */}
                           <td className="px-6 py-4 text-right whitespace-nowrap">
-                            {grad.certificateNumber ? (
-                              <Button
-                                size="sm"
-                                onClick={() => handleOpenCertificate(grad)}
-                                className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-xs h-8 gap-1.5 cursor-pointer shadow-xs"
-                              >
-                                <Award className="size-3.5" />
-                                Lihat Sertifikat
-                              </Button>
-                            ) : (
-                              <span
-                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-muted text-xs font-semibold text-muted-foreground border border-border/60"
-                                title="Sertifikat resmi diterbitkan langsung oleh PT Mosha Sinalsal Solusi & MASEBI"
-                              >
-                                <FileCheck2 className="size-3.5 text-accent" />
-                                Sertifikat Mandiri
-                              </span>
-                            )}
+                            <Button
+                              size="sm"
+                              onClick={() => handleOpenCertificate(grad)}
+                              className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-xs h-8 gap-1.5 cursor-pointer shadow-xs"
+                            >
+                              <Award className="size-3.5" />
+                              Lihat Sertifikat
+                            </Button>
                           </td>
                         </motion.tr>
                       ))}
@@ -446,21 +452,14 @@ export default function VerifikasiSertifikatPage() {
                           {grad.certificateNumber || "-"}
                         </span>
                       </div>
-                      {grad.certificateNumber ? (
-                        <Button
-                          size="sm"
-                          onClick={() => handleOpenCertificate(grad)}
-                          className="bg-accent text-accent-foreground hover:bg-accent/90 text-xs h-8 gap-1.5 font-semibold cursor-pointer"
-                        >
-                          <Award className="size-3.5" />
-                          Lihat Sertifikat
-                        </Button>
-                      ) : (
-                        <span className="text-xs text-muted-foreground font-semibold flex items-center gap-1 bg-muted/60 px-2.5 py-1 rounded-md border border-border/50">
-                          <FileCheck2 className="size-3 text-accent" />
-                          Sertifikat Mandiri
-                        </span>
-                      )}
+                      <Button
+                        size="sm"
+                        onClick={() => handleOpenCertificate(grad)}
+                        className="bg-accent text-accent-foreground hover:bg-accent/90 text-xs h-8 gap-1.5 font-semibold cursor-pointer"
+                      >
+                        <Award className="size-3.5" />
+                        Lihat Sertifikat
+                      </Button>
                     </div>
                   </motion.div>
                 ))}
