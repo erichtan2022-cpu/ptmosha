@@ -109,6 +109,55 @@ export default function PendaftaranPage() {
           </p>
         </motion.div>
 
+        {/* Spotlight Card if direct program URL is visited */}
+        {matchedTraining && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-4xl mx-auto p-4 sm:p-5 rounded-2xl bg-card border-2 border-accent/40 shadow-md flex flex-col sm:flex-row items-center justify-between gap-4"
+          >
+            <div className="flex items-center gap-4 w-full sm:w-auto">
+              {matchedTraining.image && (
+                <img
+                  src={matchedTraining.image}
+                  alt={matchedTraining.shortTitle}
+                  className="size-16 sm:size-20 rounded-xl object-contain bg-black/90 border border-border shrink-0 shadow-sm"
+                />
+              )}
+              <div className="space-y-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-accent/15 text-accent border border-accent/30">
+                    {matchedTraining.mode}
+                  </span>
+                  <span className="text-xs text-muted-foreground font-medium">
+                    {matchedTraining.schedule}
+                  </span>
+                </div>
+                <h3 className="text-base sm:text-lg font-extrabold text-foreground leading-snug">
+                  {matchedTraining.shortTitle}
+                </h3>
+                <p className="text-xs text-muted-foreground line-clamp-1">
+                  📍 {matchedTraining.location}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto pt-3 sm:pt-0 border-t sm:border-t-0 border-border">
+              <div className="text-left sm:text-right">
+                <span className="text-[10px] uppercase font-bold text-muted-foreground block">
+                  Biaya Investasi
+                </span>
+                <span className="text-xl sm:text-2xl font-black text-accent block">
+                  {matchedTraining.feeFormatted}
+                </span>
+                <span className="text-[10px] text-muted-foreground block">
+                  BCA 3262681995 a.n PT Mosha
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
         {/* Core Form Component */}
         <TrainingRegistrationForm initialTrainingId={initialTrainingId} />
 

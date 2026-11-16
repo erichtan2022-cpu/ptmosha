@@ -280,10 +280,178 @@ export default function FeaturedTrainingCard() {
           </div>
         </motion.div>
 
-        {/* 4-card Grid: 2x2 on desktop */}
+        {/* Training Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6 items-stretch">
           {/* =========================================================================
-              CARD 1: COMMISSIONING OIL & GAS & PEMBANGKIT LISTRIK (ONLINE - 13 NOV 2026 - TERBARU)
+              CARD 1: BASIC STATISTICS FOR INDUSTRIES (OFFLINE BATAM - 28-29 NOV 2026 - TERBARU)
+              ========================================================================= */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="rounded-2xl border-2 border-blue-600/50 hover:border-blue-600 bg-card shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col justify-between group"
+          >
+            <div>
+              {/* Top gradient accent bar */}
+              <div className="h-1.5 w-full bg-gradient-to-r from-blue-700 via-sky-500 to-red-600" />
+
+              {/* Flyer / Banner Image (Compact with Zoom) */}
+              <div
+                onClick={() =>
+                  setPreviewImage({
+                    src: "/images/flyer-basic-statistics-for-industries.jpg",
+                    title: "Brosur Training Offline Basic Statistics For Industries",
+                  })
+                }
+                className="relative bg-slate-950 p-2.5 h-48 sm:h-52 flex items-center justify-center border-b border-border overflow-hidden cursor-pointer group/img"
+              >
+                <img
+                  src="/images/flyer-basic-statistics-for-industries.jpg"
+                  alt="Training Offline Basic Statistics For Industries"
+                  className="h-full w-auto max-w-full object-contain drop-shadow-md rounded transition-transform duration-500 group-hover/img:scale-105"
+                />
+                {/* Ribbon Terbaru */}
+                <span className="absolute top-2.5 right-2.5 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-600 text-white shadow-md animate-pulse">
+                  <Sparkles className="size-3" />
+                  Terbaru
+                </span>
+                {/* Hover overlay with zoom icon */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end justify-between p-2.5">
+                  <span className="text-white text-xs font-medium drop-shadow">Klik perbesar</span>
+                  <div className="p-1 rounded-md bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm">
+                    <Maximize2 className="size-3.5" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Content Body */}
+              <div className="p-4 sm:p-5 space-y-4">
+                <div>
+                  <div className="flex items-center justify-between gap-1 mb-1.5">
+                    <Badge className="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-semibold px-2 py-0.5">
+                      Offline Batam
+                    </Badge>
+                    <span className="text-[11px] font-medium text-muted-foreground">PT Mosha &amp; Masebi</span>
+                  </div>
+                  <h3 className="text-base sm:text-lg font-black text-foreground tracking-tight leading-snug line-clamp-2 min-h-[2.8rem]">
+                    Training Offline Basic Statistics For Industries
+                  </h3>
+                  <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wide">
+                    Metode Statistik &amp; Pengendalian Proses Industri
+                  </p>
+                </div>
+
+                {/* Schedule Info Box */}
+                <div className="p-3 rounded-xl bg-blue-500/5 border border-blue-500/20 space-y-1.5 text-xs">
+                  <div className="flex items-center gap-2 text-foreground">
+                    <Calendar className="size-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+                    <span className="font-bold">Sabtu &amp; Minggu, 28 – 29 November 2026</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <Clock className="size-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+                    <span>18.30 – 21.00 WIB</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <MapPin className="size-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+                    <span className="line-clamp-1">Komplek Pertokoan Bukit Kemuning Blok DD3 No 02, Batam</span>
+                  </div>
+                </div>
+
+                {/* Outline Ringkas (Sesuai Banner) */}
+                <div>
+                  <h4 className="text-[11px] font-bold uppercase tracking-wider text-foreground mb-1.5 flex items-center gap-1">
+                    <Layers className="size-3 text-blue-600" />
+                    Outline Materi (8 Modul)
+                  </h4>
+                  <ul className="space-y-1 text-xs text-muted-foreground">
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-blue-600 font-bold">•</span>
+                      <span className="line-clamp-1">Intro To Stats NON-CERT &amp; Basic Stats</span>
+                    </li>
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-blue-600 font-bold">•</span>
+                      <span className="line-clamp-1">SPC (Statistical Process Control) &amp; Subgrouping</span>
+                    </li>
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-blue-600 font-bold">•</span>
+                      <span className="line-clamp-1">Hypothesis Testing</span>
+                    </li>
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-blue-600 font-bold">•</span>
+                      <span className="line-clamp-1">Cont Y, Cont X &amp; Cont Y, Disk X</span>
+                    </li>
+                    <li className="flex items-start gap-1.5">
+                      <span className="text-blue-600 font-bold">•</span>
+                      <span className="line-clamp-1">Sample Size &amp; Power</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Benefit Ringkas (Sesuai Banner) */}
+                <div className="grid grid-cols-2 gap-1.5 text-[11px] text-muted-foreground">
+                  <span className="inline-flex items-center gap-1 bg-muted/60 px-2 py-1 rounded border border-border">
+                    <FileText className="size-3 text-blue-600 shrink-0" /> Softcopy Modul
+                  </span>
+                  <span className="inline-flex items-center gap-1 bg-muted/60 px-2 py-1 rounded border border-border">
+                    <Award className="size-3 text-blue-600 shrink-0" /> Sertifikat Resmi
+                  </span>
+                  <span className="inline-flex items-center gap-1 bg-muted/60 px-2 py-1 rounded border border-border">
+                    <Video className="size-3 text-blue-600 shrink-0" /> Rekaman Video
+                  </span>
+                  <span className="inline-flex items-center gap-1 bg-muted/60 px-2 py-1 rounded border border-border">
+                    <Users className="size-3 text-blue-600 shrink-0" /> Group Mentor
+                  </span>
+                  <span className="inline-flex items-center gap-1 bg-muted/60 px-2 py-1 rounded border border-border col-span-2">
+                    <Briefcase className="size-3 text-blue-600 shrink-0" /> Informasi Lowongan Kerja
+                  </span>
+                </div>
+
+                {/* Price Box */}
+                <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-500/25 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] uppercase font-bold text-blue-700 dark:text-blue-300">Biaya Investasi</span>
+                    <Badge className="bg-blue-600 text-white font-extrabold text-xs px-2 py-0.5">
+                      Rp 600.000
+                    </Badge>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground">
+                    Batas bayar: <strong className="text-foreground">27 Nov 2026</strong> • BCA 3262681995
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Actions */}
+            <div className="p-4 pt-0 flex items-center gap-2">
+              <Button
+                asChild
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold cursor-pointer text-xs h-10 shadow-sm"
+              >
+                <Link to="/pendaftaran-basic-statistics-for-industries">
+                  <CreditCard className="size-3.5 mr-1.5" />
+                  Daftar (Rp 600rb)
+                </Link>
+              </Button>
+              <a
+                href="https://wa.me/6282268195332?text=Halo%20PT%20Mosha%20Sinalsal%20Solusi,%20saya%20ingin%20mendaftar%20Training%20Offline%20Basic%20Statistics%20For%20Industries%20Rp%20600.000"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="size-10 border-blue-600 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/40 cursor-pointer shrink-0"
+                  title="Hubungi via WhatsApp"
+                >
+                  <MessageCircle className="size-4 text-blue-600" />
+                </Button>
+              </a>
+            </div>
+          </motion.div>
+
+          {/* =========================================================================
+              CARD 2: COMMISSIONING OIL & GAS & PEMBANGKIT LISTRIK (ONLINE - 13 NOV 2026 - TERBARU)
               ========================================================================= */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -738,7 +906,7 @@ export default function FeaturedTrainingCard() {
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] uppercase font-bold text-emerald-700 dark:text-emerald-300">Biaya Investasi</span>
                     <Badge className="bg-emerald-600 text-white font-extrabold text-xs px-2 py-0.5">
-                      Rp 250.000
+                      Rp 300.000
                     </Badge>
                   </div>
                   <p className="text-[11px] text-muted-foreground">
@@ -756,7 +924,7 @@ export default function FeaturedTrainingCard() {
               >
                 <Link to="/pendaftaran?training=plts-commissioning">
                   <CreditCard className="size-3.5 mr-1.5" />
-                  Daftar (Rp 250rb)
+                  Daftar (Rp 300rb)
                 </Link>
               </Button>
               <a
