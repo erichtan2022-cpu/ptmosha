@@ -777,7 +777,8 @@ function generateSmartConsultantResponse(
     return {
       text:
         "💳 **Informasi Biaya & Pembayaran Pelatihan PT Mosha Sinalsal Solusi:**\n\n" +
-        "• **Training Commissioning Oil & Gas & Pembangkit (Online - 13 Nov 2026)**: Rp 600.000 *(Terbaru!)*\n" +
+        "• **Training Offline Basic Statistics For Industries (28-29 Nov 2026)**: Rp 600.000 *(Terbaru!)*\n" +
+        "• **Training Commissioning Oil & Gas & Pembangkit (Online - 13 Nov 2026)**: Rp 600.000\n" +
         "• **Bootcamp Corporate ESG Strategy (Online - 6 Nov 2026)**: Rp 3.100.000\n" +
         "• **Training HOMER PRO (Online - 1 Nov 2026)**: Rp 300.000\n" +
         "• **Training PLTS (Online - 17 Okt 2026)**: Rp 250.000\n" +

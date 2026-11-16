@@ -295,6 +295,51 @@ export const AVAILABLE_TRAININGS: TrainingOption[] = [
       "pendaftaran-electrical-instrument-commissioning",
     ],
   },
+  {
+    id: "basic-statistics-for-industries",
+    name: "TRAINING OFFLINE BASIC STATISTICS FOR INDUSTRIES - Rp 600.000",
+    shortTitle: "Training Offline Basic Statistics For Industries",
+    category: "Continuous Improvement & Statistics",
+    fee: 600000,
+    feeFormatted: "Rp 600.000",
+    feeWords: "Enam Ratus Ribu Rupiah",
+    schedule: "Sabtu & Minggu, 28 – 29 November 2026",
+    time: "18.30 – 21.00 WIB",
+    location: "Komplek Pertokoan Bukit Kemuning Blok DD3 No 02, BATAM – KEPULAUAN RIAU",
+    mode: "Offline Batam",
+    organizer: "PT Mosha Sinalsal Solusi dan Komunitas Masyarakat Sistem Energi Berkelanjutan Indonesia (www.masebi.org)",
+    paymentDeadline: "27 November 2026",
+    description: "Pelatihan praktis untuk memahami dan mengaplikasikan metode statistik dalam pengendalian dan peningkatan proses di industri. Materi praktis & aplikatif dengan studi kasus nyata di industri.",
+    badge: "Offline Batam",
+    image: "/images/flyer-basic-statistics-for-industries.jpg",
+    syllabus: [
+      "Intro To Stats NON-CERT",
+      "Basic Stats",
+      "SPC (Statistical Process Control)",
+      "Subgrouping",
+      "Hypothesis Testing",
+      "Cont Y, Cont X",
+      "Cont Y, Disk X",
+      "Sample Size & Power",
+    ],
+    benefits: [
+      "Softcopy Modul Training",
+      "Sertifikat Training",
+      "Rekaman Video Training",
+      "Group Diskusi Bareng Mentor",
+      "Informasi Lowongan Kerja",
+    ],
+    slugAliases: [
+      "basic-statistics-for-industries",
+      "basic-statistics",
+      "statistics-for-industries",
+      "basic-stats",
+      "stats",
+      "statistics",
+      "pendaftaran-basic-statistics-for-industries",
+      "pendaftaran-basic-statistics",
+    ],
+  },
 ];
 
 /**
@@ -351,6 +396,9 @@ export function findTrainingBySlug(slugOrPath?: string | null): TrainingOption |
   if (byAlias) return byAlias;
 
   // 3. Substring / Keyword matching (e.g. contains "esg", "homer", "plts", "piping", "electrical", "oil")
+  if (cleaned.includes("statistic") || cleaned.includes("stats") || cleaned.includes("minitab")) {
+    return AVAILABLE_TRAININGS.find((t) => t.id === "basic-statistics-for-industries");
+  }
   if (cleaned.includes("esg") || cleaned.includes("sustainability")) {
     return AVAILABLE_TRAININGS.find((t) => t.id === "corporate-esg-strategy");
   }
