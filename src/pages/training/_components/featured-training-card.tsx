@@ -847,7 +847,7 @@ export default function FeaturedTrainingCard() {
                 <div className="p-3 rounded-xl bg-emerald-500/5 border border-emerald-500/20 space-y-1.5 text-xs">
                   <div className="flex items-center gap-2 text-foreground">
                     <Calendar className="size-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                    <span className="font-bold">Sabtu, 17 Okt 2026</span>
+                    <span className="font-bold">Minggu, 29 November 2026</span>
                   </div>
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <Clock className="size-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
@@ -910,7 +910,7 @@ export default function FeaturedTrainingCard() {
                     </Badge>
                   </div>
                   <p className="text-[11px] text-muted-foreground">
-                    Batas bayar: <strong className="text-foreground">16 Okt 2026</strong> • BCA 3262681995
+                    Batas bayar: <strong className="text-foreground">28 Nov 2026</strong> • BCA 3262681995
                   </p>
                 </div>
               </div>
@@ -928,7 +928,7 @@ export default function FeaturedTrainingCard() {
                 </Link>
               </Button>
               <a
-                href="https://wa.me/62822268195332?text=Halo%20PT%20Mosha%20Sinalsal%20Solusi,%20saya%20ingin%20mendaftar%20Pelatihan%20PLTS%2017%20Oktober%202026"
+                href="https://wa.me/62822268195332?text=Halo%20PT%20Mosha%20Sinalsal%20Solusi,%20saya%20ingin%20mendaftar%20Pelatihan%20PLTS%2029%20November%202026"
                 target="_blank"
                 rel="noopener noreferrer"
               >

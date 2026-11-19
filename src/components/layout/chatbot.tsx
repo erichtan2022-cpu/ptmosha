@@ -634,7 +634,7 @@ function generateSmartConsultantResponse(
         "☀️ **2. Pengenalan, Desain & Commissioning PLTS (Online)**\n" +
         "• **Fokus**: Sistem Energi Terbarukan & Tenaga Surya (Modul PV, Inverter Hibrida, Baterai, Distribusi DC, Desain & Commissioning PLTS).\n" +
         "• **Metode**: **Online via Google Meet / Zoom** (dari seluruh Indonesia).\n" +
-        "• **Jadwal**: Sabtu, 17 Oktober 2026 | 18.00 – 21.30 WIB | Biaya: **Rp 300.000**\n" +
+        "• **Jadwal**: Minggu, 29 November 2026 | 18.00 – 21.30 WIB | Biaya: **Rp 300.000**\n" +
         "• **Pendaftaran**: [bit.ly/3T6EePy](https://bit.ly/3T6EePy) | WA: 0822268195332 / 082392907198\n\n" +
         "⚙️ **3. Commissioning Fasilitas Oil & Gas & Pembangkit Listrik (Tatap Muka Batam)**\n" +
         "• **Fokus**: Fasilitas industri Migas & Pembangkit Listrik konvensional (10 Modul: P&ID Markup, Mechanical Completion, ITR, Vendor Support, Piping, E&I, Hydrocarbon Startup, Handover).\n" +
@@ -723,7 +723,7 @@ function generateSmartConsultantResponse(
       text:
         "☀️ **Pelatihan Profesional: Pengenalan, Desain & Commissioning PLTS (Sistem Pembangkit Listrik Tenaga Surya)**\n\n" +
         "Diselenggarakan oleh **PT Mosha Sinalsal Solusi & Masebi** secara Online via Google Meet / Zoom.\n\n" +
-        "• 🗓️ **Hari & Tanggal**: Sabtu, 17 Oktober 2026\n" +
+        "• 🗓️ **Hari & Tanggal**: Minggu, 29 November 2026\n" +
         "• ⏰ **Waktu**: 18.00 – 21.30 WIB\n" +
         "• 💻 **Platform**: Online via Google Meet / Zoom\n" +
         "• ⚡ **Topik Bahasan Utama**:\n" +
@@ -781,7 +781,7 @@ function generateSmartConsultantResponse(
         "• **Training Commissioning Oil & Gas & Pembangkit (Online - 13 Nov 2026)**: Rp 600.000\n" +
         "• **Bootcamp Corporate ESG Strategy (Online - 6 Nov 2026)**: Rp 3.100.000\n" +
         "• **Training HOMER PRO (Online - 1 Nov 2026)**: Rp 300.000\n" +
-        "• **Training PLTS (Online - 17 Okt 2026)**: Rp 300.000\n" +
+        "• **Training PLTS (Online - 29 Nov 2026)**: Rp 300.000\n" +
         "• **Training Oil & Gas (Offline Batam)**: Rp 1.500.000\n\n" +
         "📝 **Rekening Resmi Pembayaran:**\n" +
         "• **Bank Central Asia (BCA)**: 3262681995\n" +
